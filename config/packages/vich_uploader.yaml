@@ -1,0 +1,11 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        pub_images:
+            uri_prefix: /imgpub/
+            upload_destination: '%kernel.project_dir%/public/imgpub'
+            delete_on_remove: true
+            delete_on_update: false
+
+

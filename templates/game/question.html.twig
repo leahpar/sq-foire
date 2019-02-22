@@ -1,0 +1,25 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+    Visuel
+    <br>
+    <h1>Question {{ hall.name }}</h1>
+    <br>
+    {{ question.question|raw }}
+    <br>
+    {{ question.text|raw }}
+    <br>
+
+    <form method="post">
+        {% for answer in question.answersRandom %}
+            <input type="submit" name="answer" value="{{ answer }}">
+            <br>
+        {% endfor %}
+    </form>
+
+    <br>
+    <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
+
+
+{% endblock content %}

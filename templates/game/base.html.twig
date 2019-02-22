@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+</head>
+<body>
+
+    <header>
+        {% if app.user %}
+        id joueur : #{{ app.user.id }}
+        {% endif %}
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ path('game_index') }}">Le jeu</a></li>
+            <li><a href="/plan-foire.jpg">Plan de la foire</a></li>
+            {% if app.user is null %}
+                <li><a href="{{ path('game_token_signup') }}">Connexion par code</a></li>
+            {% endif %}
+            <li><a href="{{ path('game_rules') }}">Règlement</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        FOOTER
+    </footer>
+
+</body>
+</html>

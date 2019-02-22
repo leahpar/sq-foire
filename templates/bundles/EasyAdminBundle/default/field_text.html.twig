@@ -1,0 +1,7 @@
+{% if view == 'show' %}
+    {{ value|nl2br }}
+{% elseif field_options.property == "answersHtml" %}
+    {{ value|raw }}
+{% else %}
+    {{ value|striptags|easyadmin_truncate }}
+{% endif %}

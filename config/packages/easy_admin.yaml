@@ -1,0 +1,151 @@
+# Doc EasyAdmin :
+# https://symfony.com/doc/master/bundles/EasyAdminBundle/index.html
+
+# a voir :
+# https://afsy.fr/avent/2017/01-easyadminbundle-l-arriere-guichet-easy-peasy
+
+easy_admin:
+
+    site_name: "SmartQuiz - Enquête à la foire"
+
+    list:
+        actions: ['show']
+
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m H:i'
+
+    design:
+            assets:
+                #css:
+                #    - 'bundles/easyadmin/bootstrap-all.css'
+                js:
+                    - 'bundles/easyadmin/bootstrap-all.js'
+            menu:
+            - { label: 'Le jeu' }
+            - { entity: 'Player', icon: 'user', default: true}
+            - { entity: 'Answer', icon: 'list-ul'}
+            - { label: 'Paramétrage' }
+            - { entity: 'Hall', icon: 'building'}
+            - { entity: 'Question', icon: 'question'}
+            - { entity: 'Pub', icon: 'image'}
+
+
+    entities:
+        Hall:
+            class: App\Entity\Hall
+            label: Halls
+            list:
+                max_results: 50
+                sort: [ 'name', 'ASC' ]
+                fields:
+                    - { property: 'fullName', type: 'string', label: 'hall' }
+                    - 'questions'
+                    - { property: 'pubs', type: 'array' }
+                    - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
+            show:
+                fields:
+                    - 'name'
+                    - 'questions'
+                    - 'pubs'
+                    - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
+            form:
+                fields:
+                    - 'name'
+
+
+        Question:
+            class: App\Entity\Question
+            label: Questions
+            list:
+                max_results: 50
+                sort: [ 'hall', 'ASC' ]
+                #collapse_actions: true
+                fields:
+                    - 'hall'
+                    - 'question'
+                    - 'text'
+                    - 'answersHtml'
+                    - { property: 'answersHtml', label: 'answers' }
+            show:
+                fields:
+                    - 'hall'
+                    - 'question'
+                    - 'text'
+                    - 'answers'
+            form:
+                fields:
+                    - 'hall'
+                    - 'question'
+                    - 'text'
+                    - 'answers'
+
+
+        Pub:
+            class: App\Entity\Pub
+            label: Pubs
+            image_base_path: '/imgpub/'
+            list:
+                max_results: 20
+                sort: [ 'name', 'ASC' ]
+                fields:
+                    - 'name'
+                    - { property: 'halls', type: 'array' }
+                    - { property: 'image', type: 'image' }
+                    - { property: 'exclu', type: 'boolean' }
+                    - { property: 'link', type: 'boolean' }
+            show:
+                fields:
+                    - 'name'
+                    - 'halls'
+                    - { property: 'image', type: 'image' }
+                    - { property: 'exclu', type: 'boolean' }
+            form:
+                fields:
+                    - 'name'
+                    - 'halls'
+                    - { property: 'imageFile', type: 'vich_image', type_options: {allow_delete: false} }
+                    - 'link'
+                    - 'exclu'
+
+
+        Player:
+            class: App\Entity\Player
+            label: Joueurs
+            disabled_actions: ['new', 'edit']
+            actions:
+                - { name: 'product_restock', type: 'route' }
+            list:
+                max_results: 50
+                sort: [ 'lastConnection', 'DESC' ]
+                fields:
+                    - 'id'
+                    - 'name'
+                    - { property: 'ville', type: 'string' }
+                    - 'answers'
+                    - 'lastConnection'
+                    - { property: 'random', type: 'boolean' }
+            show:
+                fields:
+                    - 'id'
+                    - 'name'
+                    - 'email'
+                    - { property: 'tel',   type: 'string' }
+                    - { property: 'ville', type: 'string' }
+                    - 'lastConnection'
+                    - 'lastRandom'
+                    - { property: 'fbshare', type: 'boolean', label: 'facebook' }
+
+        Answer:
+            class: App\Entity\Answer
+            label: Réponses
+            disabled_actions: [ 'new', 'edit', 'show', 'delete', 'search' ]
+            list:
+                max_results: 50
+                fields:
+                    - 'player'
+                    - 'question'
+                    - 'good'
+                    - 'answer'
+                    - 'date'

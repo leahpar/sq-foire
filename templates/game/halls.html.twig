@@ -1,0 +1,28 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+    Visuel
+    <br>
+    <h1>Halls</h1>
+    <br>
+    Lorem ipsum...
+    <br>
+    <br>
+
+    <ul>
+        {% for hall in halls %}
+        <li>
+            {% if player.isHallDone(hall.id) %}
+                {{ hall.name }}
+            {% else %}
+                <a href="{{ path('game_hall', {id: hall.id}) }}">{{ hall.name }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock content %}
+
+

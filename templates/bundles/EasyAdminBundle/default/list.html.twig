@@ -1,0 +1,14 @@
+{% extends '@!EasyAdmin/default/list.html.twig' %}
+
+{% block global_actions %}
+    {{ parent() }}
+
+    {% if _entity_config.name == "Player" %}
+        <div class="button-action">
+            <a class="btn btn-primary action-random-player"
+               href="{{ path('rand_player') }}">
+                Random
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

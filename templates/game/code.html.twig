@@ -1,0 +1,28 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+    Visuel
+    <br>
+    <h1>Inscription</h1>
+    <br>
+    Vous avez un code ?
+    <br>
+    <br>
+
+
+    <form method="get" action="{{ path('game_token_signup') }}">
+        mon code
+        <br>
+        <input type="text" name="t">
+        <br>
+        <input type="submit">
+    </form>
+
+    <br>
+
+    <a href="{{ path('game_signup') }}">Je n'ai pas de code</a>
+
+
+
+{% endblock content %}

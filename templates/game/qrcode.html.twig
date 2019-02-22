@@ -1,0 +1,21 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+    Visuel
+    <br>
+    <h1>Continuez sur votre smartphpne</h1>
+    <br>
+
+    <img src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl={{ url('game_token_signup') ~ 't=' ~ token}}">
+    <br>
+
+    Ou entrez ce code :
+    <br>
+    {{ token }}
+
+    <br>
+    <a href="{{ path('game_remote_signup') }}">Inscrire un autre joueur</a>
+
+
+{% endblock content %}

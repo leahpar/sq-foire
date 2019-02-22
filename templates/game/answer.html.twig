@@ -1,0 +1,49 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+    Visuel
+    <br>
+    {% if answer.good %}
+        <h1>Bravo !</h1>
+    {% else %}
+        <h1>Dommage...</h1>
+    {% endif %}
+    <br>
+
+    La bonne réponse était {{ question.goodAnswer }}
+    <br>
+
+    {% if hallTodo|length > 0 %}
+        Il vous reste des énigmes à résoudre
+        dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
+        {{ hallTodo|join(', ') }}
+        <br>
+        <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
+    {% else %}
+        Vous avez répondu à l'ensemble des énigmes !
+        <br>
+        <a href="{{ path('game_end') }}">Fin du jeu</a>
+    {% endif %}
+
+
+    <br>
+    <br>
+    Nos partenaires du hall {{ hall.name }} :
+    <br>
+
+    {% for pub in pubs %}
+        <a {{ pub.link is not null ? "href='"~pub.link~'"' }}>
+            <img src="/imgpub/{{ pub.image }}" width="300px">
+        </a>
+        <br>
+    {% endfor %}
+
+    <h2>Doubler mes chances</h2>
+    bla bla bla<br>
+    <a href="{{ path('game_share') }}" target="_blank">Partager</a>
+
+
+
+
+{% endblock content %}
