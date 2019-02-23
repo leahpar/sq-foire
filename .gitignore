@@ -18,9 +18,9 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-
+###> PhpStorm ###
 .idea/
-
+###< PhpStorm ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -28,9 +28,15 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
+### Compiled assets
 /public/css
 /public/js
 /public/img
+/public/fonts
+
+### Upload
 /public/imgpub
+
+### Logs
 /public/php_errors.log
 
