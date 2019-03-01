@@ -38,5 +38,9 @@ yarn-error.log
 /public/imgpub
 
 ### Logs
+php_errors.log
 /public/php_errors.log
+.DS_Store
+
+
 

@@ -19,38 +19,4 @@ class AdminController extends EasyAdminController
         ]);
     }
 
-    /**
-     * @Route("/init", name="init")
-     * @param EntityManagerInterface $em
-     */
-    public function initAction(EntityManagerInterface $em)
-    {
-        $connection = $em->getConnection();
-
-
-        $ret = $connection->fetchAll("SELECT * FROM sqlite_sequence WHERE name = 'player'");
-        $seq = $ret[0]["seq"];
-
-        if ($seq < 1000) {
-            for ($i = 0; $i < 1324; $i++) {
-                $p = new Player();
-                $p  ->setMail("toto")
-                    ->setTel("1234")
-                    ->setName("toto");
-                $em->persist($p);
-            }
-            $em->flush();
-
-            $players = $em->getRepository(Player::class)->findByName("toto");
-            foreach ($players as $p) {
-                $em->remove($p);
-            }
-            $em->flush();
-
-        }
-
-        $ret = $connection->fetchAll("SELECT * FROM sqlite_sequence WHERE name = 'player'");
-        $seq = $ret[0]["seq"];
-        dump($seq); die();
-    }
 }

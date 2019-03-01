@@ -269,30 +269,42 @@ class GameController extends AbstractController
      */
     public function remoteSignupAction(EntityManagerInterface $em, Request $request)
     {
+        $errors = [];
         if ($request->isMethod("POST")) {
 
             $email = $request->request->get('email');
-            $player = new Player($email);
-
             $name = $request->request->get('name', []);
-            $player->setName(implode(' ', $name));
-
+            $name = trim(implode(' ', $name));
             $data = $request->request->get('data', []);
+
+            // TODO : check values ?
+            $p = $em->getRepository(Player::class)->findOneByEmail($email);
+            if (empty($email) || null != $p) {
+                $errors['email'] = true;
+            }
+
+            $player = new Player();
+            $player->setName($name);
+            $player->setEmail($email);
             $player->setData($data);
 
-            $token = substr(strtoupper(uniqid()), -6);
-            $player->setToken($token);
+            if (count($errors) == 0) {
+                $token = substr(strtoupper(uniqid()), -6);
+                $player->setToken($token);
 
-            $em->persist($player);
-            $em->flush();
+                $em->persist($player);
+                $em->flush();
 
-            return $this->render('game/qrcode.html.twig', [
-                'player' => $player,
-                'token' => $token
-            ]);
+                return $this->render('game/qrcode.html.twig', [
+                    'player' => $player,
+                    'token' => $token
+                ]);
+            }
         }
-        return $this->render('game/signup.html.twig', ['remote' => true]);
+        return $this->render('game/signup.html.twig', [
+            'remote' => true,
+            'errors' => $errors,
+            'form' => $request->request->all()
+        ]);
     }
-
-
 }
