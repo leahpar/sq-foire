@@ -18,7 +18,7 @@
                     {% for hall in halls %}
                     <li>
                         {% if player.isHallDone(hall.id) %}
-                            <span>{{ hall.name }}</span>
+                            <span>Hall {{ hall.name }}</span>
                         {% else %}
                             <a href="{{ path('game_hall', {name: hall.name}) }}">Hall {{ hall.name }}</a>
                         {% endif %}

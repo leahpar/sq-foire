@@ -38,7 +38,7 @@
 
                 {% for pub in pubs %}
                     <p>
-                        {% if pub.link is not null %}<a href="{{ pub.link }}">{% endif %}
+                        {% if pub.link is not null %}<a href="{{ pub.link }}" target="_blank">{% endif %}
                             <img src="/imgpub/{{ pub.image }}" width="300px">
                             {% if pub.link is not null %}</a>{% endif %}
                     </p>
