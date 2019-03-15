@@ -157,6 +157,13 @@ class GameController extends AbstractController
     {
         return $this->render('game/rules.html.twig');
     }
+    /**
+     * @Route("/comment-jouer", name="game_howto")
+     */
+    public function howtoAction()
+    {
+        return $this->render('game/howto.html.twig');
+    }
 
     /**
      * @Route("/share", name="game_share")
@@ -211,6 +218,10 @@ class GameController extends AbstractController
             $player->setData($data);
 
             if (count($errors) == 0) {
+
+                $token = substr(strtoupper(uniqid()), -6);
+                $player->setToken($token);
+
                 $em->persist($player);
                 $em->flush();
 

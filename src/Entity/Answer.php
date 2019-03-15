@@ -95,6 +95,7 @@ class Answer
     {
         $this->answer = $answer;
         $this->good = $answer == $this->question->getGoodAnswer();
+        dump($answer, $this->question->getGoodAnswer(), $this->question->getGoodAnswer() == $answer);
 
         return $this;
     }

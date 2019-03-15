@@ -135,6 +135,7 @@ easy_admin:
                     - { property: 'ville', type: 'string' }
                     - 'lastConnection'
                     - 'lastRandom'
+                    - 'token'
                     - { property: 'fbshare', type: 'boolean', label: 'facebook' }
 
         Answer:
