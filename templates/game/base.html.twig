@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, maximum-scale=5">
     
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-    
+    <meta name="description" content='Grand jeu "Enquête à la Foire de Rouen"'>
+
     <meta property="og:title" content='Grand jeu "Enquête à la Foire de Rouen"' />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url('game_index') }}" />
     <meta property="og:image" content="{{ url('game_index') }}img/title.svg" />
-    
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
 </head>
 <body>
 
@@ -23,7 +25,7 @@
     </header>
 
     <nav>
-        <a href="#" class="navLink"><img src="{{ asset('img/navIcon.svg') }}"></a>
+        <a href="#" aria-label="Afficher le menu" class="navLink"><img src="{{ asset('img/navIcon.svg') }}" alt="menu"></a>
         <ul>
             <li><a href="{{ path('game_index') }}">Le jeu</a></li>
             <li><a href="{{ path('game_howto') }}">Comment jouer ?</a></li>
