@@ -78,7 +78,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/jeu/halls/{id}", name="game_hall")
+     * @Route("/jeu/halls/{name}", name="game_hall")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param Hall $hall
@@ -110,12 +110,11 @@ class GameController extends AbstractController
             }
 
             $halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
-            $hall = $question->getHall();
 
             $hallTodo = [];
-            foreach ($halls as $hall) {
-                if (!$user->isHallDone($hall->getId())) {
-                    $hallTodo[] = $hall;
+            foreach ($halls as $h) {
+                if (!$user->isHallDone($h->getId())) {
+                    $hallTodo[] = $h;
                 }
             }
 
@@ -126,10 +125,9 @@ class GameController extends AbstractController
             }
             shuffle($pubs);
 
-            $partenaires = [
-                $exclu ?? $pubs[0] ?? null,
-                $pubs[1] ?? null,
-            ];
+            $partenaires = [];
+            if ($exclu || isset($pubs[0])) $partenaires[] = $exclu ?? $pubs[0];
+            if (isset($pubs[1]))    $partenaires[] = $pubs[1];
 
             return $this->render('game/answer.html.twig', [
                 'halls' => $halls,
