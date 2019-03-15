@@ -28,12 +28,6 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-### Compiled assets
-/public/css
-/public/js
-/public/img
-/public/fonts
-
 ### Upload
 /public/imgpub
 

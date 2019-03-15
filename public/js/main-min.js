@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".navLink").click(function(){return console.log("clic"),$("nav").hasClass("open")?$("nav").removeClass("open"):$("nav").addClass("open"),!1})});
