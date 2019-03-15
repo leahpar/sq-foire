@@ -147,6 +147,7 @@ easy_admin:
                 fields:
                     - 'player'
                     - 'question'
+                    - { property: 'question.hall', label: 'Hall' }
                     - 'good'
                     - 'answer'
                     - 'date'
