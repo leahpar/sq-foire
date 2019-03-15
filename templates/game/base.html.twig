@@ -8,6 +8,11 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     
+    <meta property="og:title" content='Grand jeu "Enquête à la Foire de Rouen"' />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ url('game_index') }}" />
+    <meta property="og:image" content="{{ url('game_index') }}img/title.svg" />
+    
 </head>
 <body>
 
