@@ -9,7 +9,7 @@ security:
             memory:
                 users:
                     admin:
-                        password: admin
+                        password: '%env(ADMIN_PWD)%'
                         roles: 'ROLE_ADMIN'
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
