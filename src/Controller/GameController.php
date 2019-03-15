@@ -37,7 +37,7 @@ class GameController extends AbstractController
     {
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
-            return $this->redirectToRoute("game_start");
+            return $this->redirectToRoute("game_halls");
         }
 
         return $this->render('game/start.html.twig');
