@@ -119,24 +119,4 @@ class DefaultController extends AbstractController
         ));
     }
 
-
-    /**
-     * @Route("/admin/test")
-     * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function testHalls(EntityManagerInterface $em)
-    {
-        $user = $this->getUser();
-
-        $player = $em->getRepository(Player::class)->find(22);
-        dump($user,
-            $player,
-            $user == $player,
-            $user === $player
-        );
-        die();
-        return new Response("<html><body></body></html>");
-    }
-
 }
