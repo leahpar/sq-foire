@@ -2,25 +2,33 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Halls</h1>
-    <br>
-    Lorem ipsum...
-    <br>
-    <br>
-
-    <ul>
-        {% for hall in halls %}
-        <li>
-            {% if player.isHallDone(hall.id) %}
-                {{ hall.name }}
-            {% else %}
-                <a href="{{ path('game_hall', {id: hall.id}) }}">{{ hall.name }}</a>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
+               
+                <h1>Dans quel hall menez-vous l'enquête ?</h1>
+                
+                <p>Sélectionnez le hall dans lequel vous vous trouvez.</p>
+            
+                <ul class="hallSelector">
+                    {% for hall in halls %}
+                    <li>
+                        {% if player.isHallDone(hall.id) %}
+                            <span>{{ hall.name }}</span>
+                        {% else %}
+                            <a href="{{ path('game_hall', {id: hall.id}) }}">{{ hall.name }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+    
+            </section>
+        </div>
+</div>
 
 
 {% endblock content %}

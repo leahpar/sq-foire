@@ -2,46 +2,56 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    {% if answer.good %}
-        <h1>Bravo !</h1>
-    {% else %}
-        <h1>Dommage...</h1>
-    {% endif %}
-    <br>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
 
-    La bonne réponse était {{ question.goodAnswer }}
-    <br>
+                {% if answer.good %}
+                    <h1>Bravo !</h1>
+                {% else %}
+                    <h1>Dommage...</h1>
+                {% endif %}
 
-    {% if hallTodo|length > 0 %}
-        Il vous reste des énigmes à résoudre
-        dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
-        {{ hallTodo|join(', ') }}
-        <br>
-        <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
-    {% else %}
-        Vous avez répondu à l'ensemble des énigmes !
-        <br>
-        <a href="{{ path('game_end') }}">Fin du jeu</a>
-    {% endif %}
+                <p>La bonne réponse était<br><strong>{{ question.goodAnswer }}</strong></p>
 
+                {% if hallTodo|length > 0 %}
+                    <p>Il vous reste des énigmes à résoudre dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
+                    {{ hallTodo|join(', ') }}</p>
+                    
+                    <p><a href="{{ path('game_halls') }}" class="button redButton">Retour à la liste des halls</a></p>
+                {% else %}
+                    <p>Vous avez répondu à l'ensemble des énigmes !</p>
+                    
+                    <p><a href="{{ path('game_end') }}" class="button redButton">Fin du jeu</a></p>
+                {% endif %}
+    
+            </section>
+            
+            <section class="graySection">
 
-    <br>
-    <br>
-    Nos partenaires du hall {{ hall.name }} :
-    <br>
+                <h2>Nos partenaires du hall {{ hall.name }} :</h2>
 
-    {% for pub in pubs %}
-        <a {{ pub.link is not null ? "href='"~pub.link~'"' }}>
-            <img src="/imgpub/{{ pub.image }}" width="300px">
-        </a>
-        <br>
-    {% endfor %}
-
-    <h2>Doubler mes chances</h2>
-    bla bla bla<br>
-    <a href="{{ path('game_share') }}" target="_blank">Partager</a>
+                {% for pub in pubs %}
+                <p><a {{ pub.link is not null ? "href='"~pub.link~'"' }}><img src="/imgpub/{{ pub.image }}" width="300px"></a></p>
+                {% endfor %}
+                
+            </section>
+            
+            <section>
+            
+                <h2>Doubler mes chances</h2>
+                
+                <p>Partagez le jeu sur Facebook pour doubler vos chance d’être tiré au sort !</p>
+                
+                <p><a href="{{ path('game_share') }}" target="_blank" class="button redButton">Partager</a></p>
+    
+            </section>
+        </div>
+</div>
 
 
 

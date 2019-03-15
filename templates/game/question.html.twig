@@ -2,24 +2,34 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Question {{ hall.name }}</h1>
-    <br>
-    {{ question.question|raw }}
-    <br>
-    {{ question.text|raw }}
-    <br>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
 
-    <form method="post">
-        {% for answer in question.answersRandom %}
-            <input type="submit" name="answer" value="{{ answer }}">
-            <br>
-        {% endfor %}
-    </form>
-
-    <br>
-    <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
+                <h5>Question {{ hall.name }}</h5>
+                
+                <h1 class="nomargin">{{ question.question|raw }}</h1>
+                
+                <p><em>{{ question.text|raw }}</em></p>
+            
+                <form method="post">
+                    <ul class="buttonList">
+                    {% for answer in question.answersRandom %}
+                        <li><input type="submit" name="answer" value="{{ answer }}"></li>
+                    {% endfor %}
+                    </ul>
+                </form>
+            
+                <br>
+                <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
+    
+            </section>
+        </div>
+</div>
 
 
 {% endblock content %}

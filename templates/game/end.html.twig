@@ -2,18 +2,41 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Fin du jeu</h1>
-    <br>
-    Lorem ipsum...
-    <br>
-    <br>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
 
-
-    <h2>Doubler mes chances</h2>
-    bla bla bla<br>
-    <a href="{{ path('game_share') }}" target="_blank">Partager</a>
+                <p><img src="/img/title.svg"></p>
+                
+                <p>Bravo, vous avez terminé le grand jeu <strong>« Enquête à la Foire »</strong> !</p>
+                <p>Peut-être remporterez vous l’un des nombreux lots dès maintenant ou par tirage au sort le 31 mars.</p>
+                <p>En attendant, <strong>doublez vos chances</strong> en partageant le jeu sur Facebook</p>
+                
+                <p><a href="{{ path('game_share') }}" target="_blank" class="button redButton">Partager</a></p> 
+                 
+            </section>
+            
+            <section class="graySection">
+                
+                <h2>Des dizaines de cadeaux à gagner !</h2>
+                
+                <p><img src="https://via.placeholder.com/300x150"></p>
+                
+                <h3>Gagnez à tout moment !</h3>
+                
+                <p>Vous pouvez gagner à tout moment : écoutez bien la sono de la foire, un gagnant est désigné toute les 30 minutes en moyenne !</p>
+                
+                <h3>Grand tirage au sort !</h3>
+                
+                <p>Et à la fin de la foire, un grand tirage au sort désignera les heureux gagnants des "gros lots" !</p>
+                
+                <p>Pour en savoir plus,<br>consultez le <a href="{{ path('game_rules') }}">règlement</a></p>
+                
+            </section>
 
 
 

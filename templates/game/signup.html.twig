@@ -2,52 +2,38 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Inscription</h1>
-    <br>
-
-    <form method="post" action="{{ remote ? path('game_remote_signup') : path('game_signup') }}">
-
-        Prénom
-        <br>
-        <input type="text" name="name[]" value="{{ form.name is defined ? form.name[0] }}" required>
-        <br>
-
-        Nom
-        <br>
-        <input type="text" name="name[]" value="{{ form.name is defined ? form.name[1] }}" required>
-        <br>
-
-        Mail
-
-        <br>
-        <input type="email" name="email" value="{{ form.email is defined ? form.email }}" required>
-        {% if errors.email is defined %} déjà utilisé {% endif %}
-        <br>
-
-        Tel
-        <br>
-        <input type="text" name="data[tel]"  value="{{ form.data is defined ? form.data.tel }}" required>
-        <br>
-
-        Ville
-        <br>
-        <input type="text" name="data[ville]"  value="{{ form.data is defined ? form.data.ville }}" required>
-        <br>
-
-        Règlement <a href="{{ path('game_rules') }}">lien</a>
-        <br>
-        <input type="checkbox" name="gcu" required>
-        <br>
-
-        <br>
-        <input type="submit">
-
-    </form>
-
-    <br>
-    <a href="{{ path('game_signup') }}">C'est parti</a>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
+                
+                <h1>Inscription</h1>
+            
+                <form method="post" action="{{ remote ? path('game_remote_signup') : path('game_signup') }}">
+            
+                    <p><label>Prénom</label><input type="text" name="name[]" value="{{ form.name is defined ? form.name[0] }}" required></p>
+            
+                    <p><label>Nom</label><input type="text" name="name[]" value="{{ form.name is defined ? form.name[1] }}" required></p>
+            
+                    <p><label>Mail</label><input type="email" name="email" value="{{ form.email is defined ? form.email }}" required>{% if errors.email is defined %} <span class="error">Cette adresse mail existe déjà.</span> {% endif %}</p>
+                    
+                    <p><label>Tel</label><input type="tel" name="data[tel]"  value="{{ form.data is defined ? form.data.tel }}" required></p>
+                    
+                    <p><label>Ville</label><input type="text" name="data[ville]"  value="{{ form.data is defined ? form.data.ville }}" required></p>
+            
+                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ path('game_rules') }}">règlement</a></p>
+                    
+                    <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+            
+                </form>
+    
+            </section>
+    
+        </div>
+</div>
 
 
 {% endblock content %}

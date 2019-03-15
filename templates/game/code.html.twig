@@ -2,26 +2,32 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Inscription</h1>
-    <br>
-    Vous avez un code ?
-    <br>
-    <br>
-
-
-    <form method="get" action="{{ path('game_token_signup') }}">
-        mon code
-        <br>
-        <input type="text" name="t">
-        <br>
-        <input type="submit">
-    </form>
-
-    <br>
-
-    <a href="{{ path('game_signup') }}">Je n'ai pas de code</a>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
+                
+                <h1>Inscription</h1>
+                
+                <h2>Vous avez un code ?</h2>
+            
+            
+                <form method="get" action="{{ path('game_token_signup') }}">
+                    
+                    <p><label>Mon code</label><input type="text" name="t"></p>
+                    
+                    <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+                    
+                </form>
+            
+                <p><a href="{{ path('game_signup') }}">Je n'ai pas de code</a></p>
+    
+            </section>
+        </div>
+</div>
 
 
 

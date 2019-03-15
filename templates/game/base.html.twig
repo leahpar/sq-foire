@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    
     <title>{% block title %}Welcome!{% endblock %}</title>
-
+    <link rel="stylesheet" type="text/css" href="http://localhost:8000/css/style.css">
+    
 </head>
 <body>
 
@@ -14,8 +18,10 @@
     </header>
 
     <nav>
+        <a href="#" class="navLink"><img src="http://localhost:8000/img/navIcon.svg"></a>
         <ul>
             <li><a href="{{ path('game_index') }}">Le jeu</a></li>
+            <li><a href="#">Comment jouer ?</a></li>
             <li><a href="/plan-foire.jpg">Plan de la foire</a></li>
             {% if app.user is null %}
                 <li><a href="{{ path('game_token_signup') }}">Connexion par code</a></li>
@@ -23,12 +29,15 @@
             <li><a href="{{ path('game_rules') }}">Règlement</a></li>
         </ul>
     </nav>
+    
+    
 
     {% block content %}{% endblock %}
+            
 
-    <footer>
-        FOOTER
-    </footer>
+    
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
 
 </body>
 </html>
