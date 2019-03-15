@@ -124,7 +124,7 @@ class Question
 
     public function setAnswers(string $answers): self
     {
-        $this->answers = $answers;
+        $this->answers = str_replace("\r", '', $answers);
 
         return $this;
     }
