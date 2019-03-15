@@ -37,7 +37,11 @@
                 <h2>Nos partenaires du hall {{ hall.name }} :</h2>
 
                 {% for pub in pubs %}
-                    <p><a {{ pub.link is not null ? "href='"~pub.link~'"' }}><img src="/imgpub/{{ pub.image }}" width="300px"></a></p>
+                    <p>
+                        {% if pub.link is not null %}<a href="{{ pub.link }}">{% endif %}
+                            <img src="/imgpub/{{ pub.image }}" width="300px">
+                            {% if pub.link is not null %}</a>{% endif %}
+                    </p>
                 {% endfor %}
 
             </section>
