@@ -2,6 +2,8 @@
     {{ value|nl2br }}
 {% elseif field_options.property == "answersHtml" %}
     {{ value|raw }}
+{% elseif field_options.property == "question" %}
+    {{ value|raw }}
 {% else %}
     {{ value|striptags|easyadmin_truncate }}
 {% endif %}
