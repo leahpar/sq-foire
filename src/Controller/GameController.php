@@ -120,8 +120,8 @@ class GameController extends AbstractController
 
             $exclu = $hall->getExclu();
             $pubs = $hall->getPubs()->toArray();
-            foreach ($pubs as $pub) {
-                if ($pub->isExclu()) unset($pub);
+            foreach ($pubs as $k => $pub) {
+                if ($pub->isExclu()) unset($pubs[$k]);
             }
             shuffle($pubs);
 
