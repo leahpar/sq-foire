@@ -5,3 +5,5 @@ php7 bin/console doctrine:database:create
 php7 bin/console doctrine:schema:create
 
 
+setfacl -R -m  u:www-data:rwX -m u:raphael:rwX var
+setfacl -dR -m u:www-data:rwX -m u:raphael:rwX var
