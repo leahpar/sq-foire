@@ -2,20 +2,29 @@
 
 {% block content %}
 
-    Visuel
-    <br>
-    <h1>Continuez sur votre smartphpne</h1>
-    <br>
+<div id="mainWrapper">
+        
+        <div class="clouds"></div>
+        
+        <div class="content">
+            
+            <section>
+                
+                <h1>Continuez sur votre smartphone</h1>
+            
+                <p><img src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl={{ url('game_token_signup') ~ '?t=' ~ token}}" width="300" height="300"></p>
 
-    <img src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl={{ url('game_token_signup') ~ '?t=' ~ token}}">
-    <br>
-
-    Ou entrez ce code :
-    <br>
-    {{ token }}
-
-    <br>
-    <a href="{{ path('game_remote_signup') }}">Inscrire un autre joueur</a>
+            
+                <p>Ou entrez ce code :</p>
+                
+                <p><strong>{{ token }}</strong></p>
+            
+                
+                <p><a href="{{ path('game_remote_signup') }}">Inscrire un autre joueur</a></p>
+    
+            </section>
+        </div>
+</div>
 
 
 {% endblock content %}
