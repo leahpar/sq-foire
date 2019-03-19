@@ -126,6 +126,7 @@ easy_admin:
                     - 'answers'
                     - 'lastConnection'
                     - { property: 'random', type: 'boolean' }
+                    - { property: 'fbshare', type: 'boolean', label: 'facebook' }
             show:
                 fields:
                     - 'id'
@@ -147,6 +148,7 @@ easy_admin:
                 fields:
                     - 'player'
                     - 'question'
+                    - { property: 'question.hall', label: 'Hall' }
                     - 'good'
                     - 'answer'
                     - 'date'

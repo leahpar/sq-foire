@@ -95,6 +95,26 @@ class GameController extends AbstractController
         /** @var Question $question */
         $question = $hall->getQuestion();
 
+        $halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
+
+        $hallTodo = [];
+        foreach ($halls as $h) {
+            if (!$user->isHallDone($h->getId())) {
+                $hallTodo[] = $h;
+            }
+        }
+
+        $exclu = $hall->getExclu();
+        $pubs = $hall->getPubs()->toArray();
+        foreach ($pubs as $k => $pub) {
+            if ($pub->isExclu()) unset($pubs[$k]);
+        }
+        shuffle($pubs);
+
+        $partenaires = [];
+        if ($exclu || isset($pubs[0])) $partenaires[] = $exclu ?? $pubs[0];
+        if (isset($pubs[1])) $partenaires[] = $pubs[1];
+
         if ($request->isMethod("POST")) {
 
             $answer = $em->getRepository(Answer::class)->findOneBy([
@@ -109,25 +129,6 @@ class GameController extends AbstractController
                 $em->flush();
             }
 
-            $halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
-
-            $hallTodo = [];
-            foreach ($halls as $h) {
-                if (!$user->isHallDone($h->getId())) {
-                    $hallTodo[] = $h;
-                }
-            }
-
-            $exclu = $hall->getExclu();
-            $pubs = $hall->getPubs()->toArray();
-            foreach ($pubs as $k => $pub) {
-                if ($pub->isExclu()) unset($pubs[$k]);
-            }
-            shuffle($pubs);
-
-            $partenaires = [];
-            if ($exclu || isset($pubs[0])) $partenaires[] = $exclu ?? $pubs[0];
-            if (isset($pubs[1]))    $partenaires[] = $pubs[1];
 
             return $this->render('game/answer.html.twig', [
                 'halls' => $halls,
@@ -143,6 +144,7 @@ class GameController extends AbstractController
         return $this->render('game/question.html.twig', [
             'hall' => $hall,
             'player' => $user,
+            'pubs' => $partenaires,
             'question' => $question
         ]);
     }
