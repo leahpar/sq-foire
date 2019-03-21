@@ -138,6 +138,7 @@ easy_admin:
                     - 'lastRandom'
                     - 'token'
                     - { property: 'fbshare', type: 'boolean', label: 'facebook' }
+                    - 'answers'
 
         Answer:
             class: App\Entity\Answer

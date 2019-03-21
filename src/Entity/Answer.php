@@ -122,4 +122,17 @@ class Answer
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return
+            "(Hall " . $this->question->getHall()->getName() . ")"
+            . " "
+            . $this->question->getQuestion()
+            . " => "
+            . $this->answer
+            . " "
+            . ($this->isGood() ? "[OK]" : "[KO]")
+        ;
+    }
 }
