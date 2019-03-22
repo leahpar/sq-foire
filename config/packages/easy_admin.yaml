@@ -22,6 +22,7 @@ easy_admin:
                 #    - 'bundles/easyadmin/bootstrap-all.css'
                 js:
                     - 'bundles/easyadmin/bootstrap-all.js'
+                    - 'js/main.js'
             menu:
             - { label: 'Le jeu' }
             - { entity: 'Player', icon: 'user', default: true}

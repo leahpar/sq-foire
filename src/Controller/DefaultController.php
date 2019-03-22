@@ -119,4 +119,20 @@ class DefaultController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/admin/reload", name="reload_players")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     */
+    public function reloadPlayers(Request $request, EntityManagerInterface $em)
+    {
+        $time = $request->query->get("t", 0);
+        $date = (new \DateTime())->setTimestamp($time);
+        dump($date);
+        $count = 0;
+        $count = $em->getRepository(Player::class)->checkForReload($date);
+
+        return new Response(null, $count > 0 ? 200 : 304);
+    }
+
 }

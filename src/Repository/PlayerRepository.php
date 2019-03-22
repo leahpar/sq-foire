@@ -19,6 +19,10 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function findforRandom()
     {
         $date = new \DateTime();
@@ -29,6 +33,22 @@ class PlayerRepository extends ServiceEntityRepository
             ->setParameter('date', $date)
             ->getQuery()
             ->getResult()
+            ;
+    }
+
+    /**
+     * @param $date
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkForReload($date)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->andWhere('p.lastConnection > :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 
