@@ -3,8 +3,6 @@ $( document ).ready(function() {
     
     $(".navLink").click(function(){
         
-        console.log("clic");
-        
         if($("nav").hasClass("open")){
             $("nav").removeClass("open");
         }else{
@@ -26,7 +24,6 @@ $( document ).ready(function() {
         }
     }
     reqTime = Math.floor(new Date()/1000);
-    console.log(reqTime);
     //console.log(GetURLParameter('action'), GetURLParameter('entity'));
     if ( GetURLParameter('action') === 'list'
       && GetURLParameter('entity') === 'Player') {
