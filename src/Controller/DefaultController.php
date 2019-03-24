@@ -7,11 +7,13 @@ use App\Entity\Answer;
 use App\Entity\Hall;
 use App\Entity\Player;
 use App\Entity\Question;
+use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -91,9 +93,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/admin/rand_player", name="rand_player")
      * @param EntityManagerInterface $em
+     * @param UrlGeneratorInterface $router
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
-    public function randomPlayerAction(EntityManagerInterface $em)
+    public function randomPlayerAction(EntityManagerInterface $em, UrlGeneratorInterface $router)
     {
         $players = $em->getRepository(Player::class)->findforRandom();
 
@@ -102,16 +106,15 @@ class DefaultController extends AbstractController
             $player = $players[rand(0, count($players) - 1)];
             $player->setLastRandom(new \DateTime());
             $em->flush();
-            $this->addFlash("success", "$player");
+
+            $msg = "$player";
+            $msg .= " - ";
+            $msg .= "<a href='".$router->generate('notif_player', ["id" => $player->getId()])."'>Envoyer SMS</a>";
+            $this->addFlash("success", $msg);
         }
         else {
             $this->addFlash("warning", "Aucun joueur disponible");
         }
-
-        /*
-        dump($players, $player);
-        die();
-        */
 
         return $this->redirectToRoute('easyadmin', array(
             'action' => 'list',
@@ -133,5 +136,31 @@ class DefaultController extends AbstractController
         $count = $em->getRepository(Player::class)->checkForReload($date);
 
         return new Response(null, $count > 0 ? 200 : 304);
+    }
+
+
+    /**
+     * @Route("/admin/notif/{id}", name="notif_player")
+     * @param Player $player
+     * @param SMSService $sms
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function sendNotif(Player $player, SMSService $sms)
+    {
+        $message = "Bravo Sherlock ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA à l'entrée de la foire. Un soucis ? 0607840001";
+        $target  = $player->getData()["tel"] ?? null;
+
+        if (!$player->isRandom()) {
+            $this->addFlash("warning", "Joueur $player non tiré au sort");
+        }
+        else if ($target)  {
+            $sms->send($target, $message);
+            $this->addFlash("success", "SMS envoyé");
+        }
+
+        return $this->redirectToRoute('easyadmin', array(
+            'action' => 'list',
+            'entity' => 'Player',
+        ));
     }
 }

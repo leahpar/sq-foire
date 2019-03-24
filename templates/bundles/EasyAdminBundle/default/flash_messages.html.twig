@@ -6,7 +6,7 @@
             {% for label, messages in _flash_messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label }}">
-                        {{ message|trans|striptags }}
+                        {{ message|trans|raw }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
