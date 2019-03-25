@@ -136,9 +136,12 @@ class Player implements UserInterface, EquatableInterface
         return $this->getName() . " (" . ($this->id ?? 0) . ")";
     }
 
-    public function updateLastConnection()
+    /**
+     * @param null $date
+     */
+    public function updateLastConnection($date = null)
     {
-        $this->lastConnection = new \DateTime();
+        $this->lastConnection = $date ?? (new \DateTime());
     }
 
     public function getLastRandom(): ?\DateTimeInterface

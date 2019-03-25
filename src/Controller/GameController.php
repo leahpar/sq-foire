@@ -126,6 +126,7 @@ class GameController extends AbstractController
                 $answer->setAnswer($request->request->get('answer'));
                 $em->persist($answer);
                 $user->addAnswer($answer);
+                $user->updateLastConnection();
                 $em->flush();
             }
 
