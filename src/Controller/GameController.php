@@ -7,14 +7,44 @@ use App\Entity\Hall;
 use App\Entity\Player;
 use App\Entity\Pub;
 use App\Entity\Question;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class GameController extends AbstractController
 {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $router;
+    /**
+     * @var MailService
+     */
+    private $mail;
+
+    private $errors = [];
+
+    /**
+     * GameController constructor.
+     * @param EntityManagerInterface $em
+     * @param UrlGeneratorInterface $router
+     * @param MailService $mail
+     */
+    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router, MailService $mail)
+    {
+        $this->em = $em;
+        $this->router = $router;
+        $this->mail = $mail;
+    }
+
 
     /**
      * @Route("/", name="game_index")
@@ -187,56 +217,33 @@ class GameController extends AbstractController
 
     /**
      * @Route("/inscription", name="game_signup")
-     * @param EntityManagerInterface $em
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function signupAction(EntityManagerInterface $em, Request $request) {
+    public function signupAction(Request $request) {
 
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
             return $this->redirectToRoute("game_halls");
         }
 
-        $errors = [];
-
         if ($request->isMethod("POST")) {
 
-            $email = $request->request->get('email');
-            $name = $request->request->get('name', []);
-            $name = trim(implode(' ', $name));
-            $data = $request->request->get('data', []);
+            $player = $this->signupPlayer($request);
 
-            // TODO : check values ?
-            $p = $em->getRepository(Player::class)->findOneByEmail($email);
-            if (empty($email) || null != $p) {
-                $errors['email'] = true;
-            }
-
-            $player = new Player();
-            $player->setName($name);
-            $player->setEmail($email);
-            $player->setData($data);
-
-            if (count($errors) == 0) {
-
-                $token = substr(strtoupper(uniqid()), -6);
-                $player->setToken($token);
-
-                $em->persist($player);
-                $em->flush();
-
+            if ($player) {
                 // Manually authenticate user
                 $token = new UsernamePasswordToken($player, null, 'main', ["ROLE_USER"]);
                 $this->get('security.token_storage')->setToken($token);
                 $this->get('session')->set('_security_main', serialize($token));
+
 
                 return $this->redirectToRoute("game_halls");
             }
         }
         return $this->render('game/signup.html.twig', [
             'remote' => false,
-            'errors' => $errors,
+            'errors' => $this->errors,
             'form' => $request->request->all()
         ]);
     }
@@ -275,48 +282,79 @@ class GameController extends AbstractController
 
     /**
      * @Route("/inscription-accueil", name="game_remote_signup")
-     * @param EntityManagerInterface $em
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function remoteSignupAction(EntityManagerInterface $em, Request $request)
-    {
-        $errors = [];
+    public function remoteSignupAction(Request $request) {
         if ($request->isMethod("POST")) {
 
-            $email = $request->request->get('email');
-            $name = $request->request->get('name', []);
-            $name = trim(implode(' ', $name));
-            $data = $request->request->get('data', []);
+            $player = $this->signupPlayer($request);
 
-            // TODO : check values ?
-            $p = $em->getRepository(Player::class)->findOneByEmail($email);
-            if (empty($email) || null != $p) {
-                $errors['email'] = true;
-            }
-
-            $player = new Player();
-            $player->setName($name);
-            $player->setEmail($email);
-            $player->setData($data);
-
-            if (count($errors) == 0) {
-                $token = substr(strtoupper(uniqid()), -6);
-                $player->setToken($token);
-
-                $em->persist($player);
-                $em->flush();
-
+            if ($player) {
                 return $this->render('game/qrcode.html.twig', [
                     'player' => $player,
-                    'token' => $token
+                    'token' => $player->getToken()
                 ]);
             }
         }
         return $this->render('game/signup.html.twig', [
             'remote' => true,
-            'errors' => $errors,
+            'errors' => $this->errors,
             'form' => $request->request->all()
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return Player|null
+     */
+    private function signupPlayer(Request $request)
+    {
+        $email = $request->request->get('email');
+        $name = $request->request->get('name', []);
+        $name = trim(implode(' ', $name));
+        $data = $request->request->get('data', []);
+
+        $player = null;
+        $this->errors = [];
+
+        // TODO : check values ?
+        $p = $this->em->getRepository(Player::class)->findOneByEmail($email);
+        if (empty($email) || null != $p) {
+            $this->errors['email'] = true;
+        }
+
+        if (count($this->errors) > 0) {
+            return null;
+        }
+
+        $player = new Player();
+        $player->setName($name);
+        $player->setEmail($email);
+        $player->setData($data);
+
+        $token = substr(strtoupper(uniqid()), -6);
+        $player->setToken($token);
+
+        $this->em->persist($player);
+        $this->em->flush();
+
+        // Send email login url
+        $url = $this->router->generate('game_token_signup', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url .= "?t=" . $token;
+
+        $message = <<<EOF
+Bienvenue dans l'enquête à la foire.
+
+Cliquez ici pour vous connecter à votre compte et commencer l'enquête :
+$url
+
+Bon jeu !
+EOF;
+        $response = $this->mail->send($player->getEmail(), $message);
+        //dump($response);
+
+
+        return $player;
     }
 }

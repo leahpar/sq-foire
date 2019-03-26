@@ -110,6 +110,9 @@
     "jms/metadata": {
         "version": "1.7.0"
     },
+    "mailjet/mailjet-apiv3-php": {
+        "version": "v1.4.1"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
