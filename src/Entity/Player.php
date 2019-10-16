@@ -131,6 +131,21 @@ class Player implements UserInterface, EquatableInterface
         return $this;
     }
 
+    public function countAnswers(): int
+    {
+        return count($this->answers);
+    }
+
+    public function countGoodAnswers(): int
+    {
+        $c = 0;
+        /** @var Answer $a */
+        foreach ($this->answers as $a) {
+            $c += $a->isGood() ? 1 : 0;
+        }
+        return $c;
+    }
+
     public function __toString()
     {
         return $this->getName() . " (" . ($this->id ?? 0) . ")";
