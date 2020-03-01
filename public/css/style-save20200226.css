@@ -96,7 +96,6 @@
 
 body {
   margin: 0px;
-  background: #efefef;
   box-sizing: border-box;
   font-family: 'Rubik';
   color: #3d3d3d;
@@ -108,15 +107,15 @@ h1, h2, h3, h4, h5, a {
   -webkit-font-smoothing: antialiased; }
 
 h1 {
-  color: #ee0c21; }
+  color: #d40016; }
   h1.nomargin {
     margin: 0px; }
 
 h2 {
-  color: #000; }
+  color: #310d2c; }
 
 h3 {
-  color: #ee0c21; }
+  color: #d40016; }
 
 h5 {
   margin: 0px;
@@ -137,12 +136,12 @@ a {
   padding: 10px 25px;
   border: 0px;
   border-radius: 10px;
-  box-shadow: 0px 4px 0px #bd0a1a, 0px 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 0px #a10011, 0px 10px 10px rgba(0, 0, 0, 0.2);
   font-size: 17px;
   font-weight: 700;
   text-decoration: none; }
   .button.redButton {
-    background: #ee0c21;
+    background: #d40016;
     color: #fff; }
   .button.blockButton {
     display: block;
@@ -179,7 +178,7 @@ form input[type="text"], form input[type="email"], form input[type="tel"] {
     border-color: #2e4964; }
 
 .graySection {
-  background: #fff; }
+  background: #f0f0f0; }
 
 header {
   position: absolute;
@@ -224,24 +223,26 @@ nav ul {
     nav ul li a {
       display: block;
       padding: 15px 25px;
-      color: #ee0c21;
+      color: #d40016;
       text-decoration: none;
       font-size: 22px; }
       nav ul li a:hover, nav ul li a:active {
         color: #fff;
-        background: #000; }
+        background: #310d2c; }
 
 #mainWrapper {
   height: 100vh;
   display: grid;
   grid-template-rows: 180px 1fr;
-  background: url(../img/bg_samourai.png) no-repeat center -80px; }
+  background: #320b20 url(../img/bg_sherlock.jpg) no-repeat center -80px fixed; }
   #mainWrapper.bigCover {
-    grid-template-rows: 450px 1fr;
+    grid-template-rows: 360px 1fr;
     background-position-y: top; }
   #mainWrapper .clouds {
-    width: 100%; }
+    width: 100%;
+    background: url(../img/bg_clouds.png) center bottom repeat-x; }
   #mainWrapper .content {
+    background: #fff;
     text-align: center; }
     #mainWrapper .content section {
       padding: 35px; }
@@ -268,7 +269,7 @@ nav ul {
       border: 2px solid #aaa;
       color: #aaa; }
     .hallSelector li a {
-      border: 2px solid #ee0c21;
+      border: 2px solid #d40016;
       color: #d40016;
       text-decoration: none; }
 
@@ -289,6 +290,3 @@ nav ul {
       border-radius: 10px;
       color: #2e4964;
       font-size: 20px; }
-
-.sf-toolbar {
-  display: none !important; }
