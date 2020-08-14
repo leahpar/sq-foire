@@ -234,11 +234,13 @@ nav ul {
 #mainWrapper {
   height: 100vh;
   display: grid;
-  grid-template-rows: 180px 1fr;
-  background: url(../img/bg_samourai.png) no-repeat center -80px; }
+  grid-template-rows: 220px 1fr;
+  background: url(../img/bg_samourai.png) no-repeat center -50px;
+  background-size: 1250px; }
   #mainWrapper.bigCover {
     grid-template-rows: 450px 1fr;
-    background-position-y: top; }
+    background-position-y: top;
+    background-size: auto; }
   #mainWrapper .clouds {
     width: 100%; }
   #mainWrapper .content {
