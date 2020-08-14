@@ -147,7 +147,7 @@ class DefaultController extends AbstractController
      */
     public function sendNotif(Player $player, SMSService $sms)
     {
-        $message = "Bravo Sherlock ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA à l'entrée de la foire. Un soucis ? 0607840001";
+        $message = "Bravo ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA à l'entrée de la foire. Un soucis ? 0607840001";
         $target  = $player->getData()["tel"] ?? null;
 
         if (!$player->isRandom()) {
