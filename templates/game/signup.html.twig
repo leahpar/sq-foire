@@ -33,42 +33,24 @@
 
 
                     <p>Nous collectons des données pour permettre
-                        à <todo>XXXX</todo> et ses partenaires (<a href="{{ path('game_rules') }}">voir la liste</a>) de vous
+                        à ROUEN-EXPO EVENEMENTS et ses partenaires (<a href="{{ path('game_rules') }}">voir la liste</a>) de vous
                         adresser des publicités. Pour le permettre, cochez les cases ci-dessous :</p>
-
-                    <ul>
-                        {#
-                        <li>
-                            <input type="checkbox"
-                                   id="form_auth_sms_salon"
-                                   name="data[authSmsSalon]"
-                                    {{ form.data is defined and form.data.authSmsSalon is defined and form.data.authSmsSalon ? 'checked'}}>
-                            <label for="form_auth_sms_salon">
-                                J'accepte de recevoir par SMS des infos pratiques et bons plans du salon de la part de <todo>XXXX</todo>
-                                <strong>uniquement pendant l'évènement</strong>.
-                            </label>
-                        </li>#}
-                        <li>
-                            <input type="checkbox"
+                        
+                    <p><input type="checkbox"
                                    id="form_auth_sms_pub"
                                    name="data[authSmsPub]"
                                     {{ form.data is defined and form.data.authSmsPub is defined and form.data.authSmsPub ? 'checked'}}>
-                            <label for="form_auth_sms_pub">
-                                J'accepte de recevoir par SMS des offres promotionnelles de la part des partenaires de <todo>XXXX</todo>.
-                            </label>
-                        </li>
-                        <li>
-                            <input type="checkbox"
+                                    J'accepte de recevoir par SMS des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.</p>
+                                    
+                    <p>
+                    	<input type="checkbox"
                                    id="form_auth_mail_pub"
                                    name="data[authMailPub]"
                                     {{ form.data is defined and form.data.authMailPub is defined and form.data.authMailPub ? 'checked'}}>
-                            <label for="form_auth_mail_pub">
-                                J'accepte de recevoir par email des offres promotionnelles de la part des partenaires de <todo>XXXX</todo>.
-                            </label>
-                        </li>
-                    </ul>
+                                J'accepte de recevoir par email des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.
+                    </p>
 
-                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ path('game_rules') }}"><todo>règlement</todo></a></p>
+                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ path('game_rules') }}">règlement</a></p>
 
                     <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
             
