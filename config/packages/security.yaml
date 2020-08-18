@@ -16,10 +16,10 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(css|images|js)/
             security: false
         admin:
-            pattern: ^/admin
+            pattern: ^/(admin|_profiler|_wdt)
             anonymous: false
             http_basic:
                 realm: 'Restricted area'
@@ -48,4 +48,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/_profiler, roles: ROLE_ADMIN }
