@@ -1,0 +1,42 @@
+{% extends '@!EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+
+    <table class="table datagrid">
+        <thead>
+            <tr>
+                <th><span>Joueurs</span></th>
+                <th><span>{{ total }}</span></th>
+                <th><span>{{ (total/total * 100)|round(0) }} %</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Connecté dans l'heure</td>
+                <td>{{ actifHeure }}</td>
+                <td>{{ (actifHeure/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Connecté aujourd'hui</td>
+                <td>{{ actifJour }}</td>
+                <td>{{ (actifJour/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Partage Facebook</td>
+                <td>{{ share }}</td>
+                <td>{{ (share/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Acceptation SMS</td>
+                <td>{{ sms }}</td>
+                <td>{{ (sms/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Acceptation Email</td>
+                <td>{{ email }}</td>
+                <td>{{ (email/total * 100)|round(0) }} %</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock main %}

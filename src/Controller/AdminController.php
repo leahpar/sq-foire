@@ -21,6 +21,44 @@ class AdminController extends EasyAdminController
     }
 
     /**
+     * @Route("/admin/stats", name="admin_stats")
+     */
+    public function StatsAction(EntityManagerInterface $em)
+    {
+        $players = $em->getRepository(Player::class)->findAll();
+
+        $share = 0;
+        $emil = 0;
+        $sms = 0;
+        $actifHeure = 0;
+        $actifJour = 0;
+
+        //date_default_timezone_set("Europe/Paris");
+        $now = (new \DateTime)->modify("-1 hour");
+        $today = (new \DateTime)->setTime(0, 0);
+        dump($now, $today);
+
+        /** @var Player $player */
+        foreach ($players as $player) {
+            if ($player->getFbshare()) $share++;
+            if ($player->getData()["authMailPub"]??"off" == "on") $emil++;
+            if ($player->getData()["authSmsPub"]??"off" == "on") $sms++;
+            if ($player->getLastConnection() >= $now) $actifHeure++;
+            if ($player->getLastConnection() >= $today) $actifJour++;
+        }
+
+
+        return $this->render('admin/stats.html.twig', [
+            "share" => $share,
+            "sms" => $sms,
+            "email" => $emil,
+            "total" => count($players),
+            "actifHeure" => $actifHeure,
+            "actifJour" => $actifJour
+        ]);
+    }
+
+    /**
      * @Route("/admin/export")
      * @param EntityManagerInterface $em
      */

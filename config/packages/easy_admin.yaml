@@ -27,6 +27,8 @@ easy_admin:
             - { label: 'Le jeu' }
             - { entity: 'Player', icon: 'user', default: true}
             - { entity: 'Answer', icon: 'list-ul'}
+            - { label: '' }
+            - { label: 'Stats', route: 'admin_stats', icon: 'signal' }
             - { label: 'Paramétrage' }
             - { entity: 'Hall', icon: 'building'}
             - { entity: 'Question', icon: 'question'}
