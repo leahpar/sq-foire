@@ -64,8 +64,7 @@ class AdminController extends EasyAdminController
      */
     public function export(EntityManagerInterface $em)
     {
-        // TODO: filtre RGPD
-        $players = []; // $em->getRepository(Player::class)->findAll();
+        $players = $em->getRepository(Player::class)->findAll();
 
         $output = implode(';', [
             "ID",
@@ -81,11 +80,18 @@ class AdminController extends EasyAdminController
         $output .= "\n";
 
         foreach ($players as $player) {
+
+            // RGPD : les joueurs n'ayant rien partagés ne sont pas à afficher
+            if (!$player->authMailPub && !$player->authSmsPub) {
+                continue;
+            }
+
             $output .= implode(';', [
                 $player->getId(),
                 $player->getName(),
                 $player->getEmail(),
-                $player->tel,
+                $player->authMailPub ? $player->getEmail() : '',
+                $player->authSmsPub  ? $player->tel        : '',
                 $player->ville,
                 $player->countAnswers(),
                 $player->countGoodAnswers(),
