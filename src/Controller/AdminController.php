@@ -64,7 +64,8 @@ class AdminController extends EasyAdminController
      */
     public function export(EntityManagerInterface $em)
     {
-        $players = $em->getRepository(Player::class)->findAll();
+        // TODO: filtre RGPD
+        $players = []; // $em->getRepository(Player::class)->findAll();
 
         $output = implode(';', [
             "ID",
