@@ -33,7 +33,7 @@
         {% endif %}
     </header>
 
-    {#<nav>
+    <nav>
         <a href="#" aria-label="Afficher le menu" class="navLink"><img src="{{ asset('img/navIcon.svg') }}" alt="menu"></a>
         <ul>
             <li><a href="{{ path('game_index') }}">Le jeu</a></li>
@@ -45,7 +45,7 @@
             <li><a href="{{ path('game_rules') }}">Règlement</a></li>
             <li><a href="{{ path('game_share') }}" target="_blank">Partager sur Facebook</a></li>
         </ul>
-    </nav>#}
+    </nav>
 
     {% block content %}{% endblock %}
     
