@@ -19,8 +19,11 @@
                 <p>La bonne réponse était<br><strong>{{ question.goodAnswer }}</strong></p>
 
                 {% if hallTodo|length > 0 %}
-                    <p>Il vous reste des énigmes à résoudre dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
-                    {{ hallTodo|join(', ') }}</p>
+                    <p>
+                        Il vous reste des énigmes à résoudre
+                        dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
+                        {{ hallTodo|join(', ', ' et ') }}
+                    </p>
                     
                     <p><a href="{{ path('game_halls') }}" class="button redButton">Retour à la liste des halls</a></p>
                 {% else %}

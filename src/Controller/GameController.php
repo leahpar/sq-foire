@@ -127,13 +127,6 @@ class GameController extends AbstractController
 
         $halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
 
-        $hallTodo = [];
-        foreach ($halls as $h) {
-            if (!$user->isHallDone($h->getId())) {
-                $hallTodo[] = $h;
-            }
-        }
-
         $exclu = $hall->getExclu();
         $pubs = $hall->getPubs()->toArray();
         foreach ($pubs as $k => $pub) {
@@ -160,6 +153,13 @@ class GameController extends AbstractController
                 $em->flush();
             }
 
+            // Liste des halls restants
+            $hallTodo = [];
+            foreach ($halls as $h) {
+                if (!$user->isHallDone($h->getId())) {
+                    $hallTodo[] = $h;
+                }
+            }
 
             return $this->render('game/answer.html.twig', [
                 'halls' => $halls,
