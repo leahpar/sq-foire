@@ -21,6 +21,18 @@
                 <td>{{ actifJour }}</td>
                 <td>{{ (actifJour/total * 100)|round(0) }} %</td>
             </tr>
+            <tr><td colspan="99"></td></tr>
+            <tr>
+                <td>Tirés au sort aujourd'hui</td>
+                <td>{{ tiragesJour }}</td>
+                <td>{{ (tiragesJour/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Tirés au sort au total</td>
+                <td>{{ tiragesTotal }}</td>
+                <td>{{ (tiragesTotal/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr><td colspan="99"></td></tr>
             <tr>
                 <td>Partage Facebook</td>
                 <td>{{ share }}</td>

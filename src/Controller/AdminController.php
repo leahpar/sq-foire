@@ -34,6 +34,8 @@ class AdminController extends EasyAdminController
         $sms = 0;
         $actifHeure = 0;
         $actifJour = 0;
+        $tiragesTotal = 0;
+        $tiragesJour = 0;
 
         //date_default_timezone_set("Europe/Paris");
         $now = (new \DateTime)->modify("-1 hour");
@@ -47,6 +49,8 @@ class AdminController extends EasyAdminController
             if ($player->getData()["authSmsPub"]??"off" == "on") $sms++;
             if ($player->getLastConnection() >= $now) $actifHeure++;
             if ($player->getLastConnection() >= $today) $actifJour++;
+            if ($player->getLastRandom()) $tiragesTotal++;
+            if ($player->getLastRandom() && $player->getLastRandom() >= $today) $tiragesJour++;
         }
 
 
@@ -56,7 +60,9 @@ class AdminController extends EasyAdminController
             "email" => $emil,
             "total" => count($players),
             "actifHeure" => $actifHeure,
-            "actifJour" => $actifJour
+            "actifJour" => $actifJour,
+            "tiragesTotal" => $tiragesTotal,
+            "tiragesJour" => $tiragesJour,
         ]);
     }
 
