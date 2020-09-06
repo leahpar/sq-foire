@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Player;
+use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -103,6 +105,24 @@ class AdminController extends EasyAdminController
         }
 
         return new Response($output);
+    }
+
+    /**
+     * @Route("/admin/testsms")
+     * @param Request $request
+     * @param SMSService $sms
+     * @return Response
+     */
+    public function testsms(Request $request, SMSService $sms)
+    {
+        $message = $request->query->get("txt") ?? "test";
+        $target  = $request->query->get("tel") ?? null;
+
+        if ($target)  {
+            $sms->send($target, $message);
+        }
+
+        return new Response();
     }
 
 }
