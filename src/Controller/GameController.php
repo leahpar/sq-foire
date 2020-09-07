@@ -318,10 +318,18 @@ class GameController extends AbstractController
         $player = null;
         $this->errors = [];
 
-        // TODO : check values ?
+        // Email unique (obligatoire, c'est le login)
         $p = $this->em->getRepository(Player::class)->findOneByEmail($email);
         if (empty($email) || null != $p) {
             $this->errors['email'] = true;
+        }
+
+        // Tel unique
+        if (isset($data['tel'])) {
+            $p = $this->em->getRepository(Player::class)->findLikeDataTel($data['tel'] ?? '');
+            if (count($p) > 0) {
+                $this->errors['tel'] = true;
+            }
         }
 
         if (count($this->errors) > 0) {

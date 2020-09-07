@@ -52,22 +52,16 @@ class PlayerRepository extends ServiceEntityRepository
             ;
     }
 
-    // /**
-    //  * @return Player[] Returns an array of Player objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findLikeDataTel($tel)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('p.data like :tel')
+            ->setParameter(':tel', '%'.$tel.'%')
+            //->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Player

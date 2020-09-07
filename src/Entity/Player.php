@@ -26,6 +26,12 @@ class Player implements UserInterface, EquatableInterface
     private $name;
 
     /**
+     * @TODO: activer le champ en base pour une autre fois
+     * //ORM\Column(type="datetime")
+     */
+    private $firstConnection;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $lastConnection;
@@ -66,6 +72,7 @@ class Player implements UserInterface, EquatableInterface
     public function __construct()
     {
         $this->lastConnection = new \DateTime();
+        $this->firstConnection = new \DateTime();
         $this->answers = new ArrayCollection();
         //$this->uid = uniqid();
     }
@@ -96,6 +103,18 @@ class Player implements UserInterface, EquatableInterface
     public function setLastConnection(\DateTimeInterface $lastConnection): self
     {
         $this->lastConnection = $lastConnection;
+
+        return $this;
+    }
+
+    public function getFirstConnection(): ?\DateTimeInterface
+    {
+        return $this->firstConnection;
+    }
+
+    public function setFirstConnection(\DateTimeInterface $firstConnection): self
+    {
+        $this->firstConnection = $firstConnection;
 
         return $this;
     }
@@ -151,9 +170,6 @@ class Player implements UserInterface, EquatableInterface
         return $this->getName() . " (" . ($this->id ?? 0) . ")";
     }
 
-    /**
-     * @param null $date
-     */
     public function updateLastConnection($date = null)
     {
         $this->lastConnection = $date ?? (new \DateTime());
@@ -312,4 +328,5 @@ class Player implements UserInterface, EquatableInterface
 
         return $this;
     }
+
 }
