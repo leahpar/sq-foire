@@ -50,8 +50,13 @@
             </tr>
             <tr>
                 <td>Acceptation SMS et Email</td>
-                <td>{{ exportAdmin }}</td>
-                <td>{{ (exportAdmin/total * 100)|round(0) }} %</td>
+                <td>{{ smsetemail }}</td>
+                <td>{{ (smsetemail/total * 100)|round(0) }} %</td>
+            </tr>
+            <tr>
+                <td>Acceptation SMS ou Email (export)</td>
+                <td>{{ smsouemail }}</td>
+                <td>{{ (smsouemail/total * 100)|round(0) }} %</td>
             </tr>
         </tbody>
     </table>
