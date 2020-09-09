@@ -48,8 +48,8 @@ class AdminController extends EasyAdminController
             if ($player->getFbshare()) $share++;
             if ($player->getData()["authMailPub"]??"off" == "on") $emil++;
             if ($player->getData()["authSmsPub"]??"off" == "on") $sms++;
-            if ($player->getData()["authSmsPub"]??"off" == "on"
-             && $player->getData()["authMailPub"]??"off" == "on") $exportAdmin++;
+            if (($player->getData()["authSmsPub"]??"off" == "on")
+             && ($player->getData()["authMailPub"]??"off" == "on")) $exportAdmin++;
             if ($player->getLastConnection() >= $now) $actifHeure++;
             if ($player->getLastConnection() >= $today) $actifJour++;
             if ($player->getLastRandom()) $tiragesTotal++;
