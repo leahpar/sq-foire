@@ -105,7 +105,6 @@ class AdminController extends EasyAdminController
             $output .= implode(';', [
                 $player->getId(),
                 $player->getName(),
-                $player->getEmail(),
                 $player->authMailPub ? $player->getEmail() : '',
                 $player->authSmsPub  ? $player->tel        : '',
                 $player->ville,
