@@ -26,8 +26,7 @@ class Player implements UserInterface, EquatableInterface
     private $name;
 
     /**
-     * @TODO: activer le champ en base pour une autre fois
-     * //ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime")
      */
     private $firstConnection;
 

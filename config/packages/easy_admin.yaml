@@ -127,6 +127,7 @@ easy_admin:
                     - 'name'
                     - { property: 'ville', type: 'string' }
                     - 'answers'
+                    - 'firstConnection'
                     - 'lastConnection'
                     - { property: 'random', type: 'boolean' }
                     - { property: 'fbshare', type: 'boolean', label: 'facebook' }
@@ -137,6 +138,7 @@ easy_admin:
                     - 'email'
                     - { property: 'tel',   type: 'string' }
                     - { property: 'ville', type: 'string' }
+                    - 'firstConnection'
                     - 'lastConnection'
                     - 'lastRandom'
                     - 'token'
