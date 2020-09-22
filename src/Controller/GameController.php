@@ -360,12 +360,12 @@ class GameController extends AbstractController
         $url .= "?t=" . $token;
 
         $message = <<<EOF
-Bienvenue dans l'enquête à la foire.
+Bienvenue au 56e grand prix de la chanson
 
-Cliquez ici pour vous connecter à votre compte et commencer l'enquête :
+Cliquez ici pour vous connecter à votre compte et voter pour vos candidats préférés :
 $url
 
-Bon jeu !
+Bonne soirée !
 EOF;
         $response = $this->mail->send($player->getEmail(), $message);
         //dump($response);
