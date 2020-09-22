@@ -100,7 +100,8 @@ class GameController extends AbstractController
             return $this->redirectToRoute("game_start");
         }
 
-        $halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
+        //$halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
+        $halls = $em->getRepository(Hall::class)->findBy([], ['id' => 'ASC']);
 
         return $this->render('game/halls.html.twig', [
             'halls' => $halls,
@@ -146,14 +147,19 @@ class GameController extends AbstractController
                 'player' => $user,
                 'question' => $question
             ]);
+
+            // Nouvelle réponse si pas existante
             if (null == $answer) {
                 $answer = new Answer($user, $question);
-                $answer->setAnswer($request->request->get('answer'));
-                $em->persist($answer);
-                $user->addAnswer($answer);
-                $user->updateLastConnection();
-                $em->flush();
             }
+
+            // MAJ réponse
+            $answer->setAnswer($request->request->get('answer'));
+            $em->persist($answer);
+            $user->addAnswer($answer);
+            $user->updateLastConnection();
+            $em->flush();
+
 
             // Liste des halls restants
             $hallTodo = [];
