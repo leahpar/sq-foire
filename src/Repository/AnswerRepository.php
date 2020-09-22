@@ -47,4 +47,18 @@ class AnswerRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getNotes()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.question', 'q')
+            ->leftJoin('q.hall', 'h')
+            ->select("h.id, h.name, avg(a.answer) as score_avg, count(a.answer) as score_count")
+            ->groupBy('q.hall')
+            ->orderBy('score_avg', "desc")
+        ;
+
+        return $query->getQuery()->getResult();
+    }
+
 }

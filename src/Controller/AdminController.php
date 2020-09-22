@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
+use App\Entity\Hall;
 use App\Entity\Player;
 use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,6 +61,7 @@ class AdminController extends EasyAdminController
             if ($player->getLastRandom() && $player->getLastRandom() >= $today) $tiragesJour++;
         }
 
+        $notes = $em->getRepository(Answer::class)->getNotes();
 
         return $this->render('admin/stats.html.twig', [
             "share" => $share,
@@ -71,6 +74,7 @@ class AdminController extends EasyAdminController
             "actifJour" => $actifJour,
             "tiragesTotal" => $tiragesTotal,
             "tiragesJour" => $tiragesJour,
+            "notes" => $notes,
         ]);
     }
 

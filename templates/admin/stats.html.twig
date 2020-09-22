@@ -4,6 +4,28 @@
 
     <table class="table datagrid">
         <thead>
+        <tr>
+            <th><span>Rang</span></th>
+            <th><span>Candidat</span></th>
+            <th><span>moyenne</span></th>
+            <th><span>votes</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for note in notes %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ note.id }} - {{ note.name }}</td>
+                <td>{{ note.score_avg }}</td>
+                <td>{{ note.score_count }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="height: 50px;"></div>
+
+    <table class="table datagrid">
+        <thead>
             <tr>
                 <th><span>Joueurs</span></th>
                 <th><span>{{ total }}</span></th>
