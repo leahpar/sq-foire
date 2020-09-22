@@ -43,12 +43,15 @@ easy_admin:
                 max_results: 50
                 sort: [ 'name', 'ASC' ]
                 fields:
-                    - { property: 'fullName', type: 'string', label: 'hall' }
+                    - 'id'
+                    #- { property: 'fullName', type: 'string', label: 'hall' }
+                    - { property: 'name', type: 'string', label: 'candidat' }
                     - 'questions'
                     - { property: 'pubs', type: 'array' }
                     - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
             show:
                 fields:
+                    - 'id'
                     - 'name'
                     - 'questions'
                     - 'pubs'
