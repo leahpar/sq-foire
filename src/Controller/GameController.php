@@ -88,6 +88,7 @@ class GameController extends AbstractController
 
     /**
      * @Route("/jeu/halls", name="game_halls")
+     * @Route("/jeu/candidats", name="game_candidats")
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -109,6 +110,7 @@ class GameController extends AbstractController
 
     /**
      * @Route("/jeu/halls/{name}", name="game_hall")
+     * @Route("/jeu/candidat/{name}", name="game_candidat")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param Hall $hall
