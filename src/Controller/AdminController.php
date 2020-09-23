@@ -27,7 +27,7 @@ class AdminController extends EasyAdminController
     /**
      * @Route("/admin/stats", name="admin_stats")
      */
-    public function StatsAction(EntityManagerInterface $em)
+    public function statsAction(EntityManagerInterface $em)
     {
         $players = $em->getRepository(Player::class)->findAll();
 
@@ -141,5 +141,19 @@ class AdminController extends EasyAdminController
 
         return new Response();
     }
+
+
+    /**
+     * @Route("/admin/podium", name="admin_podium")
+     */
+    public function podiumAction(EntityManagerInterface $em)
+    {
+        $notes = $em->getRepository(Answer::class)->getNotes();
+
+        return $this->render('admin/podium.html.twig', [
+            "notes" => $notes,
+        ]);
+    }
+
 
 }

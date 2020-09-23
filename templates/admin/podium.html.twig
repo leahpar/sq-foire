@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=5">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
+</head>
+
+<body>
+<style>
+    /* LESS SQ LIVE */
+
+
+    @keyframes fadeout {
+        0%   {opacity: 1;}
+        100% {opacity: 0;}
+    }
+
+    .fadeIn{
+        opacity: 0;
+
+        animation-name: fadeIn;
+
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .podiumPlayer1, .delay15{
+        animation-delay: 15s;
+    }
+    .podiumPlayer2, .delay10{
+        animation-delay: 10s;
+    }
+    .podiumPlayer3, .delay5{
+        animation-delay: 5s;
+    }
+
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
+
+    .podium{
+    	//outline: 1px solid green;
+
+    	width: 90%;
+    	max-width: 800px;
+
+    	margin: 0 auto;
+    	padding-top: 250px;
+
+    	display: flex;
+    	align-items: flex-end;
+
+    	.podiumMarche{
+        	position: relative;
+
+        	flex-grow: 1;
+
+        	background: @color3;
+
+        	&.podiumMarche2, &.podiumMarche3{
+            	height: 150px;
+        	}
+        	&.podiumMarche1{
+            	height: 250px;
+        	}
+
+        	span{
+            	font-size: 7rem;
+            	color: #fff;
+            	font-weight: bold;
+        	}
+
+        	.podiumPlayer{
+            	//outline: 1px dotted red;
+
+            	position: absolute;
+
+            	top: -150px;
+
+            	width: 500px;
+
+            	&.podiumPlayer1{
+                	left: -50%;
+                	text-align: center;
+            	}
+            	&.podiumPlayer2{
+                	right: 50px;
+                	text-align: right;
+            	}
+            	&.podiumPlayer3{
+                	left: 50px;
+                	text-align: left;
+            	}
+
+            	h2{
+                	margin: 0px;
+
+                	font-size: 4rem;
+                	font-weight: bold;
+                	color: @color1;
+            	}
+            	p{
+                	margin: 0px;
+                	font-size: 3rem;
+
+                	strong{
+                    	font-size: inherit;
+                    	color: inherit;
+                	}
+            	}
+        	}
+    	}
+	}
+</style>
+
+
+
+<div class="podium">
+
+    <div class="podiumMarche podiumMarche2">
+        <span>2</span>
+        <div class="podiumPlayer podiumPlayer2 fadeIn">
+            <h2>{{ notes[1].name }}</h2>
+            <p><strong>{{ notes[1].score_avg }}</p>
+        </div>
+    </div>
+    <div class="podiumMarche podiumMarche1">
+        <span>1</span>
+        <div class="podiumPlayer podiumPlayer1 fadeIn">
+            <h2>{{ notes[0].name }}</h2>
+            <p><strong>{{ notes[0].score_avg }}</p>
+        </div>
+    </div>
+    <div class="podiumMarche podiumMarche3">
+        <span>3</span>
+        <div class="podiumPlayer podiumPlayer3 fadeIn">
+            <h2>{{ notes[2].name }}</h2>
+            <p><strong>{{ notes[2].score_avg }}</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
