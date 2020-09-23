@@ -4,16 +4,17 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, maximum-scale=5">
+
+    <meta name="description" content='56e Grand Prix de la Chanson de Lillebonne'>
+
+    <meta property="og:title" content='56e Grand Prix de la Chanson de Lillebonne"'>
+    <meta property="og:description" content='Votez pour votre candidat préféré'>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('game_start') }}">
+    <meta property="og:image" content="{{ url('game_index') }}img/title.png">
+
+    <title>{% block title %}56e Grand Prix de la Chanson de Lillebonne{% endblock %}</title>
     
-    <meta name="description" content='Grand jeu "7 samourais". Jouez et gagnez de nombreux cadeaux !'>
-
-    <meta property="og:title" content='Grand jeu "7 samourais à la Foire de Rouen"' />
-    <meta property="og:description" content='Parcourez la foire à la recherche des indices et remportez des cadeaux !' />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ url('game_start') }}" />
-    <meta property="og:image" content="{{ url('game_index') }}img/SQ-foire.png" />
-
-    <title>{% block title %}Grand jeu 7 samourais !{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
     <style>
