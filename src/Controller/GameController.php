@@ -11,6 +11,7 @@ use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -89,7 +90,7 @@ class GameController extends AbstractController
     /**
      * @Route("/jeu/halls", name="game_halls")
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function hallsAction(EntityManagerInterface $em)
     {
@@ -113,7 +114,7 @@ class GameController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param Hall $hall
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function hallAction(Request $request, EntityManagerInterface $em, Hall $hall)
     {
@@ -186,7 +187,6 @@ class GameController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/reglement", name="game_rules")
      */
@@ -194,6 +194,7 @@ class GameController extends AbstractController
     {
         return $this->render('game/rules.html.twig');
     }
+
     /**
      * @Route("/comment-jouer", name="game_howto")
      */
@@ -206,7 +207,7 @@ class GameController extends AbstractController
      * @Route("/share", name="game_share")
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function shareAction(Request $request, EntityManagerInterface $em)
     {
@@ -220,11 +221,10 @@ class GameController extends AbstractController
         return $this->redirect("https://www.facebook.com/sharer/sharer.php?u=$url");
     }
 
-
     /**
      * @Route("/inscription", name="game_signup")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function signupAction(Request $request) {
 
@@ -254,12 +254,11 @@ class GameController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/code", name="game_token_signup")
      * @param EntityManagerInterface $em
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function tokenLoginAction(EntityManagerInterface $em, Request $request)
     {
@@ -285,11 +284,10 @@ class GameController extends AbstractController
         return $this->render('game/code.html.twig');
     }
 
-
     /**
      * @Route("/inscription-accueil", name="game_remote_signup")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function remoteSignupAction(Request $request) {
         if ($request->isMethod("POST")) {
