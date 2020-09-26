@@ -233,4 +233,26 @@ class AdminController extends EasyAdminController
         ]);
     }
 
+    /**
+     * @Route("/admin/onoff", name="admin_onoff")
+     */
+    public function onOffAction(Request $request, $closedFilePath)
+    {
+        $closed = $request->query->get("closed", 0);
+        try {
+            if ($closed) {
+                touch($closedFilePath);
+                $this->addFlash("warning", "Site fermé");
+            } else {
+                unlink($closedFilePath);
+                $this->addFlash("success", "Site ouvert");
+            }
+        }
+        catch (\Exception $e) {
+            $this->addFlash("error", $e->getMessage());
+        }
+
+        return $this->redirectToRoute("easyadmin");
+    }
+
 }

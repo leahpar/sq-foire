@@ -34,6 +34,9 @@ easy_admin:
             - { entity: 'Hall', icon: 'building'}
             - { entity: 'Question', icon: 'question'}
             - { entity: 'Pub', icon: 'image'}
+            - { label: 'Site' }
+            - { label: 'Fermer',  route: 'admin_onoff', params: {closed: 1}, icon: 'lock' }
+            - { label: 'Ouvrir',  route: 'admin_onoff', params: {closed: 0}, icon: 'unlock' }
 
 
     entities:

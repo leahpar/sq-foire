@@ -88,6 +88,14 @@ class GameController extends AbstractController
     }
 
     /**
+     * @Route("/closed", name="game_closed")
+     */
+    public function closedAction()
+    {
+        return $this->render('game/closed.html.twig');
+    }
+
+    /**
      * @Route("/jeu/halls", name="game_halls")
      * @param EntityManagerInterface $em
      * @return Response
