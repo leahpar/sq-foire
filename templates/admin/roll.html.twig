@@ -20,6 +20,7 @@
         <div id="lottery">
 
             <ul id="template" style="display: none">
+                {# Reverse pour avoir le gagnant en dernière position #}
                 {% for note in notes|reverse %}
                     <li class="{{ loop.last ? 'gagnant' }}">{{ note.name }}</li>
                 {% endfor %}
