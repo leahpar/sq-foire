@@ -1,0 +1,76 @@
+@import 'fonts';
+
+$color1:#e34686;
+$color2:#3d5aa8;
+
+body{
+	min-height: 100vh;
+	
+	padding: 0px;
+	margin: 0px;
+	
+	background:  #00010a url(../img/background.jpg) no-repeat center center;
+	background-size: cover;
+
+	font-family: 'Rubik';
+}
+
+.screenCenter{
+	min-height: 100vh;
+	
+	display: flex;
+	justify-content: center;
+	//align-items: center;
+}
+
+p{
+	color: #fff;
+	font-size: 3rem;
+	line-height: normal;
+	font-weight: 700;
+	text-transform: uppercase;
+	text-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+}
+
+#lottery{
+	position: relative;
+	
+	width: 60vw;
+	height: 150px;
+	
+	background: #fff;
+	border: 10px solid #fff;
+	border-radius: 30px;
+	box-shadow: 0px 10px 20px rgba(0,0,0,0.7), inset 0px 20px 50px rgba(0,0,0,.3), inset 0px -20px 50px rgba(0,0,0,.3);
+	
+	overflow: hidden;
+	
+	#playersList{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		
+		margin: 0px;
+		padding: 0px;
+		
+		width: inherit;
+		
+		li{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			width: inherit;
+			height: 150px;
+			
+			margin: 0px;
+			padding: 0px;
+			list-style: none;
+			
+			font-size: 70px;
+			font-weight: 700;
+			color: $color2;
+		}
+	}
+}
+  

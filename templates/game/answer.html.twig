@@ -10,26 +10,22 @@
             
             <section>
 
-                {% if answer.good %}
-                    <h1>Bravo !</h1>
-                {% else %}
-                    <h1>Dommage...</h1>
-                {% endif %}
+                <h1>Super !</h1>
 
-                <p>La bonne réponse était<br><strong>{{ question.goodAnswer }}</strong></p>
+                <p>Votre note pour la prestation de {{ hall.name }} a bien été enregistrée.</p>
 
                 {% if hallTodo|length > 0 %}
                     <p>
-                        Il vous reste des énigmes à résoudre
-                        dans le{{ hallTodo|length > 1 ? 's' }} hall{{ hallTodo|length > 1 ? 's' }}
-                        {{ hallTodo|join(', ', ' et ') }}
+                        Vous pouvez maintenant retourner à la liste des candidats pour attribuer d'autres notes.
                     </p>
                     
-                    <p><a href="{{ path('game_halls') }}" class="button redButton">Retour à la liste des halls</a></p>
-                {% else %}
-                    <p>Vous avez répondu à l'ensemble des énigmes !</p>
+                    <p>&nbsp;</p>
                     
-                    <p><a href="{{ path('game_end') }}" class="button redButton">Fin du jeu</a></p>
+                    <p><a href="{{ path('game_halls') }}" class="button redButton">Retour à la liste des candidats</a></p>
+                {% else %}
+                    <p>Vous avez noté tous nos candidats !</p>
+                    
+                    <p><a href="{{ path('game_end') }}" class="button redButton">C'est fini !</a></p>
                 {% endif %}
     
             </section>
@@ -49,16 +45,6 @@
 
             </section>
             {% endif %}
-            
-            <section>
-            
-                <h2>Doubler mes chances</h2>
-                
-                <p>Partagez le jeu sur Facebook pour doubler vos chance d’être tiré au sort !</p>
-                
-                <p><a href="{{ path('game_share') }}" target="_blank" class="button redButton">Partager</a></p>
-    
-            </section>
         </div>
 </div>
 

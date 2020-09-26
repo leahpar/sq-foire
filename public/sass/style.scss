@@ -9,9 +9,13 @@ $beige:#ac884b;
 $gray:#3d3d3d;
 $lightgray:#f0f0f0;
 
+$color1:#e34686;
+$color2:#3d5aa8;
+
 body{
     margin: 0px;
     
+    background: #efefef;
     box-sizing: border-box;
     
     font-family: 'Rubik';
@@ -25,17 +29,17 @@ h1, h2, h3, h4, h5, a{
     -webkit-font-smoothing: antialiased;
 }
 h1{
-    color: $red;
+    color: $color2;
     
     &.nomargin{
         margin: 0px;
     }
 }
 h2{
-    color: $purple;
+    color: $color1;
 }
 h3{
-    color: $red;
+    color: $color2;
 }
 h5{
     margin: 0px;
@@ -49,6 +53,10 @@ a{
     color: $blue;
 }
 
+.txtcenter{
+    text-align: center;
+}
+
 .mtm{
     margin-top: 20px;
 }
@@ -60,14 +68,14 @@ a{
     
     border: 0px;
     border-radius: 10px;
-    box-shadow: 0px 4px 0px darken($red,10%), 0px 10px 10px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 0px darken($color2,10%), 0px 10px 10px rgba(0,0,0,0.2);
     
     font-size: 17px;
     font-weight: 700;
     text-decoration: none;
     
     &.redButton{
-        background: $red;
+        background: $color2;
         color: #fff;
     }
     &.blockButton{
@@ -121,6 +129,7 @@ form{
 
 .graySection{
     background: $lightgray;
+    //background: #fff;
 }
 
 header{
@@ -136,6 +145,9 @@ header{
 }
 
 nav{
+    position: relative;
+    z-index: 100;
+    
     &.open{
         position: fixed;
         top: 0px;
@@ -184,14 +196,14 @@ nav{
                 
                 padding: 15px 25px;
                 
-                color: $red;
+                color: $color2;
                 text-decoration: none;
                 
                 font-size: 22px;
                 
                 &:hover, &:active{
                     color: #fff;
-                    background: $purple;
+                    background: $color1;
                 }
             }
         }
@@ -201,19 +213,38 @@ nav{
 #mainWrapper{
     height: 100vh;
     display: grid;
-    grid-template-rows: 180px 1fr;
+    grid-template-rows: 220px 1fr;
     
-    background: #320b20 url(../img/bg_sherlock.jpg) no-repeat center -80px fixed;
+    background:  #00010a url(../img/background.jpg) no-repeat center 0px;
+    background-size: 800px;
     
     &.bigCover{
-        grid-template-rows: 360px 1fr;
+        grid-template-rows: 450px 1fr;
         background-position-y: top;
+        background-size: auto;
     }
     
     .clouds{
+        position: relative;
         width: 100%;
         
-        background: url(../img/bg_clouds.png) center bottom repeat-x;
+        overflow: hidden;
+                
+        //background: url(../img/bg_clouds.png) center bottom repeat-x;
+        
+        &:after{
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: -5vw;
+            
+            width: 110vw;
+            height: 100px;
+            
+            transform: rotate(-2deg);
+            
+            background: #fff;
+        }
     }
     .content{
         
@@ -230,6 +261,16 @@ nav{
         }
     }
     
+}
+
+.logo{
+    position: relative;
+    top: -80px;
+    height: 170px;
+    
+    img{
+        max-width: 80vw;
+    }
 }
 
 .hallSelector{
@@ -255,7 +296,7 @@ nav{
             font-size: 20px;
         }
         
-        span{
+        span, a.done{
             background: url(../img/check.svg) no-repeat 15px 15px;
             
             border: 2px solid #aaa;
@@ -264,8 +305,8 @@ nav{
         
         a{
             
-            border: 2px solid $red;
-            color: $red;
+            border: 2px solid $color2;
+            color: $color1;
             text-decoration: none;
         }
     }
@@ -281,17 +322,18 @@ nav{
         
         margin-bottom: 10px;
         
-        input{
+        input, button{
             display: block;
             width: 100%;
             
             padding: 10px;
             
             background: none;
-            border: 2px solid $blue;
+            border: 2px solid $color2
+            ;
             border-radius: 10px;
             
-            color: $blue;
+            color: $color1;
             font-size: 20px;
         }
     }
@@ -301,7 +343,9 @@ nav{
 
 
 
-
+.sf-toolbar{
+	display: none !important;
+}
 
 
 

@@ -10,17 +10,17 @@
             
             <section>
                
-                <h1>Dans quel hall menez-vous l'enquête ?</h1>
+                <h1>Sélectionnez un candidat</h1>
                 
-                <p>Sélectionnez le hall dans lequel vous vous trouvez.</p>
+                <p>Vous pouvez voter une fois par candidat.</p>
             
                 <ul class="hallSelector">
                     {% for hall in halls %}
                     <li>
                         {% if player.isHallDone(hall.id) %}
-                            <span>Hall {{ hall.name }}</span>
+                            <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.id }} - {{ hall.name }}</a>
                         {% else %}
-                            <a href="{{ path('game_hall', {name: hall.name}) }}">Hall {{ hall.name }}</a>
+                            <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.id }} - {{ hall.name }}</a>
                         {% endif %}
                     </li>
                     {% endfor %}
