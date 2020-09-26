@@ -21,7 +21,7 @@
 
             <ul id="template" style="display: none">
                 {% for note in notes|reverse %}
-                    <li class="{{ loop.index0 == 0 ? 'gagnant' }}">{{ note.name }}</li>
+                    <li class="{{ loop.last ? 'gagnant' }}">{{ note.name }}</li>
                 {% endfor %}
             </ul>
 
