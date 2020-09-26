@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Prix du public de Grand Prix de la Chanson 2020</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/screen.css') }}">
+
+</head>
+
+<body>
+
+<div class="screenCenter">
+
+    <div>
+
+        <p class="txtcenter"><img src="/img/title.png" alt="56e Grand Prix de la Chanson"><br>Prix du public</p>
+
+        <div id="lottery">
+
+            <ul id="template" style="display: none">
+                {% for note in notes|reverse %}
+                    <li class="{{ loop.index0 == 0 ? 'gagnant' }}">{{ note.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <ul id="playersList">
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/fireworks.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/rollroll.js') }}"></script>
+
+</body>
+</html>
+

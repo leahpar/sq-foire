@@ -44,7 +44,6 @@ class AdminController extends EasyAdminController
         //date_default_timezone_set("Europe/Paris");
         $now = (new \DateTime)->modify("-1 hour");
         $today = (new \DateTime)->setTime(0, 0);
-        dump($now, $today);
 
         /** @var Player $player */
         foreach ($players as $player) {
@@ -151,6 +150,18 @@ class AdminController extends EasyAdminController
         $notes = $em->getRepository(Answer::class)->getNotes();
 
         return $this->render('admin/podium.html.twig', [
+            "notes" => $notes,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/roll", name="admin_roll")
+     */
+    public function rollAction(EntityManagerInterface $em)
+    {
+        $notes = $em->getRepository(Answer::class)->getNotes();
+
+        return $this->render('admin/roll.html.twig', [
             "notes" => $notes,
         ]);
     }

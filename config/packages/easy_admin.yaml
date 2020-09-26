@@ -29,6 +29,7 @@ easy_admin:
             - { entity: 'Answer', icon: 'list-ul'}
             - { label: '' }
             - { label: 'Stats', route: 'admin_stats', icon: 'signal' }
+            - { label: 'Roll',  route: 'admin_roll', icon: 'signal' }
             - { label: 'Paramétrage' }
             - { entity: 'Hall', icon: 'building'}
             - { entity: 'Question', icon: 'question'}
