@@ -45,23 +45,26 @@ easy_admin:
             label: Halls
             list:
                 max_results: 50
-                sort: [ 'name', 'ASC' ]
+                sort: [ 'tri', 'ASC' ]
                 fields:
-                    - 'id'
+                    #- 'id'
                     #- { property: 'fullName', type: 'string', label: 'hall' }
+                    - { property: 'tri',  type: 'integer', label: 'ordre d''affichage' }
                     - { property: 'name', type: 'string', label: 'candidat' }
                     - 'questions'
                     - { property: 'pubs', type: 'array' }
                     - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
             show:
                 fields:
-                    - 'id'
+                    #- 'id'
                     - 'name'
+                    - 'tri'
                     - 'questions'
                     - 'pubs'
                     - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
             form:
                 fields:
+                    - 'tri'
                     - 'name'
 
 

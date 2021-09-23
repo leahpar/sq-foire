@@ -24,6 +24,11 @@ class Hall
     private $name;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tri;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="hall")
      */
     private $questions;
@@ -149,5 +154,17 @@ class Hall
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getTri(): ?int
+    {
+        return $this->tri;
+    }
+
+    public function setTri($tri): self
+    {
+        $this->tri = $tri;
+
+        return $this;
     }
 }

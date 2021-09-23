@@ -108,8 +108,7 @@ class GameController extends AbstractController
             return $this->redirectToRoute("game_start");
         }
 
-        //$halls = $em->getRepository(Hall::class)->findBy([], ['name' => 'ASC']);
-        $halls = $em->getRepository(Hall::class)->findBy([], ['id' => 'ASC']);
+        $halls = $em->getRepository(Hall::class)->findBy([], ['tri' => 'ASC']);
 
         return $this->render('game/halls.html.twig', [
             'halls' => $halls,
