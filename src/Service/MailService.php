@@ -30,7 +30,7 @@ class MailService
                     'From' => [
                         'Email' => "jeu@smartquiz.fr",
                         //'Name' => "Enquête à la foire"
-                        'Name' => "56e grand prix de la chanson"
+                        'Name' => "Grand Prix de la Chanson de Lillebonne"
                     ],
                     'To' => [
                         [
@@ -38,7 +38,7 @@ class MailService
                         ]
                     ],
                     //'Subject' => "Inscription à l'enquête à la foire",
-                    'Subject' => "Prix du public du grand prix de la chanson",
+                    'Subject' => "Prix du public du Grand Prix de la Chanson",
                     'TextPart' => $message,
                     //'HTMLPart' => "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
                 ]

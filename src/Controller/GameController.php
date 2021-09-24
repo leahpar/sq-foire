@@ -364,7 +364,7 @@ class GameController extends AbstractController
         $url .= "?t=" . $token;
 
         $message = <<<EOF
-Bienvenue au 56e grand prix de la chanson
+Bienvenue au Grand Prix de la Chanson
 
 Cliquez ici pour vous connecter à votre compte et voter pour vos candidats préférés :
 $url

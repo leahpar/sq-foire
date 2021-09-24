@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, maximum-scale=5">
 
-    <meta name="description" content='56e Grand Prix de la Chanson de Lillebonne'>
+    <meta name="description" content='57e Grand Prix de la Chanson de Lillebonne'>
 
-    <meta property="og:title" content='56e Grand Prix de la Chanson de Lillebonne"'>
+    <meta property="og:title" content='57e Grand Prix de la Chanson de Lillebonne"'>
     <meta property="og:description" content='Votez pour votre candidat préféré'>
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('game_start') }}">
     <meta property="og:image" content="{{ url('game_index') }}img/title.png">
 
-    <title>{% block title %}56e Grand Prix de la Chanson de Lillebonne{% endblock %}</title>
+    <title>{% block title %}57e Grand Prix de la Chanson de Lillebonne{% endblock %}</title>
     
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
@@ -27,6 +27,10 @@
 
 </head>
 <body>
+    
+    <a href="https://www.horizon-fm.fr/" target="_blank" id="horizonBanner" class="pas" title="Écouter en direct sur Horizon FM">
+        À suivre sur <img src="{{ asset('img/logoHorizon.jpg') }}" alt="Horizon - La radio libre">
+    </a>
 
     <header>
         {% if app.user %}
