@@ -41,5 +41,6 @@ $( document ).ready(function() {
 	   if(e.keyCode === 32) {
 		   rollroll();
 	   }
-});
+	});
+
 });
