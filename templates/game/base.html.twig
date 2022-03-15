@@ -5,40 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, maximum-scale=5">
 
-    <meta name="description" content='57e Grand Prix de la Chanson de Lillebonne'>
+    <meta name="description" content='Grand jeu Foire de Rouen 2022'>
 
-    <meta property="og:title" content='57e Grand Prix de la Chanson de Lillebonne"'>
-    <meta property="og:description" content='Votez pour votre candidat préféré'>
+    <meta property="og:title" content='Grand jeu Foire de Rouen 2022'>
+    <meta property="og:description" content='Participez au grand jeu de la foire de Rouen et remportez des cadeaux !'>
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('game_start') }}">
-    <meta property="og:image" content="{{ url('game_index') }}img/title.png">
+    <meta property="og:image" content="{{ url('game_index') }}img/titre.png">
 
-    <title>{% block title %}57e Grand Prix de la Chanson de Lillebonne{% endblock %}</title>
+    <title>{% block title %}Grand jeu Viking de la Foire de Rouen 2022{% endblock %}</title>
     
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-
-    <style>
-        todo {
-            color: black;
-            background-color: red;
-            border: 2px solid yellow;
-        }
-    </style>
 
 </head>
 <body>
     
-    <a href="https://www.horizon-fm.fr/" target="_blank" id="horizonBanner" class="pas" title="Écouter en direct sur Horizon FM">
+    {# <a href="https://www.horizon-fm.fr/" target="_blank" id="horizonBanner" class="pas" title="Écouter en direct sur Horizon FM">
         À suivre sur <img src="{{ asset('img/logoHorizon.jpg') }}" alt="Horizon - La radio libre">
-    </a>
+    </a> #}
 
     <header>
         {% if app.user %}
         id joueur : #{{ app.user.id }}
         {% endif %}
     </header>
-
+    
     <nav>
+        <a href="#" aria-label="Afficher le menu" class="navLink"><img src="{{ asset('img/navIcon.svg') }}" alt="menu"></a>
+        <ul>
+            <li><a href="{{ path('game_index') }}">Le jeu</a></li>
+            <li><a href="{{ path('game_howto') }}">Comment jouer ?</a></li>
+            <li><a href="{{ asset('plan-foire.jpg') }}" target="_blank">Plan de la foire</a></li>
+            {% if app.user is null %}
+                <li><a href="{{ path('game_token_signup') }}">Connexion par code</a></li>
+            {% endif %}
+            <li><a href="{{ asset('reglement2022.pdf') }}" target="_blank">Règlement</a></li>
+            {#<li><a href="{{ path('game_rules') }}">Règlement</a></li>#}
+        </ul>
+    </nav>
+
+    {#<nav>
         <a href="#" aria-label="Afficher le menu" class="navLink"><img src="{{ asset('img/navIcon.svg') }}" alt="menu"></a>
         <ul>
             <li><a href="{{ path('game_index') }}">Voter pour le prix du public</a></li>
@@ -47,9 +53,8 @@
                 <li><a href="{{ path('game_token_signup') }}">Connexion par code</a></li>
             {% endif %}
             <li><a href="{{ path('game_rules') }}">Règlement</a></li>
-            {#<li><a href="{{ path('game_share') }}" target="_blank">Partager sur Facebook</a></li>#}
         </ul>
-    </nav>
+    </nav>#}
 
     {% block content %}{% endblock %}
     

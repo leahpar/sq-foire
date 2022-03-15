@@ -8,28 +8,28 @@
         
         <div class="content">
             
-            {#
+            
             <section>
                
-                <h1>Sélectionnez un candidat</h1>
+                <h1>Dans quel hall partez-vous en raid ?</h1>
                 
-                <p>Vous pouvez voter une fois par candidat.</p>
+                <p>Sélectionnez le hall dans lequel vous vous trouvez.</p>
             
                 <ul class="hallSelector">
                     {% for hall in halls %}
                     <li>
                         {% if player.isHallDone(hall.id) %}
-                            <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.id }} - {{ hall.name }}</a>
+                            <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.name }}</a>
                         {% else %}
-                            <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.id }} - {{ hall.name }}</a>
+                            <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.name }}</a>
                         {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
     
             </section>
-            #}
-
+            
+            {#
             <section>
             
             	<h2>Félicitations !</h2>
@@ -39,8 +39,9 @@
             	<p>Rendez-vous <strong>le 25 septembre</strong> pour voter en live pour votre candidat préféré, de chez vous ou du Juliobona de Lillebonne !</p>
             
             </section>
+            #}
 
-            {#
+            
             <section class="graySection">
 
                 <h2>Doubler mes chances</h2>
@@ -50,7 +51,6 @@
                 <p><a href="{{ path('game_share') }}" target="_blank" class="button redButton">Partager</a></p>
 
             </section>
-            #}
 
         </div>
 </div>

@@ -30,12 +30,40 @@
                         {% if errors.email is defined %} <span class="error">Cette adresse mail est déjà utilisée.</span> {% endif %}
                     </p>
                     
+                    <p><label>Numéro de portable</label><input type="tel" name="data[tel]"  value="{{ form.data is defined ? form.data.tel }}" required>
+                    {% if errors.tel is defined %} <span class="error">Ce numéro de téléphone est déjà utilisé.</span> {% endif %}
+            </p>
+                        
+                        <p><label>Ville</label><input type="text" name="data[ville]"  value="{{ form.data is defined ? form.data.ville }}" required></p>
+                    
+
                     <p>
-                        Nous collectons ces données uniquement afin de gérer votre participation au vote. En savoir plus sur la gestion de vos données et vos droits
-                        <a href="{{ path('game_rules') }}">ici</a>.
+                        Nous collectons ces données afin de gérer votre inscription au tirage au sort. En cas de victoire,
+                        vous serez averti par email et par SMS. En savoir plus sur la gestion de vos données et vos droits
+                        <a href="{{ asset('reglement2022.pdf') }}" target="_blank">ici</a>.
                     </p>
 
-                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ path('game_rules') }}">règlement</a></p>
+
+                    <p>Nous collectons des données pour permettre
+                        à ROUEN-EXPO EVENEMENTS et ses partenaires (<a href="{{ asset('reglement2022.pdf') }}" target="_blank">voir la liste</a>) de vous
+                        adresser des publicités. Pour le permettre, cochez les cases ci-dessous :</p>
+                        
+                    <p><input type="checkbox"
+                                   id="form_auth_sms_pub"
+                                   name="data[authSmsPub]"
+                                    {{ form.data is defined and form.data.authSmsPub is defined and form.data.authSmsPub ? 'checked'}}>
+                                    J'accepte de recevoir par SMS des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.</p>
+                                    
+                    <p>
+                    	<input type="checkbox"
+                                   id="form_auth_mail_pub"
+                                   name="data[authMailPub]"
+                                    {{ form.data is defined and form.data.authMailPub is defined and form.data.authMailPub ? 'checked'}}>
+                                J'accepte de recevoir par email des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.
+                    </p>
+
+
+                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ asset('reglement2022.pdf') }}" target="_blank">règlement</a></p>
 
                     <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
             

@@ -9,13 +9,22 @@ $beige:#ac884b;
 $gray:#3d3d3d;
 $lightgray:#f0f0f0;
 
-$color1:#e34686;
-$color2:#3d5aa8;
+$color1:#fff;
+$color2:#f7c76e;
+
+$bgSections:#1e1e1e;
+
+todo {
+    color: black;
+    background-color: red;
+    border: 2px solid yellow;
+}
 
 body{
     margin: 0px;
     
-    background: #efefef;
+    background: #000 url(../img/bg-vikings.jpg) no-repeat center top fixed;
+    background-size: contain;
     box-sizing: border-box;
     
     font-family: 'Rubik';
@@ -25,6 +34,12 @@ body{
     -webkit-font-smoothing: antialiased;
 
 }
+@media screen and (max-width: 840px) {
+  body{
+      background-size: auto;
+  }
+}
+
 h1, h2, h3, h4, h5, a{
     -webkit-font-smoothing: antialiased;
 }
@@ -47,10 +62,10 @@ h5{
     text-transform: uppercase;
     font-weight: normal;
     font-size: 14px;
-    color: $blue;
+    color: $color1;
 }
 a{
-    color: $blue;
+    color: $color2;
 }
 
 .txtcenter{
@@ -128,7 +143,7 @@ form{
 }
 
 .graySection{
-    background: $lightgray;
+    background: $bgSections;
     //background: #fff;
 }
 
@@ -156,7 +171,7 @@ nav{
         
         width: 100%;
         height: 100vh;
-        background: rgba(25,0,21,0.9);
+        background: rgba(0,0,0,0.9);
         
         ul{
             display: block;
@@ -202,7 +217,7 @@ nav{
                 font-size: 22px;
                 
                 &:hover, &:active{
-                    color: #fff;
+                    color: $bgSections;
                     background: $color1;
                 }
             }
@@ -213,15 +228,19 @@ nav{
 #mainWrapper{
     height: 100vh;
     display: grid;
-    grid-template-rows: 220px 1fr;
+    grid-template-rows: 300px 1fr;
     
-    background:  #00010a url(../img/background.jpg) no-repeat center 0px;
-    background-size: 800px;
+    //background:  #00010a url(../img/background.jpg) no-repeat center 0px;
+    //background-size: 800px;
     
     &.bigCover{
         grid-template-rows: 450px 1fr;
         background-position-y: top;
         background-size: auto;
+        
+        .clouds{
+            background-size: auto 450px;
+        }
     }
     
     .clouds{
@@ -230,25 +249,13 @@ nav{
         
         overflow: hidden;
                 
-        //background: url(../img/bg_clouds.png) center bottom repeat-x;
-        
-        &:after{
-            content: "";
-            position: absolute;
-            bottom: -50px;
-            left: -5vw;
-            
-            width: 110vw;
-            height: 100px;
-            
-            transform: rotate(-2deg);
-            
-            background: #fff;
-        }
+        background: url(../img/bg-silhouette.png) center bottom repeat-x;
+        background-size: auto 300px;
     }
     .content{
         
-        background: #fff;
+        background: #000;
+        color: #fff;
         
         text-align: center;
         
@@ -263,9 +270,16 @@ nav{
     
 }
 
+@media screen and (max-width: 840px) {
+  #mainWrapper{
+      .clouds{
+          background-size: cover;
+      }
+  }
+}
+
 .logo{
     position: relative;
-    top: -80px;
     height: 170px;
     
     img{

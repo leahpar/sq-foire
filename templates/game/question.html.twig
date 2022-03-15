@@ -10,15 +10,15 @@
             
             <section>
 
-                <h5>Candidat n°{{ hall.id }}</h5>
+                <h5>{{ hall.name }}</h5>
                 
-                <h1 class="nomargin">Notez la prestation de {{ hall.name }} ?</h1>
+                <h1 class="nomargin">{{ question.question|raw }}</h1>
                 
                 <p>&nbsp;</p>
                 
                 <p><em>{{ question.text|raw }}</em></p>
             
-                <form method="post">
+                {#<form method="post">
                     <ul class="buttonList">
                         <li><button name="answer" value="1">&starf; &star; &star; &star; &star;</button></li>
                         <li><button name="answer" value="2">&starf; &starf; &star; &star; &star;</button></li>
@@ -26,10 +26,18 @@
                         <li><button name="answer" value="4">&starf; &starf; &starf; &starf; &star;</button></li>
                         <li><button name="answer" value="5">&starf; &starf; &starf; &starf; &starf;</button></li>
                     </ul>
+                </form>#}
+                
+                <form method="post">
+                    <ul class="buttonList">
+                    {% for answer in question.answersRandom %}
+                        <li><input type="submit" name="answer" value="{{ answer }}"></li>
+                    {% endfor %}
+                    </ul>
                 </form>
             
                 <br>
-                <a href="{{ path('game_halls') }}">Retour à la liste des candidats</a>
+                <a href="{{ path('game_halls') }}">Retour à la liste des halls</a>
     
             </section>
 
