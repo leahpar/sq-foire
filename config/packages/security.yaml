@@ -18,6 +18,7 @@ security:
         dev:
             pattern: ^/(css|images|js)/
             security: false
+
         admin:
             pattern: ^/(admin|_profiler|_wdt)
             anonymous: false
@@ -28,16 +29,9 @@ security:
                 path:   /logout
                 target: /
                 invalidate_session: true
+
         main:
             anonymous: true
-
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
 
             logout:
                 path:   /logout

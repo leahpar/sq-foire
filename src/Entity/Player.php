@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
  */
-class Player implements UserInterface, EquatableInterface
+//class Player implements UserInterface, EquatableInterface
+class Player implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
+
 {
     /**
      * @ORM\Id()
@@ -239,7 +242,7 @@ class Player implements UserInterface, EquatableInterface
      *
      * @return string The password
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return '';
     }

@@ -2,29 +2,27 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Twig\Environment;
 
 
 class ClosedListener
 {
     private $closedFile;
-    /**
-     * @var \Twig_Environment
-     */
     private $twig;
 
 
     /**
      * ClosedListener constructor.
      */
-    public function __construct(\Twig_Environment $twig, $closedFilePath)
+    public function __construct(Environment $twig, $closedFilePath)
     {
         $this->closedFile = $closedFilePath;
         $this->twig = $twig;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         $closed = file_exists($this->closedFile);
 
