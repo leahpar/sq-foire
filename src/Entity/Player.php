@@ -49,7 +49,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     private $lastRandom;
 
     /**
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
     private $data;
 

@@ -77,7 +77,7 @@ class Hall
     /**
      * @return Question
      */
-    public function getQuestion(): Question
+    public function getQuestion(): ?Question
     {
         return $this->questions[0] ?? null;
     }
