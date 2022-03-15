@@ -3,48 +3,53 @@
 namespace App\Service;
 
 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+
 class MailService
 {
-    /** @var \Mailjet\Client */
-    private $mj;
 
+    private MailerInterface $mailer;
 
-    /**
-     * MailService constructor.
-     */
-    public function __construct()
+    public function __construct(MailerInterface $mailer)
     {
-        $this->mj = new \Mailjet\Client(
-            getenv('MJ_APIKEY_PUBLIC'),
-            getenv('MJ_APIKEY_PRIVATE'),
-            true,
-            ['version' => 'v3.1']
-        );
+        $this->mailer = $mailer;
     }
 
     public function send($target, $message) {
 
+        /*
         $body = [
             'Messages' => [
                 [
                     'From' => [
                         'Email' => "jeu@smartquiz.fr",
-                        //'Name' => "Enquête à la foire"
-                        'Name' => "Grand Prix de la Chanson de Lillebonne"
+                        'Name' => "Foire de Rouen"
+                        //'Name' => "Grand Prix de la Chanson de Lillebonne"
                     ],
                     'To' => [
                         [
                             'Email' => $target,
                         ]
                     ],
-                    //'Subject' => "Inscription à l'enquête à la foire",
-                    'Subject' => "Prix du public du Grand Prix de la Chanson",
+                    'Subject' => "Inscription au grand jeu de la foire de Rouen",
+                    //'Subject' => "Prix du public du Grand Prix de la Chanson",
                     'TextPart' => $message,
                     //'HTMLPart' => "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
                 ]
             ]
         ];
         $response = $this->mj->post(\Mailjet\Resources::$Email, ['body' => $body]);
-        return $response;
+        */
+
+        $email = (new Email())
+            ->from(new Address("jeu@smartquiz.fr", "Foire de Rouen"))
+            ->to($target)
+            ->subject("Inscription au grand jeu de la foire de Rouen")
+            ->text($message)
+        ;
+
+        $this->mailer->send($email);
     }
 }

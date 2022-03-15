@@ -8,18 +8,35 @@ use Ovh\Api;
 class SMSService
 {
 
-    /**
-     * @param $target
-     * @param $message
-     */
+    private string $OVH_API_APP_KEY;
+    private string $OVH_API_APP_SECRET;
+    private string $OVH_API_ENDPOINT;
+    private string $OVH_API_CONSUMER_KEY;
+    private string $OVH_SMS_SERVICE;
+
+    public function __construct(
+        string $OVH_API_APP_KEY,
+        string $OVH_API_APP_SECRET,
+        string $OVH_API_ENDPOINT,
+        string $OVH_API_CONSUMER_KEY,
+        string $OVH_SMS_SERVICE
+    ) {
+        $this->OVH_API_APP_KEY = $OVH_API_APP_KEY;
+        $this->OVH_API_APP_SECRET = $OVH_API_APP_SECRET;
+        $this->OVH_API_ENDPOINT = $OVH_API_ENDPOINT;
+        $this->OVH_API_CONSUMER_KEY = $OVH_API_CONSUMER_KEY;
+        $this->OVH_SMS_SERVICE = $OVH_SMS_SERVICE;
+    }
+
     public function send(String $target, String $message)
     {
         try {
             $conn = new Api(
-                getenv("OVH_API_APP_KEY"),
-                getenv("OVH_API_APP_SECRET"),
-                getenv("OVH_API_ENDPOINT"),
-                getenv("OVH_API_CONSUMER_KEY"));
+                $this->OVH_API_APP_KEY,
+                $this->OVH_API_APP_SECRET,
+                $this->OVH_API_ENDPOINT,
+                $this->OVH_API_CONSUMER_KEY
+            );
 
             //dump($target);
             $target = preg_replace('#[^0-9\+]#', '', $target);
@@ -27,16 +44,13 @@ class SMSService
             $target = preg_replace('#^0#', '+33', $target);
             //dump($target);
 
-            /*
-            $smsServices = $conn->get('/sms/');
-            foreach ($smsServices as $smsService) {
+            //$smsServices = $conn->get('/sms/');
+            //foreach ($smsServices as $smsService) {
+            //    dump($smsService);
+            //}
 
-                print_r($smsService);
-            }
-            die();
-            */
-
-            $smsService = getenv("OVH_SMS_SERVICE");
+            //$smsService = getenv("OVH_SMS_SERVICE");
+            $smsService = $this->OVH_SMS_SERVICE;
 
             $content = (object)array(
                 "charset" => "UTF-8",
@@ -52,11 +66,11 @@ class SMSService
             );
             $resultPostJob = $conn->post('/sms/' . $smsService . '/jobs/', $content);
 
-            //dump($resultPostJob);
+            dump($resultPostJob);
             //return $resultPostJob
         }
         catch (\Exception $e) {
-            // ...
+            dump($e);
         }
     }
 }

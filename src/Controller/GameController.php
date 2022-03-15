@@ -363,16 +363,14 @@ class GameController extends AbstractController
         $url .= "?t=" . $token;
 
         $message = <<<EOF
-Bienvenue au Grand Prix de la Chanson
+Bienvenue au grand jeu Vikings de la foire de Rouen
 
-Cliquez ici pour vous connecter à votre compte et voter pour vos candidats préférés :
+Cliquez ici pour vous connecter à votre compte et commencer à jouer :
 $url
 
 Bonne soirée !
 EOF;
-        $response = $this->mail->send($player->getEmail(), $message);
-        //dump($response);
-
+        $this->mail->send($player->getEmail(), $message);
 
         return $player;
     }
