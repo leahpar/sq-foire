@@ -33,7 +33,7 @@ easy_admin:
             - { label: 'Paramétrage' }
             - { entity: 'Hall', icon: 'building'}
             - { entity: 'Question', icon: 'question'}
-            - { entity: 'Pub', icon: 'image'}
+            #- { entity: 'Pub', icon: 'image'}
             - { label: 'Site' }
             - { label: 'Fermer',  route: 'admin_onoff', params: {closed: 1}, icon: 'lock' }
             - { label: 'Ouvrir',  route: 'admin_onoff', params: {closed: 0}, icon: 'unlock' }
@@ -49,10 +49,10 @@ easy_admin:
                 fields:
                     #- 'id'
                     #- { property: 'fullName', type: 'string', label: 'hall' }
-                    - { property: 'tri',  type: 'integer', label: 'ordre d''affichage' }
-                    - { property: 'name', type: 'string', label: 'candidat' }
+                    - { property: 'tri',  type: 'integer', label: 'Ordre d''affichage' }
+                    - { property: 'name', type: 'string', label: 'Hall' }
                     - 'questions'
-                    - { property: 'pubs', type: 'array' }
+                    #- { property: 'pubs', type: 'array' }
                     - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
             show:
                 fields:
@@ -60,7 +60,7 @@ easy_admin:
                     - 'name'
                     - 'tri'
                     - 'questions'
-                    - 'pubs'
+                    #- 'pubs'
                     - { property: 'hasExclu', label: 'exclu', type: 'boolean' }
             form:
                 fields:
