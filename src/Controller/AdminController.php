@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Answer;
 use App\Entity\Hall;
 use App\Entity\Player;
+use App\Entity\Sms;
 use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AdminController extends EasyAdminController
 {
-    
+
     /**
      * @Route("/admin/rand_player", name="rand_player")
      * @param EntityManagerInterface $em
@@ -253,6 +254,42 @@ class AdminController extends EasyAdminController
         }
 
         return $this->redirectToRoute("easyadmin");
+    }
+
+    /**
+     * @Route("/admin/envoyersms", name="envoyer")
+     */
+    public function envoyerSmsAction(Request $request, SMSService $SMSService, EntityManagerInterface $em)
+    {
+        // controllers extending the EasyAdminController get access to the
+        // following variables:
+        //   $this->request, stores the current request
+        //   $this->em, stores the Entity Manager for this Doctrine entity
+
+        // change the properties of the given entity and save the changes
+        $id = $request->query->get('id');
+        $sms = $em->getRepository(Sms::class)->find($id);
+
+        $players = $em->getRepository(Player::class)->findAll();
+    dump($players);
+
+        $cpt = 0;
+        /** @var Player $player */
+        foreach ($players as $player) {
+            if (($player->getData()["authSmsPub"]??"off") != "on") continue;
+
+            $SMSService->send($player->getData()['tel'], $sms->getMessage());
+            $cpt++;
+        }
+
+        $this->addFlash("success", $cpt." messages envoyés");
+
+        // redirect to the 'list' view of the given entity ...
+        return $this->redirectToRoute('easyadmin', [
+            'action' => 'list',
+            'entity' => "Sms",
+        ]);
+
     }
 
 }

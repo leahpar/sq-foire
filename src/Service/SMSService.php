@@ -66,11 +66,11 @@ class SMSService
             );
             $resultPostJob = $conn->post('/sms/' . $smsService . '/jobs/', $content);
 
-            dump($resultPostJob);
+            //dump($resultPostJob);
             //return $resultPostJob
         }
         catch (\Exception $e) {
-            dump($e);
+            //dump($e);
         }
     }
 }

@@ -21,15 +21,16 @@ easy_admin:
                 #css:
                 #    - 'bundles/easyadmin/bootstrap-all.css'
                 js:
-                    - 'bundles/easyadmin/bootstrap-all.js'
+                #    - 'bundles/easyadmin/bootstrap-all.js'
                     - 'js/main.js'
             menu:
             - { label: 'Le jeu' }
             - { entity: 'Player', icon: 'user', default: true}
             - { entity: 'Answer', icon: 'list-ul'}
             - { label: '' }
+            - { entity: 'Sms', icon: 'list-ul'}
             - { label: 'Stats', route: 'admin_stats', icon: 'signal' }
-            - { label: 'Roll',  route: 'admin_roll', icon: 'signal' }
+            #- { label: 'Roll',  route: 'admin_roll', icon: 'signal' }
             - { label: 'Paramétrage' }
             - { entity: 'Hall', icon: 'building'}
             - { entity: 'Question', icon: 'question'}
@@ -121,6 +122,22 @@ easy_admin:
                     - { property: 'imageFile', type: 'vich_image', type_options: {allow_delete: false} }
                     - 'link'
                     - 'exclu'
+
+        Sms:
+            class: App\Entity\Sms
+            label: SMS
+            list:
+                actions:
+                    - { name: 'envoyer', type: 'route' }
+                max_results: 20
+                fields:
+                    - 'message'
+            show:
+                fields:
+                    - 'message'
+            form:
+                fields:
+                    - { property: 'message', type: 'textarea', type_options: { attr: { maxlength: 255 }}}
 
 
         Player:
