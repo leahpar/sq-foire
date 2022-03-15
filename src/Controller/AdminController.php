@@ -271,12 +271,13 @@ class AdminController extends EasyAdminController
         $sms = $em->getRepository(Sms::class)->find($id);
 
         $players = $em->getRepository(Player::class)->findAll();
-    dump($players);
+        $today = (new \DateTime)->setTime(0, 0);
 
         $cpt = 0;
         /** @var Player $player */
         foreach ($players as $player) {
             if (($player->getData()["authSmsPub"]??"off") != "on") continue;
+            if ($player->getLastConnection() < $today) continue;
 
             $SMSService->send($player->getData()['tel'], $sms->getMessage());
             $cpt++;
