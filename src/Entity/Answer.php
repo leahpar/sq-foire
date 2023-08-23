@@ -17,19 +17,6 @@ class Answer
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="answers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Question")
-     * @ORM\JoinColumn(nullable=false)
-     * @var Question
-     */
-    private $question;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $answer;
@@ -47,12 +34,13 @@ class Answer
     /**
      * Answer constructor.
      * @param $player
-     * @param Question $question
      */
-    public function __construct(Player $player, Question $question)
+    public function __construct(/**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Player $player, private Question $question)
     {
-        $this->player = $player;
-        $this->question = $question;
         $this->date = new \DateTime();
     }
 

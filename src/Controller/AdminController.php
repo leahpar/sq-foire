@@ -20,8 +20,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/rand_player", name="rand_player")
-     * @param EntityManagerInterface $em
-     * @param UrlGeneratorInterface $router
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
@@ -31,7 +29,7 @@ class AdminController extends EasyAdminController
 
         if (count($players) > 0) {
             /** @var Player $player */
-            $player = $players[rand(0, count($players) - 1)];
+            $player = $players[random_int(0, count($players) - 1)];
             $player->setLastRandom(new \DateTime());
             $em->flush();
 
@@ -44,16 +42,11 @@ class AdminController extends EasyAdminController
             $this->addFlash("warning", "Aucun joueur disponible");
         }
 
-        return $this->redirectToRoute('easyadmin', array(
-            'action' => 'list',
-            'entity' => 'Player',
-        ));
+        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
     }
 
     /**
      * @Route("/admin/reload", name="reload_players")
-     * @param Request $request
-     * @param EntityManagerInterface $em
      * @return Response
      * @throws \Exception
      */
@@ -69,7 +62,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/notif/{id}", name="notif_player")
-     * @param Player $player
      * @param SMSService $sms
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -86,10 +78,7 @@ class AdminController extends EasyAdminController
             $this->addFlash("success", "SMS envoyé");
         }
 
-        return $this->redirectToRoute('easyadmin', array(
-            'action' => 'list',
-            'entity' => 'Player',
-        ));
+        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
     }
 
     /**
@@ -147,7 +136,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/export")
-     * @param EntityManagerInterface $em
      */
     public function export(EntityManagerInterface $em)
     {
@@ -193,7 +181,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/testsms")
-     * @param Request $request
      * @param SMSService $sms
      * @return Response
      */

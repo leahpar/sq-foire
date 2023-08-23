@@ -42,7 +42,7 @@ class MailCommand extends Command
                             //'Name' => "passenger 1"
                         ]
                     ],
-                    'Subject' => "Some test mail (" . rand(100,999) . ")",
+                    'Subject' => "Some test mail (" . random_int(100,999) . ")",
                     'TextPart' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt...\nhttps://google.com\n",
                     //'HTMLPart' => "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
                 ]

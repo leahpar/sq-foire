@@ -8,24 +8,8 @@ use Ovh\Api;
 class SMSService
 {
 
-    private string $OVH_API_APP_KEY;
-    private string $OVH_API_APP_SECRET;
-    private string $OVH_API_ENDPOINT;
-    private string $OVH_API_CONSUMER_KEY;
-    private string $OVH_SMS_SERVICE;
-
-    public function __construct(
-        string $OVH_API_APP_KEY,
-        string $OVH_API_APP_SECRET,
-        string $OVH_API_ENDPOINT,
-        string $OVH_API_CONSUMER_KEY,
-        string $OVH_SMS_SERVICE
-    ) {
-        $this->OVH_API_APP_KEY = $OVH_API_APP_KEY;
-        $this->OVH_API_APP_SECRET = $OVH_API_APP_SECRET;
-        $this->OVH_API_ENDPOINT = $OVH_API_ENDPOINT;
-        $this->OVH_API_CONSUMER_KEY = $OVH_API_CONSUMER_KEY;
-        $this->OVH_SMS_SERVICE = $OVH_SMS_SERVICE;
+    public function __construct(private readonly string $OVH_API_APP_KEY, private readonly string $OVH_API_APP_SECRET, private readonly string $OVH_API_ENDPOINT, private readonly string $OVH_API_CONSUMER_KEY, private string $OVH_SMS_SERVICE)
+    {
     }
 
     public function send(String $target, String $message)
@@ -52,7 +36,7 @@ class SMSService
             //$smsService = getenv("OVH_SMS_SERVICE");
             $smsService = $this->OVH_SMS_SERVICE;
 
-            $content = (object)array(
+            $content = (object)[
                 "charset" => "UTF-8",
                 "class" => "phoneDisplay",
                 "coding" => "7bit",
@@ -63,13 +47,13 @@ class SMSService
                 "senderForResponse" => true,
                 //"sender" => ""  // Required if senderForResponse is false
                 "validityPeriod" => 2880,
-            );
+            ];
             $resultPostJob = $conn->post('/sms/' . $smsService . '/jobs/', $content);
 
             //dump($resultPostJob);
             //return $resultPostJob
         }
-        catch (\Exception $e) {
+        catch (\Exception) {
             //dump($e);
         }
     }

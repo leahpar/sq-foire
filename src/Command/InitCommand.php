@@ -14,19 +14,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class InitCommand extends Command
 {
     protected static $defaultName = 'app:init';
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
 
     /**
      * InitCommand constructor.
      * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em)
     {
-        $this->em = $em;
-
         parent::__construct();
     }
 

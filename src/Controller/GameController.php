@@ -19,14 +19,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class GameController extends AbstractController
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
-    /**
      * @var MailService
      */
     private $mail;
@@ -35,14 +27,10 @@ class GameController extends AbstractController
 
     /**
      * GameController constructor.
-     * @param EntityManagerInterface $em
-     * @param UrlGeneratorInterface $router
      * @param MailService $mail
      */
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router, MailService $mail)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $router, MailService $mail)
     {
-        $this->em = $em;
-        $this->router = $router;
         $this->mail = $mail;
     }
 
@@ -97,7 +85,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/jeu/halls", name="game_halls")
-     * @param EntityManagerInterface $em
      * @return Response
      */
     public function hallsAction(EntityManagerInterface $em)
@@ -118,9 +105,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/jeu/halls/{name}", name="game_hall")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param Hall $hall
      * @return Response
      */
     public function hallAction(Request $request, EntityManagerInterface $em, Hall $hall)
@@ -212,8 +196,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/share", name="game_share")
-     * @param Request $request
-     * @param EntityManagerInterface $em
      * @return Response
      */
     public function shareAction(Request $request, EntityManagerInterface $em)
@@ -230,7 +212,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/inscription", name="game_signup")
-     * @param Request $request
      * @return Response
      */
     public function signupAction(Request $request) {
@@ -263,8 +244,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/code", name="game_token_signup")
-     * @param EntityManagerInterface $em
-     * @param Request $request
      * @return Response
      */
     public function tokenLoginAction(EntityManagerInterface $em, Request $request)
@@ -293,7 +272,6 @@ class GameController extends AbstractController
 
     /**
      * @Route("/inscription-accueil", name="game_remote_signup")
-     * @param Request $request
      * @return Response
      */
     public function remoteSignupAction(Request $request) {
@@ -316,7 +294,6 @@ class GameController extends AbstractController
     }
 
     /**
-     * @param Request $request
      * @return Player|null
      */
     private function signupPlayer(Request $request)

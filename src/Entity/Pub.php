@@ -169,7 +169,6 @@ class Pub
     }
 
     /**
-     * @param \DateTime $updatedAt
      * @return Pub
      */
     public function setUpdatedAt(\DateTime $updatedAt): self
