@@ -9,16 +9,14 @@ use Twig\Environment;
 
 class ClosedListener
 {
-    /**
-     * ClosedListener constructor.
-     */
-    public function __construct(private readonly Environment $twig, private $closedFile)
-    {
-    }
+    public function __construct(
+        private readonly Environment $twig,
+        private readonly string $closedFilePath
+    ) {}
 
     public function onKernelRequest(RequestEvent $event)
     {
-        $closed = file_exists($this->closedFile);
+        $closed = file_exists($this->closedFilePath);
 
         // Rien à faire si le site n'est pas fermé
         if (!$closed) return;
