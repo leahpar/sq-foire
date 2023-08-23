@@ -10,6 +10,7 @@ use App\Entity\Question;
 use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -181,7 +182,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/inscription', name: 'game_signup')]
-    public function signup(Request $request) {
+    public function signup(Request $request, Security $security) {
 
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
@@ -193,12 +194,7 @@ class GameController extends AbstractController
             $player = $this->signupPlayer($request);
 
             if ($player) {
-                // Manually authenticate user
-                $token = new UsernamePasswordToken($player, null, 'main', ["ROLE_USER"]);
-                $this->get('security.token_storage')->setToken($token);
-                $this->get('session')->set('_security_main', serialize($token));
-
-
+                $security->login($player, 'form_login');
                 return $this->redirectToRoute("game_halls");
             }
         }
@@ -256,10 +252,15 @@ class GameController extends AbstractController
 
     private function signupPlayer(Request $request): ?Player
     {
-        $email = $request->request->get('email');
-        $name = $request->request->get('name', []);
+        $post = $request->request->all();
+        //$email = $request->request->get('email');
+        //$name = $request->request->get('name', []);
+        //$name = trim(implode(' ', $name));
+        //$data = $request->request->get('data', []);
+        $email = $post['email'] ?? '';
+        $name = $post['name'] ?? [];
         $name = trim(implode(' ', $name));
-        $data = $request->request->get('data', []);
+        $data = $post['data'] ?? [];
 
         $player = null;
         $this->errors = [];

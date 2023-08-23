@@ -45,6 +45,9 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $token;
 
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
     /**
      * Player constructor.
      */
@@ -196,7 +199,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
         $this->data[$name] = $value;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return ["ROLE_USER"];
     }
@@ -265,9 +268,14 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
      * @param UserInterface $user
      * @return bool
      */
-    public function isEqualTo(UserInterface $user)
+    public function isEqualTo(UserInterface $user): bool
     {
         return $this->getUsername() == $user->getUsername();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
     }
 
     public function getEmail(): ?string
@@ -302,6 +310,13 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }
