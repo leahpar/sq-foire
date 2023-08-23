@@ -4,44 +4,32 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\AnswerRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\AnswerRepository::class)]
 class Answer
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $answer;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private $date;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $good;
 
     public function __construct(
-        /**
-         * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="answers")
-         * @ORM\JoinColumn(nullable=false)
-         */
+        #[ORM\ManyToOne(targetEntity: 'App\Entity\Player', inversedBy: 'answers')]
+        #[ORM\JoinColumn(nullable: false)]
         private Player $player,
         /**
-         * @ORM\ManyToOne(targetEntity="App\Entity\Question")
-         * @ORM\JoinColumn(nullable=false)
          * @var Question
          */
+        #[ORM\ManyToOne(targetEntity: 'App\Entity\Question')]
+        #[ORM\JoinColumn(nullable: false)]
         private Question $question,
     ) {
         $this->date = new \DateTime();

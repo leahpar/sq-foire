@@ -6,36 +6,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\HallRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\HallRepository::class)]
 class Hall
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
+    #[ORM\Column(type: 'string', length: 20)]
     private $name;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $tri;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="hall")
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Question', mappedBy: 'hall')]
     private $questions;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Pub", mappedBy="halls")
-     */
+    #[ORM\ManyToMany(targetEntity: 'App\Entity\Pub', mappedBy: 'halls')]
     private $pubs;
 
     public function __construct()

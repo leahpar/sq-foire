@@ -5,21 +5,15 @@ namespace App\Entity;
 use App\Repository\SmsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=SmsRepository::class)
- */
+#[ORM\Entity(repositoryClass: SmsRepository::class)]
 class Sms
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=140)
-     */
+    #[ORM\Column(type: 'string', length: 140)]
     private $message;
 
     public function getId(): ?int

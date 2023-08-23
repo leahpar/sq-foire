@@ -9,31 +9,23 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PubRepository")
  * @Vich\Uploadable
  */
+#[ORM\Entity(repositoryClass: \App\Repository\PubRepository::class)]
 class Pub
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Hall", inversedBy="pubs")
-     */
+    #[ORM\ManyToMany(targetEntity: 'App\Entity\Hall', inversedBy: 'pubs')]
     private $halls;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
     /**
@@ -43,19 +35,15 @@ class Pub
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $link;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $exclu;
 
     public function __construct()

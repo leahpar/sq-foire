@@ -21,7 +21,7 @@ return static function (RectorConfig $rectorConfig): void {
 //        Rector\Symfony\Set\SymfonySetList::SYMFONY_64,              // ⚠️ TODO
 //        Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY,  // ⚠️ TODO
         Rector\Symfony\Set\SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,   // ✅
-//        \Rector\Doctrine\Set\DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,    // ⚠️ TODO
+        \Rector\Doctrine\Set\DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,    // ✅
     ]);
 
     // Règles ignorées pour l'instant (non bloquantes) ou ignorées tout court (inutiles)
