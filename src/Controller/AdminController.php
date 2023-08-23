@@ -18,11 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class AdminController extends EasyAdminController
 {
 
-    /**
-     * @Route("/admin/rand_player", name="rand_player")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Exception
-     */
+    #[Route(path: '/admin/rand_player', name: 'rand_player')]
     public function randomPlayerAction(EntityManagerInterface $em, UrlGeneratorInterface $router)
     {
         $players = $em->getRepository(Player::class)->findforRandom();
@@ -45,11 +41,7 @@ class AdminController extends EasyAdminController
         return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
     }
 
-    /**
-     * @Route("/admin/reload", name="reload_players")
-     * @return Response
-     * @throws \Exception
-     */
+    #[Route(path: '/admin/reload', name: 'reload_players')]
     public function reloadPlayers(Request $request, EntityManagerInterface $em)
     {
         $time = $request->query->get("t", 0);
@@ -60,10 +52,7 @@ class AdminController extends EasyAdminController
     }
 
 
-    /**
-     * @Route("/admin/notif/{id}", name="notif_player")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
+    #[Route(path: '/admin/notif/{id}', name: 'notif_player')]
     public function sendNotif(Player $player, SMSService $sms)
     {
         $message = "Bravo ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA à l'entrée de la foire. Un soucis ? 0607840001";
@@ -80,9 +69,7 @@ class AdminController extends EasyAdminController
         return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
     }
 
-    /**
-     * @Route("/admin/stats", name="admin_stats")
-     */
+    #[Route(path: '/admin/stats', name: 'admin_stats')]
     public function statsAction(EntityManagerInterface $em)
     {
         $players = $em->getRepository(Player::class)->findAll();
@@ -133,9 +120,7 @@ class AdminController extends EasyAdminController
         ]);
     }
 
-    /**
-     * @Route("/admin/export")
-     */
+    #[Route(path: '/admin/export')]
     public function export(EntityManagerInterface $em)
     {
         $players = $em->getRepository(Player::class)->findAll();
@@ -178,10 +163,7 @@ class AdminController extends EasyAdminController
         return new Response($output);
     }
 
-    /**
-     * @Route("/admin/testsms")
-     * @return Response
-     */
+    #[Route(path: '/admin/testsms')]
     public function testsms(Request $request, SMSService $sms)
     {
         $message = $request->query->get("txt") ?? "test";
@@ -195,9 +177,7 @@ class AdminController extends EasyAdminController
     }
 
 
-    /**
-     * @Route("/admin/podium", name="admin_podium")
-     */
+    #[Route(path: '/admin/podium', name: 'admin_podium')]
     public function podiumAction(EntityManagerInterface $em)
     {
         $notes = $em->getRepository(Answer::class)->getNotes();
@@ -207,9 +187,7 @@ class AdminController extends EasyAdminController
         ]);
     }
 
-    /**
-     * @Route("/admin/roll", name="admin_roll")
-     */
+    #[Route(path: '/admin/roll', name: 'admin_roll')]
     public function rollAction(EntityManagerInterface $em)
     {
         $notes = $em->getRepository(Answer::class)->getNotes();
@@ -219,9 +197,7 @@ class AdminController extends EasyAdminController
         ]);
     }
 
-    /**
-     * @Route("/admin/onoff", name="admin_onoff")
-     */
+    #[Route(path: '/admin/onoff', name: 'admin_onoff')]
     public function onOffAction(Request $request, $closedFilePath)
     {
         $closed = $request->query->get("closed", 0);
@@ -241,9 +217,7 @@ class AdminController extends EasyAdminController
         return $this->redirectToRoute("easyadmin");
     }
 
-    /**
-     * @Route("/admin/envoyersms", name="envoyer")
-     */
+    #[Route(path: '/admin/envoyersms', name: 'envoyer')]
     public function envoyerSmsAction(Request $request, SMSService $SMSService, EntityManagerInterface $em)
     {
         // controllers extending the EasyAdminController get access to the

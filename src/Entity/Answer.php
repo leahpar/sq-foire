@@ -31,16 +31,19 @@ class Answer
      */
     private $good;
 
-    /**
-     * Answer constructor.
-     * @param $player
-     */
-    public function __construct(/**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="answers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private Player $player, private Question $question)
-    {
+    public function __construct(
+        /**
+         * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="answers")
+         * @ORM\JoinColumn(nullable=false)
+         */
+        private Player $player,
+        /**
+         * @ORM\ManyToOne(targetEntity="App\Entity\Question")
+         * @ORM\JoinColumn(nullable=false)
+         * @var Question
+         */
+        private Question $question,
+    ) {
         $this->date = new \DateTime();
     }
 

@@ -20,17 +20,13 @@ class GameController extends AbstractController
 {
     private $errors = [];
 
-    /**
-     * GameController constructor.
-     */
-    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $router, private readonly MailService $mail)
-    {
-    }
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly UrlGeneratorInterface $router,
+        private readonly MailService $mail
+    ) {}
 
-
-    /**
-     * @Route("/", name="game_index")
-     */
+    #[Route(path: '/', name: 'game_index')]
     public function indexAction()
     {
         $user = $this->getUser();
@@ -42,9 +38,7 @@ class GameController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/jeu", name="game_start")
-     */
+    #[Route(path: '/jeu', name: 'game_start')]
     public function gameAction()
     {
         $user = $this->getUser();
@@ -55,9 +49,7 @@ class GameController extends AbstractController
         return $this->render('game/start.html.twig');
     }
 
-    /**
-     * @Route("/jeu/fin", name="game_end")
-     */
+    #[Route(path: '/jeu/fin', name: 'game_end')]
     public function endAction()
     {
         $user = $this->getUser();
@@ -68,18 +60,13 @@ class GameController extends AbstractController
         return $this->render('game/end.html.twig');
     }
 
-    /**
-     * @Route("/closed", name="game_closed")
-     */
+    #[Route(path: '/closed', name: 'game_closed')]
     public function closedAction()
     {
         return $this->render('game/closed.html.twig');
     }
 
-    /**
-     * @Route("/jeu/halls", name="game_halls")
-     * @return Response
-     */
+    #[Route(path: '/jeu/halls', name: 'game_halls')]
     public function hallsAction(EntityManagerInterface $em)
     {
         /** @var Player $user */
@@ -96,10 +83,7 @@ class GameController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/jeu/halls/{name}", name="game_hall")
-     * @return Response
-     */
+    #[Route(path: '/jeu/halls/{name}', name: 'game_hall')]
     public function hallAction(Request $request, EntityManagerInterface $em, Hall $hall)
     {
         /** @var Player $user */
@@ -171,26 +155,19 @@ class GameController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/reglement", name="game_rules")
-     */
+    #[Route(path: '/reglement', name: 'game_rules')]
     public function rulesAction()
     {
         return $this->render('game/rules.html.twig');
     }
 
-    /**
-     * @Route("/comment-jouer", name="game_howto")
-     */
+    #[Route(path: '/comment-jouer', name: 'game_howto')]
     public function howtoAction()
     {
         return $this->render('game/howto.html.twig');
     }
 
-    /**
-     * @Route("/share", name="game_share")
-     * @return Response
-     */
+    #[Route(path: '/share', name: 'game_share')]
     public function shareAction(Request $request, EntityManagerInterface $em)
     {
         /** @var Player $user */
@@ -203,10 +180,7 @@ class GameController extends AbstractController
         return $this->redirect("https://www.facebook.com/sharer/sharer.php?u=$url");
     }
 
-    /**
-     * @Route("/inscription", name="game_signup")
-     * @return Response
-     */
+    #[Route(path: '/inscription', name: 'game_signup')]
     public function signupAction(Request $request) {
 
         $user = $this->getUser();
@@ -235,10 +209,7 @@ class GameController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/code", name="game_token_signup")
-     * @return Response
-     */
+    #[Route(path: '/code', name: 'game_token_signup')]
     public function tokenLoginAction(EntityManagerInterface $em, Request $request)
     {
         $user = $this->getUser();
@@ -263,10 +234,7 @@ class GameController extends AbstractController
         return $this->render('game/code.html.twig');
     }
 
-    /**
-     * @Route("/inscription-accueil", name="game_remote_signup")
-     * @return Response
-     */
+    #[Route(path: '/inscription-accueil', name: 'game_remote_signup')]
     public function remoteSignupAction(Request $request) {
         if ($request->isMethod("POST")) {
 
@@ -286,10 +254,7 @@ class GameController extends AbstractController
         ]);
     }
 
-    /**
-     * @return Player|null
-     */
-    private function signupPlayer(Request $request)
+    private function signupPlayer(Request $request): ?Player
     {
         $email = $request->request->get('email');
         $name = $request->request->get('name', []);
