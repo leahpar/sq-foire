@@ -18,20 +18,13 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class GameController extends AbstractController
 {
-    /**
-     * @var MailService
-     */
-    private $mail;
-
     private $errors = [];
 
     /**
      * GameController constructor.
-     * @param MailService $mail
      */
-    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $router, MailService $mail)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $router, private readonly MailService $mail)
     {
-        $this->mail = $mail;
     }
 
 

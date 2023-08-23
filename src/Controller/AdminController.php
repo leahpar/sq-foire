@@ -62,7 +62,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/notif/{id}", name="notif_player")
-     * @param SMSService $sms
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function sendNotif(Player $player, SMSService $sms)
@@ -181,7 +180,6 @@ class AdminController extends EasyAdminController
 
     /**
      * @Route("/admin/testsms")
-     * @param SMSService $sms
      * @return Response
      */
     public function testsms(Request $request, SMSService $sms)

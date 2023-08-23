@@ -88,13 +88,13 @@ class Question
 
     public function getAnswer(int $pos): ?string
     {
-        $answers = explode("\n", $this->answers);
+        $answers = explode("\n", (string) $this->answers);
         return $answers[$pos] ?? null;
     }
 
     public function getAnswersCount(): int
     {
-        $answers = explode("\n", $this->answers);
+        $answers = explode("\n", (string) $this->answers);
         return count($answers);
     }
 
@@ -105,7 +105,7 @@ class Question
     public function getAnswersHtml(): string
     {
         $str  = "<span style='color:green;'>";
-        $str .= str_replace("\n", "</span>; <span>", strip_tags($this->answers));
+        $str .= str_replace("\n", "</span>; <span>", strip_tags((string) $this->answers));
         $str .= "</span>";
 
         return $str;
@@ -117,7 +117,7 @@ class Question
      */
     public function getAnswersRandom(): array
     {
-        $answers = explode("\n", $this->answers);
+        $answers = explode("\n", (string) $this->answers);
         shuffle($answers);
         return $answers;
     }

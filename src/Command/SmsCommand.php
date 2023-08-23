@@ -13,18 +13,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SmsCommand extends Command
 {
     protected static $defaultName = 'app:sms';
-    /**
-     * @var SMSService
-     */
-    private $sms;
 
     /**
      * SmsCommand constructor.
      * @param SMSService $sms
      */
-    public function __construct(SMSService $sms)
+    public function __construct(private readonly SMSService $sms)
     {
-        $this->sms = $sms;
         parent::__construct();
     }
 
