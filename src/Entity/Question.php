@@ -12,7 +12,7 @@ class Question
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Hall', inversedBy: 'questions')]
+    #[ORM\ManyToOne(targetEntity: Hall::class, inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private $hall;
 
@@ -22,8 +22,9 @@ class Question
     #[ORM\Column(type: 'text')]
     private $answers;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Answer', mappedBy: 'question', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', orphanRemoval: true)]
     private $toto; // Useless, just for the orphanRemoval.
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $text;
 

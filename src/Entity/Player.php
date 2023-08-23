@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-//class Player implements UserInterface, EquatableInterface
 #[ORM\Entity(repositoryClass: \App\Repository\PlayerRepository::class)]
 class Player implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 
@@ -28,7 +27,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     #[ORM\Column(type: 'datetime')]
     private $lastConnection;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Answer', mappedBy: 'player', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'player', orphanRemoval: true)]
     private $answers;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -54,9 +53,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
         $this->lastConnection = new \DateTime();
         $this->firstConnection = new \DateTime();
         $this->answers = new ArrayCollection();
-        //$this->uid = uniqid();
     }
-
 
     public function getId(): ?int
     {

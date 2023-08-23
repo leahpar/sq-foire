@@ -12,19 +12,19 @@ class Hall
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = 0;
 
     #[ORM\Column(type: 'string', length: 20)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $tri;
+    private ?string $tri = null;
 
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Question', mappedBy: 'hall')]
-    private $questions;
+    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'hall')]
+    private Collection $questions;
 
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\Pub', mappedBy: 'halls')]
-    private $pubs;
+    #[ORM\ManyToMany(targetEntity: Pub::class, mappedBy: 'halls')]
+    private Collection $pubs;
 
     public function __construct()
     {

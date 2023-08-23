@@ -22,23 +22,17 @@ class Pub
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\Hall', inversedBy: 'pubs')]
+    #[ORM\ManyToMany(targetEntity: Hall::class, inversedBy: 'pubs')]
     private $halls;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="pub_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: 'pub_images', fileNameProperty: 'imageFile')]
+    private ?File $imageFile = null;
 
-    /**
-     * @var \DateTime
-     */
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $updatedAt;
+    private ?\DateTime $updatedAt = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $link;

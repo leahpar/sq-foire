@@ -10,25 +10,25 @@ class Answer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $answer;
+    private ?string $answer = null;
 
     #[ORM\Column(type: 'datetime')]
-    private $date;
+    private \DateTime $date;
 
     #[ORM\Column(type: 'boolean')]
-    private $good;
+    private bool $good;
 
     public function __construct(
-        #[ORM\ManyToOne(targetEntity: 'App\Entity\Player', inversedBy: 'answers')]
+        #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'answers')]
         #[ORM\JoinColumn(nullable: false)]
         private Player $player,
         /**
          * @var Question
          */
-        #[ORM\ManyToOne(targetEntity: 'App\Entity\Question')]
+        #[ORM\ManyToOne(targetEntity: Question::class)]
         #[ORM\JoinColumn(nullable: false)]
         private Question $question,
     ) {
@@ -78,12 +78,12 @@ class Answer
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
 
