@@ -81,7 +81,7 @@ class AdminController extends AbstractController
     }
 
     #[Route(path: '/admin/stats', name: 'admin_stats')]
-    public function statsAction(EntityManagerInterface $em)
+    public function stats(EntityManagerInterface $em)
     {
         $players = $em->getRepository(Player::class)->findAll();
 
@@ -188,7 +188,7 @@ class AdminController extends AbstractController
     }
 
     #[Route(path: '/admin/podium', name: 'admin_podium')]
-    public function podiumAction(EntityManagerInterface $em)
+    public function podium(EntityManagerInterface $em)
     {
         $notes = $em->getRepository(Answer::class)->getNotes();
 
@@ -198,7 +198,7 @@ class AdminController extends AbstractController
     }
 
     #[Route(path: '/admin/roll', name: 'admin_roll')]
-    public function rollAction(EntityManagerInterface $em)
+    public function roll(EntityManagerInterface $em)
     {
         $notes = $em->getRepository(Answer::class)->getNotes();
 
@@ -208,7 +208,7 @@ class AdminController extends AbstractController
     }
 
     #[Route(path: '/admin/onoff', name: 'admin_onoff')]
-    public function onOffAction(Request $request, string $closedFilePath)
+    public function onOff(Request $request, string $closedFilePath)
     {
         $params = $request->query->get('routeParams');
         $closed = $params['closed'] ?? false;
@@ -229,7 +229,7 @@ class AdminController extends AbstractController
     }
 
     #[Route(path: '/admin/envoyersms', name: 'envoyer')]
-    public function envoyerSmsAction(Request $request, SMSService $SMSService, EntityManagerInterface $em)
+    public function envoyerSms(Request $request, SMSService $SMSService, EntityManagerInterface $em)
     {
         // controllers extending the EasyAdminController get access to the
         // following variables:

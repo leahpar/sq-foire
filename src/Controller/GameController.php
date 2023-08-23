@@ -27,7 +27,7 @@ class GameController extends AbstractController
     ) {}
 
     #[Route(path: '/', name: 'game_index')]
-    public function indexAction()
+    public function index()
     {
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
@@ -39,7 +39,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/jeu', name: 'game_start')]
-    public function gameAction()
+    public function game()
     {
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
@@ -50,7 +50,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/jeu/fin', name: 'game_end')]
-    public function endAction()
+    public function end()
     {
         $user = $this->getUser();
         if (null == $user || !in_array("ROLE_USER", $user->getRoles())) {
@@ -61,13 +61,13 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/closed', name: 'game_closed')]
-    public function closedAction()
+    public function closed()
     {
         return $this->render('game/closed.html.twig');
     }
 
     #[Route(path: '/jeu/halls', name: 'game_halls')]
-    public function hallsAction(EntityManagerInterface $em)
+    public function halls(EntityManagerInterface $em)
     {
         /** @var Player $user */
         $user = $this->getUser();
@@ -84,7 +84,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/jeu/halls/{name}', name: 'game_hall')]
-    public function hallAction(Request $request, EntityManagerInterface $em, Hall $hall)
+    public function hall(Request $request, EntityManagerInterface $em, Hall $hall)
     {
         /** @var Player $user */
         $user = $this->getUser();
@@ -156,19 +156,19 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/reglement', name: 'game_rules')]
-    public function rulesAction()
+    public function rules()
     {
         return $this->render('game/rules.html.twig');
     }
 
     #[Route(path: '/comment-jouer', name: 'game_howto')]
-    public function howtoAction()
+    public function howto()
     {
         return $this->render('game/howto.html.twig');
     }
 
     #[Route(path: '/share', name: 'game_share')]
-    public function shareAction(Request $request, EntityManagerInterface $em)
+    public function share(Request $request, EntityManagerInterface $em)
     {
         /** @var Player $user */
         $user = $this->getUser();
@@ -181,7 +181,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/inscription', name: 'game_signup')]
-    public function signupAction(Request $request) {
+    public function signup(Request $request) {
 
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
@@ -210,7 +210,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/code', name: 'game_token_signup')]
-    public function tokenLoginAction(EntityManagerInterface $em, Request $request)
+    public function tokenLogin(EntityManagerInterface $em, Request $request)
     {
         $user = $this->getUser();
         if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
@@ -235,7 +235,7 @@ class GameController extends AbstractController
     }
 
     #[Route(path: '/inscription-accueil', name: 'game_remote_signup')]
-    public function remoteSignupAction(Request $request) {
+    public function remoteSignup(Request $request) {
         if ($request->isMethod("POST")) {
 
             $player = $this->signupPlayer($request);

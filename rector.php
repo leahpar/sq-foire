@@ -17,9 +17,9 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_82,        // ✅
         Rector\Symfony\Set\SymfonySetList::SYMFONY_54,              // ✅
-        Rector\Symfony\Set\SymfonySetList::SYMFONY_62,              // ⚠️ TODO
+        Rector\Symfony\Set\SymfonySetList::SYMFONY_62,              // ✅
 //        Rector\Symfony\Set\SymfonySetList::SYMFONY_64,              // ⚠️ TODO
-//        Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY,  // ⚠️ TODO
+        Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY,  // ✅
         Rector\Symfony\Set\SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,   // ✅
         \Rector\Doctrine\Set\DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,    // ✅
     ]);
@@ -36,6 +36,7 @@ return static function (RectorConfig $rectorConfig): void {
         \Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class,
         \Rector\Php71\Rector\FuncCall\CountOnNullRector::class,
         \Rector\TypeDeclaration\Rector\Property\TypedPropertyFromAssignsRector::class,
+        \Rector\Symfony\CodeQuality\Rector\ClassMethod\ResponseReturnTypeControllerActionRector::class,
     ]);
 };
 
