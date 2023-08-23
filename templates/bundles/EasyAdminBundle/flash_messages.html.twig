@@ -5,14 +5,20 @@
         <div id="flash-messages">
             {% for label, messages in _flash_messages %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
+                    <div class="alert alert-{{ label }}" style="cursor: pointer">
                         {{ message|trans|raw }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                 {% endfor %}
             {% endfor %}
         </div>
+        <script>
+            // Vanilla JS
+            document.querySelectorAll('#flash-messages .alert')
+                .forEach((flashMessage) => {
+                    flashMessage.addEventListener('click', () => {
+                        flashMessage.parentNode.removeChild(flashMessage);
+                    });
+                });
+        </script>
     {% endif %}
 {% endif %}

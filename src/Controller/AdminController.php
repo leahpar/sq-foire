@@ -2,24 +2,35 @@
 
 namespace App\Controller;
 
+use App\Controller\Admin\PlayerCrudController;
+use App\Controller\Admin\SmsCrudController;
 use App\Entity\Answer;
-use App\Entity\Hall;
 use App\Entity\Player;
 use App\Entity\Sms;
 use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
-
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class AdminController extends EasyAdminController
+class AdminController extends AbstractController
 {
+    public function __construct(
+        private readonly AdminUrlGenerator $adminUrlGenerator,
+    ) {}
+
+    private function redirectToAdminRoute(string $controller, string $action)
+    {
+        return $this->redirect(
+            $this->adminUrlGenerator->setController($controller)->setAction($action)->generateUrl()
+        );
+    }
 
     #[Route(path: '/admin/rand_player', name: 'rand_player')]
-    public function randomPlayerAction(EntityManagerInterface $em, UrlGeneratorInterface $router)
+    public function randomPlayer(EntityManagerInterface $em, UrlGeneratorInterface $router)
     {
         $players = $em->getRepository(Player::class)->findforRandom();
 
@@ -38,7 +49,7 @@ class AdminController extends EasyAdminController
             $this->addFlash("warning", "Aucun joueur disponible");
         }
 
-        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
+        return $this->redirectToAdminRoute(PlayerCrudController::class, 'index');
     }
 
     #[Route(path: '/admin/reload', name: 'reload_players')]
@@ -61,12 +72,12 @@ class AdminController extends EasyAdminController
         if (!$player->isRandom()) {
             $this->addFlash("warning", "Joueur $player non tiré au sort");
         }
-        else if ($target)  {
+        elseif ($target)  {
             $sms->send($target, $message);
             $this->addFlash("success", "SMS envoyé");
         }
 
-        return $this->redirectToRoute('easyadmin', ['action' => 'list', 'entity' => 'Player']);
+        return $this->redirectToAdminRoute(PlayerCrudController::class, 'index');
     }
 
     #[Route(path: '/admin/stats', name: 'admin_stats')]
@@ -111,7 +122,7 @@ class AdminController extends EasyAdminController
             "email" => $emil,
             "smsetemail" => $smsetemail,
             "smsouemail" => $smsouemail,
-            "total" => count($players),
+            "total" => count($players)?:1,
             "actifHeure" => $actifHeure,
             "actifJour" => $actifJour,
             "tiragesTotal" => $tiragesTotal,
@@ -176,7 +187,6 @@ class AdminController extends EasyAdminController
         return new Response();
     }
 
-
     #[Route(path: '/admin/podium', name: 'admin_podium')]
     public function podiumAction(EntityManagerInterface $em)
     {
@@ -198,15 +208,16 @@ class AdminController extends EasyAdminController
     }
 
     #[Route(path: '/admin/onoff', name: 'admin_onoff')]
-    public function onOffAction(Request $request, $closedFilePath)
+    public function onOffAction(Request $request, string $closedFilePath)
     {
-        $closed = $request->query->get("closed", 0);
+        $params = $request->query->get('routeParams');
+        $closed = $params['closed'] ?? false;
         try {
             if ($closed) {
                 touch($closedFilePath);
                 $this->addFlash("warning", "Site fermé");
             } else {
-                unlink($closedFilePath);
+                @unlink($closedFilePath);
                 $this->addFlash("success", "Site ouvert");
             }
         }
@@ -214,7 +225,7 @@ class AdminController extends EasyAdminController
             $this->addFlash("error", $e->getMessage());
         }
 
-        return $this->redirectToRoute("easyadmin");
+        return $this->redirectToAdminRoute(PlayerCrudController::class, 'index');
     }
 
     #[Route(path: '/admin/envoyersms', name: 'envoyer')]
@@ -244,11 +255,7 @@ class AdminController extends EasyAdminController
 
         $this->addFlash("success", $cpt." messages envoyés");
 
-        // redirect to the 'list' view of the given entity ...
-        return $this->redirectToRoute('easyadmin', [
-            'action' => 'list',
-            'entity' => "Sms",
-        ]);
+        return $this->redirectToAdminRoute(SmsCrudController::class, 'index');
 
     }
 

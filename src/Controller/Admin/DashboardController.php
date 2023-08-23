@@ -47,13 +47,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Joueurs', 'fas fa-user', Player::class);
         yield MenuItem::linkToCrud('Réponses', 'fas fa-list-ul', Answer::class);
 
-        yield MenuItem::section('fas fa-folder-open');
-        yield MenuItem::linkToCrud('SMS', 'fas fa-list-ul', Sms::class);
-        yield MenuItem::linkToRoute('Stats', 'fas fa-signal', 'admin_stats');
-
         yield MenuItem::section('Paramétrage', 'fas fa-folder-open');
         yield MenuItem::linkToCrud('Halls', 'fas fa-building', Hall::class);
         yield MenuItem::linkToCrud('Questions', 'fas fa-question', Question::class);
+
+        yield MenuItem::section('Divers', 'fas fa-folder-open');
+        yield MenuItem::linkToCrud('SMS', 'fas fa-list-ul', Sms::class);
+        yield MenuItem::linkToRoute('Stats', 'fas fa-signal', 'admin_stats');
 
         yield MenuItem::section('Site', 'fas fa-folder-open');
         yield MenuItem::linkToRoute('Fermer', 'fas fa-lock', 'admin_onoff', ['closed' => 1]);
