@@ -5,74 +5,78 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: \App\Repository\PlayerRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé')]
+#[UniqueEntity(fields: ['telephone'], message: 'Ce numéro de téléphone est déjà utilisé')]
 class Player implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private $firstConnection;
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private $lastConnection;
+    #[ORM\Column]
+    private \DateTime $firstConnection;
+
+    #[ORM\Column]
+    private \DateTime $lastConnection;
 
     #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'player', orphanRemoval: true)]
     private $answers;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private $lastRandom;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $lastRandom = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private $data;
+    private array $data = [];
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private $fbshare = false;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telephone = null;
 
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    private $token;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ville = null;
+
+    #[ORM\Column]
+    private bool $fbshare = false;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $token = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    /**
-     * Player constructor.
-     */
+    #[ORM\Column]
+    private ?bool $authSmsPub = false;
+
+    #[ORM\Column]
+    private ?bool $authMailPub = false;
+
     public function __construct()
     {
         $this->lastConnection = new \DateTime();
         $this->firstConnection = new \DateTime();
         $this->answers = new ArrayCollection();
+        $this->password = random_bytes(32);
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getLastConnection(): ?\DateTimeInterface
@@ -147,7 +151,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
 
     public function __toString()
     {
-        return $this->getName() . " (" . ($this->id ?? 0) . ")";
+        return $this->getNomComplet() . " (" . ($this->id ?? 0) . ")";
     }
 
     public function updateLastConnection($date = null)
@@ -172,16 +176,13 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
         return $this->lastRandom !== null;
     }
 
+    /** @deprecated */
     public function getData()
     {
-        return $this->data;
-    }
-
-    public function setData($data): self
-    {
-        $this->data = $data;
-
-        return $this;
+        return [
+            'authMailPub' => $this->authMailPub,
+            'authSmsPub' => $this->authSmsPub,
+        ];
     }
 
     public function __isset($name)
@@ -192,11 +193,6 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     public function __get($name)
     {
         return $this->data[$name] ?? null;
-    }
-
-    public function __set($name, $value)
-    {
-        $this->data[$name] = $value;
     }
 
     public function getRoles(): array
@@ -222,7 +218,7 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
      */
     public function getPassword(): ?string
     {
-        return '';
+        return $this->password;
     }
 
     /**
@@ -318,6 +314,79 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): self
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getNomComplet(): ?string
+    {
+        return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function isAuthSmsPub(): ?bool
+    {
+        return $this->authSmsPub;
+    }
+
+    public function setAuthSmsPub(bool $authSmsPub): static
+    {
+        $this->authSmsPub = $authSmsPub;
+
+        return $this;
+    }
+
+    public function isAuthMailPub(): ?bool
+    {
+        return $this->authMailPub;
+    }
+
+    public function setAuthMailPub(bool $authMailPub): static
+    {
+        $this->authMailPub = $authMailPub;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
         return $this;
     }
 

@@ -10,7 +10,7 @@
     <meta property="og:title" content='Grand jeu Foire de Rouen 2022'>
     <meta property="og:description" content='Participez au grand jeu de la foire de Rouen et remportez des cadeaux !'>
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url('game_start') }}">
+    <meta property="og:url" content="{{ url('game_index') }}">
     <meta property="og:image" content="{{ url('game_index') }}img/titre.png">
 
     <title>{% block title %}Grand jeu Viking de la Foire de Rouen 2022{% endblock %}</title>
@@ -36,9 +36,6 @@
             <li><a href="{{ path('game_index') }}">Le jeu</a></li>
             <li><a href="{{ path('game_howto') }}">Comment jouer ?</a></li>
             <li><a href="{{ asset('plan-foire.jpg') }}" target="_blank">Plan de la foire</a></li>
-            {% if app.user is null %}
-                <li><a href="{{ path('game_token_signup') }}">Connexion par code</a></li>
-            {% endif %}
             <li><a href="{{ asset('reglement2022.pdf') }}" target="_blank">Règlement</a></li>
             {#<li><a href="{{ path('game_rules') }}">Règlement</a></li>#}
         </ul>

@@ -12,30 +12,44 @@
                 
                 <h1>Inscription</h1>
             
-                <form method="post" action="{{ remote ? path('game_remote_signup') : path('game_signup') }}">
+                <form method="post">
+
+                    {{ form_widget(form._token) }}
             
                     <p>
-                        <label>Prénom</label>
-                        <input type="text" name="name[]" value="{{ form.name is defined ? form.name[0] }}" required>
+                        {{ form_label(form.nom, 'Nom') }}
+                        {{ form_widget(form.nom) }}
+                        <span class="error">{{ form_errors(form.nom) }}</span>
                     </p>
-            
+
                     <p>
-                        <label>Nom</label>
-                        <input type="text" name="name[]" value="{{ form.name is defined ? form.name[1] }}" required>
+                        {{ form_label(form.prenom, 'Prénom') }}
+                        {{ form_widget(form.prenom) }}
+                        <span class="error">{{ form_errors(form.prenom) }}</span>
                     </p>
-            
+
                     <p>
-                        <label>Mail</label>
-                        <input type="email" name="email" value="{{ form.email is defined ? form.email }}" required>
-                        {% if errors.email is defined %} <span class="error">Cette adresse mail est déjà utilisée.</span> {% endif %}
+                        {{ form_label(form.email, 'Email') }}
+                        {{ form_widget(form.email) }}
+                        <span class="error">{{ form_errors(form.email) }}</span>
                     </p>
-                    
-                    <p><label>Numéro de portable</label><input type="tel" name="data[tel]"  value="{{ form.data is defined ? form.data.tel }}" required>
-                    {% if errors.tel is defined %} <span class="error">Ce numéro de téléphone est déjà utilisé.</span> {% endif %}
-            </p>
-                        
-                        <p><label>Ville</label><input type="text" name="data[ville]"  value="{{ form.data is defined ? form.data.ville }}" required></p>
-                    
+
+                    <p>
+                        {{ form_label(form.telephone, 'Téléphone') }}
+                        {{ form_widget(form.telephone) }}
+                        <span class="error">{{ form_errors(form.telephone) }}</span>
+                    </p>
+
+                    <p>
+                        {{ form_label(form.ville, 'Ville') }}
+                        {{ form_widget(form.ville) }}
+                    </p>
+
+                    <p>
+                        {{ form_label(form.plainPassword, 'Mot de passe') }}
+                        {{ form_widget(form.plainPassword) }}
+                        <span class="error">{{ form_errors(form.plainPassword) }}</span>
+                    </p>
 
                     <p>
                         Nous collectons ces données afin de gérer votre inscription au tirage au sort. En cas de victoire,
@@ -48,22 +62,23 @@
                         à ROUEN-EXPO EVENEMENTS et ses partenaires (<a href="{{ asset('reglement2022.pdf') }}" target="_blank">voir la liste</a>) de vous
                         adresser des publicités. Pour le permettre, cochez les cases ci-dessous :</p>
                         
-                    <p><input type="checkbox"
-                                   id="form_auth_sms_pub"
-                                   name="data[authSmsPub]"
-                                    {{ form.data is defined and form.data.authSmsPub is defined and form.data.authSmsPub ? 'checked'}}>
-                                    J'accepte de recevoir par SMS des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.</p>
-                                    
                     <p>
-                    	<input type="checkbox"
-                                   id="form_auth_mail_pub"
-                                   name="data[authMailPub]"
-                                    {{ form.data is defined and form.data.authMailPub is defined and form.data.authMailPub ? 'checked'}}>
-                                J'accepte de recevoir par email des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.
+                        {{ form_widget(form.authSmsPub) }}
+                        {{ form_label(form.authSmsPub, "J'accepte de recevoir par SMS des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.") }}
+                    <p>
+
+                    <p>
+                        {{ form_widget(form.authMailPub) }}
+                        {{ form_label(form.authMailPub, "J'accepte de recevoir par email des offres promotionnelles de la part de ROUEN-EXPO EVENEMENTS et ses partenaires.") }}
+                    <p>
+
+                    <p class="mtm">
+                        {% set label -%}
+                        J'accepte le <a href="{{ asset('reglement2022.pdf') }}" target="_blank">règlement</a>
+                        {%- endset %}
+                        {{ form_widget(form.reglement) }}
+                        <label for="{{ form.reglement.vars.id }}">{{ label|raw }}</label>
                     </p>
-
-
-                    <p class="mtm"><input type="checkbox" name="gcu" required> J'accepte le <a href="{{ asset('reglement2022.pdf') }}" target="_blank">règlement</a></p>
 
                     <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
             

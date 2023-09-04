@@ -22,8 +22,10 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         // redirect to some CRUD controller
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
-        return $this->redirect($routeBuilder->setController(PlayerCrudController::class)->generateUrl());
+        $url = $this->container->get(AdminUrlGenerator::class)
+            ->setController(PlayerCrudController::class)
+            ->generateUrl();
+        return $this->redirect($url);
     }
 
     public function configureDashboard(): Dashboard
@@ -52,11 +54,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Questions', 'fas fa-question', Question::class);
 
         yield MenuItem::section('Divers', 'fas fa-folder-open');
-        yield MenuItem::linkToCrud('SMS', 'fas fa-list-ul', Sms::class);
+//        yield MenuItem::linkToCrud('SMS', 'fas fa-list-ul', Sms::class);
         yield MenuItem::linkToRoute('Stats', 'fas fa-signal', 'admin_stats');
 
         yield MenuItem::section('Site', 'fas fa-folder-open');
-        yield MenuItem::linkToRoute('Fermer', 'fas fa-lock', 'admin_onoff', ['closed' => 1]);
+        yield MenuItem::linkToRoute('Fermer', 'fas fa-lock',   'admin_onoff', ['closed' => 1]);
         yield MenuItem::linkToRoute('Ouvrir', 'fas fa-unlock', 'admin_onoff', ['closed' => 0]);
     }
 }

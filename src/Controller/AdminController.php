@@ -11,6 +11,7 @@ use App\Service\SMSService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,19 +63,30 @@ class AdminController extends AbstractController
         return new Response(null, $count > 0 ? 200 : 304);
     }
 
-
     #[Route(path: '/admin/notif/{id}', name: 'notif_player')]
-    public function sendNotif(Player $player, SMSService $sms)
-    {
-        $message = "Bravo ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA à l'entrée de la foire. Un soucis ? 0607840001";
-        $target  = $player->getData()["tel"] ?? null;
+    public function sendNotif(
+        Player $player,
+        SMSService $sms,
+        #[Autowire(env: 'GPDC_TEL_ANIMATEUR')]
+        ?string $gpdcTelAnimateur = null
+    ) {
+        $target = $player->getTelephone();
 
         if (!$player->isRandom()) {
             $this->addFlash("warning", "Joueur $player non tiré au sort");
         }
+        elseif ($gpdcTelAnimateur)  {
+            $sms->send($gpdcTelAnimateur, "tirage au sort : {$player->getNomComplet()}");
+            $this->addFlash("success", "SMS envoyé (à l'animateur)");
+        }
         elseif ($target)  {
+            $message = "Bravo ! Vous avez été tiré au sort, venez récupérer votre lot au stand animation GSA 
+                à l'entrée de la foire. Un soucis ? 0607840001";
             $sms->send($target, $message);
-            $this->addFlash("success", "SMS envoyé");
+            $this->addFlash("success", "SMS envoyé (au joueur)");
+        }
+        else {
+            $this->addFlash("warning", "Joueur $player sans numéro de téléphone");
         }
 
         return $this->redirectToAdminRoute(PlayerCrudController::class, 'index');
@@ -210,8 +222,8 @@ class AdminController extends AbstractController
     #[Route(path: '/admin/onoff', name: 'admin_onoff')]
     public function onOff(Request $request, string $closedFilePath)
     {
-        $params = $request->query->get('routeParams');
-        $closed = $params['closed'] ?? false;
+        $params = $request->query->all();
+        $closed = $params['routeParams']['closed'] ?? false;
         try {
             if ($closed) {
                 touch($closedFilePath);
@@ -249,7 +261,7 @@ class AdminController extends AbstractController
             if (($player->getData()["authSmsPub"]??"off") != "on") continue;
             if ($player->getLastConnection() < $today) continue;
 
-            $SMSService->send($player->getData()['tel'], $sms->getMessage());
+            $SMSService->send($player->getTelephone(), $sms->getMessage());
             $cpt++;
         }
 

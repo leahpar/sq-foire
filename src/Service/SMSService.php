@@ -22,18 +22,14 @@ class SMSService
                 $this->OVH_API_CONSUMER_KEY
             );
 
-            //dump($target);
             $target = preg_replace('#[^0-9\+]#', '', $target);
-            //dump($target);
             $target = preg_replace('#^0#', '+33', $target);
-            //dump($target);
 
             //$smsServices = $conn->get('/sms/');
             //foreach ($smsServices as $smsService) {
             //    dump($smsService);
             //}
 
-            //$smsService = getenv("OVH_SMS_SERVICE");
             $smsService = $this->OVH_SMS_SERVICE;
 
             $content = (object)[
