@@ -56,6 +56,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Divers', 'fas fa-folder-open');
 //        yield MenuItem::linkToCrud('SMS', 'fas fa-list-ul', Sms::class);
         yield MenuItem::linkToRoute('Stats', 'fas fa-signal', 'admin_stats');
+        yield MenuItem::linkToRoute('QRCodes', 'fas fa-qrcode', 'app_login_qrcodes');
 
         yield MenuItem::section('Site', 'fas fa-folder-open');
         yield MenuItem::linkToRoute('Fermer', 'fas fa-lock',   'admin_onoff', ['closed' => 1]);

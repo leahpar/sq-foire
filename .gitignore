@@ -5,24 +5,22 @@
 /public/bundles/
 /var/
 /vendor/
-
 ###< symfony/framework-bundle ###
-###> PhpStorm ###
-.idea/
-###< PhpStorm ###
 
 ### Upload
 /public/imgpub
 
+/node_modules/
+
 ### Logs
 php_errors.log
 /public/php_errors.log
+
+## Divers
 .DS_Store
-
-/node_modules/
-
-
+.idea/
 /config.codekit3
 /composer
 /public/img/Untitled.sketch
 closed
+notes.md
