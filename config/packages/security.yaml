@@ -2,7 +2,7 @@ security:
     enable_authenticator_manager: true
 
     password_hashers:
-        Symfony\Component\Security\Core\User\User: plaintext # (inMemory)
+        Symfony\Component\Security\Core\User\InMemoryUser: plaintext # (inMemory)
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     providers:
@@ -13,9 +13,9 @@ security:
         in_memory_provider:
             memory:
                 users:
-                    admin:
-                        password: '%env(ADMIN_PWD)%'
-                        roles: 'ROLE_ADMIN'
+                    - identifier: admin
+                      password: '%env(ADMIN_PWD)%'
+                      roles: 'ROLE_ADMIN'
 
     firewalls:
         dev:
@@ -23,11 +23,12 @@ security:
             security: false
 
         admin:
-            pattern: ^/(admin|_profiler|_wdt)
             lazy: true
+            pattern: ^/(admin|_profiler|_wdt)
             provider: in_memory_provider
-            http_basic:
-                realm: 'Restricted area'
+            http_basic: ~
+            logout:
+                path: /logout
 
         main:
             lazy: true
@@ -49,8 +50,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #- { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/inscription, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/_profiler, roles: PUBLIC_ACCESS }
-        #- { path: ^/_profiler, roles: ROLE_ADMIN }
+#        - { path: ^/_profiler, roles: PUBLIC_ACCESS }
+        - { path: ^/_profiler, roles: ROLE_ADMIN }
