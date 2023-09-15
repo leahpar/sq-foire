@@ -1,0 +1,43 @@
+<html>
+<head>
+   <style>
+       html {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 20cm;
+            /*height: 25cm;*/
+            margin: 0;
+            padding: 0;
+        }
+
+        body > div {
+            width: 6cm;
+            height: 5cm;
+            padding: 5mm;
+            text-align: center;
+            border: 1px solid black;
+        }
+   </style>
+</head>
+<body>
+    {% for token in tokens %}
+        <div>
+            <p>
+                gpdc.fr
+                {{ token|upper }}
+            </p>
+            {% set url = url('app_login_code', {t: token}) %}
+            <p>
+                <a href="{{ url }}">
+                    <img src="{{ url|qrcode }}">
+                </a>
+            </p>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'game/base.html.twig' %}
+
+{% block content %}
+
+<div id="mainWrapper">
+
+    <div class="clouds"></div>
+
+    <div class="content">
+        <section>
+
+            <h1>Complétez votre compte</h1>
+
+            <form method="post">
+
+                <p>
+                    {{ form_label(form.prenom, 'Prénom') }}
+                    {{ form_widget(form.prenom) }}
+                    <span class="error">{{ form_errors(form.prenom) }}</span>
+                </p>
+
+                <p>
+                    {{ form_label(form.nom, 'Nom') }}
+                    {{ form_widget(form.nom) }}
+                    <span class="error">{{ form_errors(form.nom) }}</span>
+                </p>
+
+                <p>
+                    {{ form_label(form.ville, 'Ville') }}
+                    {{ form_widget(form.ville) }}
+                </p>
+
+                <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+
+            </form>
+        </section>
+    </div>
+</div>
+
+{% endblock content %}

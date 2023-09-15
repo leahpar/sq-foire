@@ -29,7 +29,61 @@
         id joueur : #{{ app.user.id }}
         {% endif %}
     </header>
-    
+
+    <style>
+        #flashContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .flashMessage {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+        }
+        .flashMessage.bg-navy {
+            color: #001f3f;
+        }
+        .flashMessage.bg-aqua {
+            color: #7FDBFF;
+        }
+        .flashMessage.bg-or {
+            color: #FF851B;
+        }
+        .flashMessage.bg-red {
+            color: #FF4136;
+        }
+    </style>
+    <script>
+        // close flash message
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.flashMessage').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    el.remove();
+                });
+            });
+        }, false);
+    </script>
+    <div id="flashContainer">
+        {# read and display all flash messages #}
+        {# label : 'notice', 'success', 'warning', 'error' #}
+        {% set class = {'notice':'bg-navy','success':'bg-aqua','warning':'bg-or','error':'bg-red'} %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flashMessage {{ class[label] }}">
+                    {{ message|raw }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     <nav>
         <a href="#" aria-label="Afficher le menu" class="navLink"><img src="{{ asset('img/navIcon.svg') }}" alt="menu"></a>
         <ul>

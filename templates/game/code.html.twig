@@ -4,31 +4,26 @@
 
 <div id="mainWrapper">
         
-        <div class="clouds"></div>
-        
-        <div class="content">
-            
-            <section>
-                
-                <h1>Inscription</h1>
-                
-                <h2>Vous avez un code ?</h2>
-            
-            
-                <form method="get" action="{{ path('game_token_signup') }}">
-                    
-                    <p><label>Mon code</label><input type="text" name="t"></p>
-                    
-                    <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
-                    
-                </form>
-            
-                <p><a href="{{ path('game_signup') }}">Je n'ai pas de code</a></p>
-    
-            </section>
-        </div>
+    <div class="clouds"></div>
+
+    <div class="content">
+
+        <section>
+
+            <h1>Inscription</h1>
+            <h2>Vous avez un code ?</h2>
+
+            <form method="get" action="{{ path('app_login_code') }}">
+                <p><label>Mon code</label><input type="text" name="t"></p>
+                <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+            </form>
+
+            {% if app_inscription %}
+            <p><a href="{{ path('app_register') }}">Je n'ai pas de code</a></p>
+            {% endif %}
+
+        </section>
+    </div>
 </div>
-
-
 
 {% endblock content %}

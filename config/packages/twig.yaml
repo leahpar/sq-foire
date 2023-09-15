@@ -2,3 +2,6 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        app_inscription: '%env(bool:APP_INSCRIPTION)%'
+        app_login_code: '%env(bool:APP_LOGIN_CODE)%'

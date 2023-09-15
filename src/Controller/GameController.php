@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/jeu')]
+#[IsGranted('ROLE_USER')]
 class GameController extends AbstractController
 {
     #[Route(path: '/fin', name: 'game_end')]
@@ -30,6 +31,12 @@ class GameController extends AbstractController
     #[Route(path: '/halls', name: 'game_halls')]
     public function halls(EntityManagerInterface $em)
     {
+        /** @var Player $player */
+        $player = $this->getUser();
+        if ($player->isAnonyme()) {
+            return $this->redirectToRoute("game_player_infos");
+        }
+
         $halls = $em->getRepository(Hall::class)->findBy([], ['tri' => 'ASC']);
 
         return $this->render('game/halls.html.twig', [
@@ -107,30 +114,6 @@ class GameController extends AbstractController
         ]);
     }
 
-
-//    #[Route(path: '/inscriptionxx', name: 'game_signup')]
-//    public function signup(Request $request, Security $security) {
-//
-//        $user = $this->getUser();
-//        if (null !== $user && in_array("ROLE_USER", $user->getRoles())) {
-//            return $this->redirectToRoute("game_halls");
-//        }
-//
-//        if ($request->isMethod("POST")) {
-//
-//            $player = $this->signupPlayer($request);
-//
-//            if ($player) {
-//                $security->login($player, 'form_login');
-//                return $this->redirectToRoute("game_halls");
-//            }
-//        }
-//        return $this->render('game/signup.html.twig', [
-//            'remote' => false,
-//            'errors' => $this->errors,
-//            'form' => $request->request->all()
-//        ]);
-//    }
 
 //    #[Route(path: '/code', name: 'game_token_signup')]
 //    public function tokenLogin(EntityManagerInterface $em, Request $request)

@@ -58,20 +58,35 @@ class Player implements UserInterface, EquatableInterface, PasswordAuthenticated
     private ?string $token = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    private string $password;
 
     #[ORM\Column]
-    private ?bool $authSmsPub = false;
+    private bool $authSmsPub = false;
 
     #[ORM\Column]
-    private ?bool $authMailPub = false;
+    private bool $authMailPub = false;
 
     public function __construct()
     {
         $this->lastConnection = new \DateTime();
         $this->firstConnection = new \DateTime();
         $this->answers = new ArrayCollection();
-        $this->password = random_bytes(32);
+        $this->password = bin2hex(random_bytes(32));
+    }
+
+    public static function createAnonymeFromToken(string $token): Player
+    {
+        $p = new Player();
+        $p->setToken($token);
+        $p->setEmail("$token@smartquiz.fr");
+        $p->setNom('');
+        $p->setPrenom('');
+        return $p;
+    }
+
+    public function isAnonyme(): bool
+    {
+        return empty($this->nom) && empty($this->prenom);
     }
 
     public function getId(): ?int

@@ -14,15 +14,22 @@
 
                 <p><strong>Du 25 mars au 3 avril</strong>, menez l'enquête en visitant les halls de la Foire de Rouen <strong>et remportez des cadeaux !</strong></p>
 
+                {% if app_inscription %}
                 <a href="{{ path('app_register') }}" class="button redButton">M'inscrire</a>
                 <a href="{{ path('app_login') }}" class="button redButton">Me connecter</a>
+                {% endif %}
+
+                {% if app_login_code %}
+                <form method="get" action="{{ path('app_login_code') }}">
+                    <p><label>Mon code</label><input type="text" name="t"></p>
+                    <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+                </form>
+                {% endif %}
 
             </section>
             
             {#<section class="graySection">
-                
                 <p><img src="/img/lillebonne.png" alt="Ville de Lillebonne"></p>
-                
             </section>#}
             
         </div>

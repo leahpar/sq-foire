@@ -5,6 +5,7 @@
         "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "chillerlan/php-qrcode": "^4.3",
         "doctrine/annotations": "^1.14",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/orm": "^2.16",

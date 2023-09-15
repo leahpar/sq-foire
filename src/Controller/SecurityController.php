@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -18,7 +19,7 @@ class SecurityController extends AbstractController
 {
 
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -32,6 +33,57 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/qrcodes', name: 'app_login_qrcodes')]
+    public function qrcodes(Request $request): Response
+    {
+        $cpt = $request->query->get('cpt', 10);
+        $CONST = 3141;
+        // Génère des codes à 6 chars hexa
+        $tokens = [];
+        for ($i=1048576; $i<16777215; $i++) {
+            if ($i%$CONST == 0) $tokens[] = dechex($i);
+        }
+        shuffle($tokens);
+
+        return $this->render('admin/qrcodes.html.twig', [
+            'tokens' => array_splice($tokens, 0, $cpt)
+        ]);
+    }
+
+    #[Route('/code', name: 'app_login_code')]
+    public function login_code(Request $request, EntityManagerInterface $em, Security $security)
+    {
+        $token = strtolower(trim($request->query->get('t')));
+
+        if ($token) {
+            // Check token validity
+            $CONST = 3141;
+            $decoded = hexdec($token);
+            if ($decoded < 1048576 || $decoded > 16777215 || $decoded % $CONST != 0) {
+                sleep(3);
+                $this->addFlash('error', 'Code invalide');
+                return $this->redirectToRoute('app_login_code');
+            }
+        }
+
+        if ($token) {
+            /** @var ?Player $user */
+            $user = $em->getRepository(Player::class)->findOneBy(['token' => $token]);
+
+            if (!$user) {
+                $user = Player::createAnonymeFromToken($token);
+                $em->persist($user);
+                $em->flush();
+            }
+
+            $security->login($user, 'form_login');
+
+            return $this->redirectToRoute('game_halls');
+        }
+
+        return $this->render('game/code.html.twig');
+    }
+
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -43,9 +95,15 @@ class SecurityController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        Security $security
+        Security $security,
+        #[Autowire(env: 'APP_INSCRIPTION')]
+        bool $inscription,
     ): Response
     {
+        if (!$inscription) {
+            return $this->redirectToRoute('game_index');
+        }
+
         if ($this->isGranted("ROLE_USER")) {
             return $this->redirectToRoute("game_halls");
         }

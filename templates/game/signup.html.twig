@@ -81,6 +81,12 @@
                     </p>
 
                     <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
+
+                    <a href="{{ path('app_login') }}" class="button redButton">J'ai déjà un compte</a>
+
+                    {% if app_login_code %}
+                    <a href="{{ path('app_login_code') }}" class="button redButton">J'ai un code</a>
+                    {% endif %}
             
                 </form>
     

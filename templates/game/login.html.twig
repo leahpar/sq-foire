@@ -28,6 +28,15 @@
 
                     <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
 
+                    {% if app_inscription %}
+                    <a href="{{ path('app_register') }}" class="button redButton">M'inscrire</a>
+                    {% endif %}
+
+                    {% if app_login_code %}
+                    <a href="{{ path('app_login_code') }}" class="button redButton">j'ai un code</a>
+                    {% endif %}
+
+
                 </form>
 
             </section>
