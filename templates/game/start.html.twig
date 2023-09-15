@@ -20,10 +20,7 @@
                 {% endif %}
 
                 {% if app_login_code %}
-                <form method="get" action="{{ path('app_login_code') }}">
-                    <p><label>Mon code</label><input type="text" name="t"></p>
-                    <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
-                </form>
+                <a href="{{ path('app_login_code') }}" class="button redButton">J'ai un code</a>
                 {% endif %}
 
             </section>

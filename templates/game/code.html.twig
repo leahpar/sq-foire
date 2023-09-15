@@ -14,7 +14,21 @@
             <h2>Vous avez un code ?</h2>
 
             <form method="get" action="{{ path('app_login_code') }}">
-                <p><label>Mon code</label><input type="text" name="t"></p>
+                <p>
+                    <label>Mon code</label>
+                    <input type="text" name="t" id="inputCode" required>
+
+                    <style>
+                        #scanButton:disabled {
+                            display: none;
+                        }
+                    </style>
+                    <button type="button" id="scanButton">
+                        Scanner le code
+                    </button>
+                    {# ":disabled" si le navigateur ne supporte pas mediaDevices & BarcodeDetector #}
+
+                </p>
                 <p class="mtm"><button class="button redButton blockButton">Valider</button></p>
             </form>
 
@@ -26,4 +40,106 @@
     </div>
 </div>
 
+{# Code Scanner #}
+<dialog id="videoDialig">
+    <video id="video" width="640" height="480" autoplay></video>
+</dialog>
+
+<script>
+    // https://www.jsnow.io/p/javascript/creating-a-real-time-qr-code-scanner-with-vanilla-javascript-part-1
+    // https://www.jsnow.io/p/javascript/creating-a-real-time-qr-code-scanner-with-javascript-part-2
+
+    const video = document.querySelector('#video')
+    const videoDialog = document.querySelector('#videoDialig')
+    const scanButton = document.querySelector('#scanButton')
+    const select = document.querySelector('#inputCode')
+
+    // Check if device has camera
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        // Set background color to red
+        scanButton.disabled = true;
+        console.log('No camera found!')
+    }
+
+    // Check if BarcodeDetector is supported
+    if (!('BarcodeDetector' in window)) {
+        scanButton.disabled = true;
+        console.log('BarcodeDetector is not supported by this browser!')
+    }
+
+
+    video.addEventListener("click", () => {
+        videoDialog.close()
+    });
+
+    videoDialog.addEventListener("close", () => {
+        // Stop video stream & scan
+        if (video.srcObject) {
+            video.srcObject.getTracks().forEach(track => track.stop())
+        }
+
+        if (videoDialog.returnValue) {
+            select.value = videoDialog.returnValue
+            console.log(select.value)
+            select.dispatchEvent(new Event('change'))
+        }
+    })
+
+    // Open the dialog
+    scanButton.addEventListener('click', () => {
+
+        if (!videoDialog.open) videoDialog.showModal()
+        // Use video without audio
+        const constraints = {
+            audio: false,
+            video: {
+                facingMode: 'environment'
+            },
+        }
+
+        // Start video stream
+        console.log('Start video stream')
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => video.srcObject = stream)
+            .then(() => setInterval(detectCode, 100))
+            .catch(err => console.error(err));
+
+        // Create new barcode detector
+        // NB: liste des formats possibles : https://developer.mozilla.org/en-US/docs/Web/API/Barcode_Detector
+        const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+
+        // Detect code function
+        const detectCode = () => {
+            // Start detecting codes on to the video element
+            barcodeDetector.detect(video).then(codes => {
+                // If no codes exit function
+                if (codes.length === 0) return;
+
+                for (const barcode of codes) {
+                    // Log the barcode to the console
+                    console.log(barcode);
+
+                    // Get the barcode value
+                    //select.value = barcode.rawValue
+                    //select.setValue([barcode.rawValue])
+
+                    // http[s]://[...]?t=[token]
+                    videoDialog.returnValue = barcode.rawValue.replace(/^.*\?t=/, '');
+
+                    videoDialog.close();
+                    return;
+                }
+            }).catch(err => {
+                // Log an error if one happens
+                console.error(err);
+            })
+        }
+
+    })
+</script>
+
 {% endblock content %}
+
+
+
+
