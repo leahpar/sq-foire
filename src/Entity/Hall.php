@@ -14,13 +14,13 @@ class Hall
     #[ORM\Column(type: 'integer')]
     private ?int $id = 0;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?string $tri = null;
 
-    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'hall')]
+    #[ORM\OneToMany(mappedBy: 'hall', targetEntity: Question::class)]
     private Collection $questions;
 
     #[ORM\ManyToMany(targetEntity: Pub::class, mappedBy: 'halls')]

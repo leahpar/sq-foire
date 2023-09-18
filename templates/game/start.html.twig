@@ -24,10 +24,12 @@
                 {% endif %}
 
             </section>
-            
-            {#<section class="graySection">
-                <p><img src="/img/lillebonne.png" alt="Ville de Lillebonne"></p>
-            </section>#}
+
+            {% if app_gpdc %}
+                <section class="graySection">
+                    <p><img src="/img/lillebonne.png" alt="Ville de Lillebonne"></p>
+                </section>
+            {% endif %}
             
         </div>
 

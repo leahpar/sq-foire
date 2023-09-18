@@ -3,18 +3,41 @@
 {% block content %}
 
 <div id="mainWrapper">
-        
-        <div class="clouds"></div>
-        
-        <div class="content">
-            
-            
+
+    <div class="clouds"></div>
+
+    <div class="content">
+
+        {% if app_gpdc %}
+
             <section>
-               
+
+                <h1>Sélectionnez un candidat</h1>
+
+                <p>Vous pouvez voter une fois par candidat.</p>
+
+                <ul class="hallSelector">
+                    {% for hall in halls %}
+                        <li>
+                            {% if player.isHallDone(hall.id) %}
+                                <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.id }} - {{ hall.name }}</a>
+                            {% else %}
+                                <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.id }} - {{ hall.name }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </section>
+
+        {% else  %}
+
+            <section>
+
                 <h1>Dans quel hall partez-vous en raid ?</h1>
-                
+
                 <p>Sélectionnez le hall dans lequel vous vous trouvez.</p>
-            
+
                 <ul class="hallSelector">
                     {% for hall in halls %}
                     <li>
@@ -26,33 +49,20 @@
                     </li>
                     {% endfor %}
                 </ul>
-    
-            </section>
-            
-            {#
-            <section>
-            
-            	<h2>Félicitations !</h2>
-            	
-            	<h1>Vous êtes maintenant inscrit pour voter pour le Grand Prix de la Chanson !</h1>
-            	
-            	<p>Rendez-vous <strong>le 25 septembre</strong> pour voter en live pour votre candidat préféré, de chez vous ou du Juliobona de Lillebonne !</p>
-            
-            </section>
-            #}
 
-            
+            </section>
+
+        {% endif %}
+
+        {% if app_fbshare %}
             <section class="graySection">
-
                 <h2>Doubler mes chances</h2>
-
                 <p>Partagez le jeu sur Facebook pour soutenir la Foire de Rouen et doubler vos chance d’être tiré au sort !</p>
-
                 <p><a href="{{ path('game_share') }}" target="_blank" class="button redButton">Partager</a></p>
-
             </section>
+        {% endif %}
 
-        </div>
+    </div>
 </div>
 
 

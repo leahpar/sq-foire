@@ -5,3 +5,5 @@ twig:
     globals:
         app_inscription: '%env(bool:APP_INSCRIPTION)%'
         app_login_code: '%env(bool:APP_LOGIN_CODE)%'
+        app_gpdc: '%env(bool:APP_GPDC)%'
+        app_fbshare: '%env(bool:APP_FBSHARE)%'

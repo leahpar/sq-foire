@@ -33,6 +33,7 @@ class GameController extends AbstractController
     {
         /** @var Player $player */
         $player = $this->getUser();
+
         if ($player->isAnonyme()) {
             return $this->redirectToRoute("game_player_infos");
         }
@@ -41,7 +42,7 @@ class GameController extends AbstractController
 
         return $this->render('game/halls.html.twig', [
             'halls' => $halls,
-            'player' => $this->getUser()
+            'player' => $player
         ]);
     }
 
