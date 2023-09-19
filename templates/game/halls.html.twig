@@ -20,9 +20,9 @@
                     {% for hall in halls %}
                         <li>
                             {% if player.isHallDone(hall.id) %}
-                                <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.id }} - {{ hall.name }}</a>
+                                <a href="{{ path('game_hall', {name: hall.name}) }}" class="done">{{ hall.tri }} - {{ hall.name }}</a>
                             {% else %}
-                                <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.id }} - {{ hall.name }}</a>
+                                <a href="{{ path('game_hall', {name: hall.name}) }}">{{ hall.tri }} - {{ hall.name }}</a>
                             {% endif %}
                         </li>
                     {% endfor %}

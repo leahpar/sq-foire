@@ -8,6 +8,25 @@
         
         <div class="content">
                 
+                {% if app_gpdc %}
+                
+                <section>
+                        
+                        <h3>Se connecter</h3>
+                        <p>Renseignez les quelques informations demandées dans le formulaire d'inscription, vos coordonnées ne sont utilisées que pour identifier votre participation.</p>
+                        
+                        <h3>Voter pour les candidats</h3>
+                        <p>1. Sélectionnez le candidat pour lequel vous souhaitez voter.</p>
+                        <p>2. Choisissez la note que vous souhaitez attribuer à sa prestation.</p>
+                        <p>3. Vous ne pouvez voter qu'une fois par candidat, retournez ensuite à la liste des candidats et sélectionnez le candidat suivant.</p>
+                        
+                        <h3>Fin des votes</h3>
+                        <p>Une fois que tous les candidats auront chantés, le gagnant sera le candidat ayant obtenu la meilleure note moyenne.</p>
+                        
+                </section>
+                
+                {% else %}
+                
                 <section>
                         
                         <h1>Comment jouer ?</h1>
@@ -26,26 +45,9 @@
                         
                         <p><a href="javascript:history.back()">Retour</a></p>
             
-                    </section>
-            
-            {#<section>
-                
-                <h1>Comment participer ?</h1>
-
-                <h3>Se connecter</h3>
-                <p>Renseignez les quelques informations demandées dans le formulaire d'inscription, vos coordonnées ne sont utilisées que pour identifier votre participation.</p>
-                
-                <h3>Voter pour les candidats</h3>
-                <p>1. Sélectionnez le candidat pour lequel vous souhaitez voter.</p>
-                <p>2. Choisissez la note que vous souhaitez attribuer à sa prestation.</p>
-                <p>3. Vous ne pouvez voter qu'une fois par candidat, retournez ensuite à la liste des candidats et sélectionnez le candidat suivant.</p>
-                
-                <h3>Fin des votes</h3>
-                <p>Une fois que tous les candidats auront chantés, le gagnant sera le candidat ayant obtenu la meilleure note moyenne.</p>              
-                
-                <p><a href="javascript:history.back()">Retour</a></p>
-    
-            </section>#}
+                </section>
+                    
+                {% endif %}
         </div>
 </div>
 

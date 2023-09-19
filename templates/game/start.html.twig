@@ -10,9 +10,9 @@
 
             <section>
                 
-                <div class="logo"><img src="/img/titre.png" alt="Grand jeu Viking"></div>
+                <div class="logo"><img src="/img/title.png" alt="Grand prix de la chanson"></div>
 
-                <p><strong>Du 25 mars au 3 avril</strong>, menez l'enquête en visitant les halls de la Foire de Rouen <strong>et remportez des cadeaux !</strong></p>
+                <p><strong>Le 23 septembre 2023</strong>, votez pour vos candidats préférés pour décerner le prix du public !</p>
 
                 {% if app_inscription %}
                 <a href="{{ path('app_register') }}" class="button redButton">M'inscrire</a>
@@ -20,6 +20,7 @@
                 {% endif %}
 
                 {% if app_login_code %}
+                <p>Pour participer, vous devez disposer du code indiqué sur votre bulletin de participation.</p>
                 <a href="{{ path('app_login_code') }}" class="button redButton">J'ai un code</a>
                 {% endif %}
 
