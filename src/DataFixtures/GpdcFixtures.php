@@ -44,7 +44,7 @@ class GpdcFixtures extends Fixture implements FixtureGroupInterface
             $manager->persist($hall);
 
             $question = new Question();
-            $question->setQuestion("Notez la prestation de {$chanteur} ?");
+            $question->setQuestion("Notez la prestation de {$chanteur}");
             $question->setAnswers("0");
             $question->setHall($hall);
             $manager->persist($question);
