@@ -10,7 +10,7 @@
 
         <section>
 
-            <div class="logo"><img src="/img/titre.png" alt="Grand Jeu Viking"></div>
+            <div class="logo"><img src="/img/title.png" alt="Grand Prix de la chanson"></div>
 
             {% if app_gpdc %}
                 <p>Et voilà ! Vous avez noté tous nos candidats !</p>
@@ -28,18 +28,20 @@
 
         </section>
 
-        <section class="graySection">
-            <h2>Des dizaines de cadeaux à gagner !</h2>
-            <h3>Gagnez à tout moment !</h3>
-            <p>Vous pouvez gagner à tout moment : écoutez bien la sono de la foire, un gagnant est désigné toute les 30 minutes en moyenne !</p>
-            <h3>Grand tirage au sort !</h3>
-            <p>Et à la fin de la foire, un grand tirage au sort désignera les heureux gagnants des "gros lots" !</p>
-            <p>Pour en savoir plus,<br>consultez le <a href="{{ asset('reglement2022.pdf') }}" target="_blank">règlement</a></p>
-        </section>
+        
 
         {% if app_gpdc %}
             <section class="graySection">
                 <p><img src="/img/lillebonne.png" alt="Ville de Lillebonne"></p>
+            </section>
+        {% else %}
+            <section class="graySection">
+                <h2>Des dizaines de cadeaux à gagner !</h2>
+                <h3>Gagnez à tout moment !</h3>
+                <p>Vous pouvez gagner à tout moment : écoutez bien la sono de la foire, un gagnant est désigné toute les 30 minutes en moyenne !</p>
+                <h3>Grand tirage au sort !</h3>
+                <p>Et à la fin de la foire, un grand tirage au sort désignera les heureux gagnants des "gros lots" !</p>
+                <p>Pour en savoir plus,<br>consultez le <a href="{{ asset('reglement2022.pdf') }}" target="_blank">règlement</a></p>
             </section>
         {% endif %}
 

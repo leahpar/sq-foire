@@ -30,7 +30,7 @@ class GpdcFixtures extends Fixture implements FixtureGroupInterface
             "8"  => "Flavie Affagard",
             "9"  => "Lou Anne Vauchel",
             "10"  => "Sheryne Lyamine",
-            "11"  => "Céline Bardel / Sabrina Lebouvier",
+            "11"  => "Céline Bardel & Sabrina Lebouvier",
             "12"  => "Jean Luc Pierlot",
             "13"  => "usanne Brebion",
             "14"  => "Jérémy Letailleur",

@@ -10,7 +10,7 @@ $gray:#3d3d3d;
 $lightgray:#f0f0f0;
 
 $color1:#fff;
-$color2:#f7c76e;
+$color2:#e52e5e;
 
 $bgSections:#1e1e1e;
 
@@ -23,7 +23,7 @@ todo {
 body{
     margin: 0px;
     
-    background: #000 url(../img/bg-vikings.jpg) no-repeat center top fixed;
+    background: #000 url(../img/background.jpg) no-repeat center top fixed;
     background-size: contain;
     box-sizing: border-box;
     
@@ -280,10 +280,10 @@ nav{
 
 .logo{
     position: relative;
-    height: 170px;
+    top: -100px;
     
     img{
-        max-width: 80vw;
+        max-width: 500px;
     }
 }
 
@@ -351,6 +351,25 @@ nav{
             font-size: 20px;
         }
     }
+}
+
+.codeForm{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+#scanButton{
+  display: none;
+  
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+  box-shadow: unset;
+  border-radius: 5px;
 }
 
 

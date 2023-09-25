@@ -2,42 +2,102 @@
 <head>
    <style>
        html {
-            margin: 0;
-            padding: 0;
+         margin: 0px;
+      padding: 0px;
         }
         body {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            width: 20cm;
-            /*height: 25cm;*/
-            margin: 0;
-            padding: 0;
+         margin: 0px;
+         padding: 0px;
+         
+         font-family: Rubik;
+        }
+        
+        .page{
+           box-sizing: border-box;
+           
+           width: 296mm;
+           height: 209mm;
+           
+           padding: 10mm;
+           
+           display: grid;
+           grid-template-columns: repeat(4,1fr);
+           grid-template-rows: 1fr 1fr;
+           
+           page-break-after: always;
         }
 
-        body > div {
-            width: 6cm;
-            height: 5cm;
+        .page > div {
+             box-sizing: border-box;
+             
             padding: 5mm;
             text-align: center;
-            border: 1px solid black;
+            outline: 1px solid #eee;
+            
+            overflow: hidden;
+        }
+        h2{
+           margin: 0px;
+           color: #e52e5e;
+        }
+        p{
+           margin: 5px 0px;
+           
+           font-size: 14px;
+        }
+        img{
+           width: 150px;
+        }
+        strong{
+           display: inline-block;
+           margin-top: 5px;
+           padding: 2px 4px;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+             color: #e52e5e;
         }
    </style>
 </head>
 <body>
+   {% set count = 0 %}
+   {% set pile = 'no' %}
+   
     {% for token in tokens %}
+    
+    {% set count = count + 1 %}
+    
+    {% if count==1 %}
+    <div class="page">
+    {% endif %}
+    
         <div>
-            <p>
-                gpdc.fr
-                {{ token|upper }}
+           <h2>Votez pour le prix du public</h2>
+           <p>Pour participer, flashez le QR code suivant avec votre smartphone</p>
+           {% set url = url('app_login_code', {t: token}) %}
+           <p>
+               <a href="{{ url }}">
+                   <img src="{{ url|qrcode }}">
+               </a>
+           </p>
+           <p>Ou rendez vous sur gpdc.fr et renseignez votre code personnel :<br>
+               <strong>{{ token|upper }}</strong>
             </p>
-            {% set url = url('app_login_code', {t: token}) %}
-            <p>
-                <a href="{{ url }}">
-                    <img src="{{ url|qrcode }}">
-                </a>
-            </p>
+            
+            
         </div>
+        
+   {% if count==8 %} 
+       </div>
+       {% set count = 0 %}
+       {% set pile = 'yes' %}
+    {% else %}
+       {% set pile = 'no' %}
+    {% endif %}
+    
     {% endfor %}
-</body>
+    
+    {% if pile=='no' %}
+      </div>
+    {% endif %}
+ </body>
 </html>
