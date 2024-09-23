@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
     public function qrcodes(Request $request): Response
     {
         $cpt = $request->query->get('cpt', 10);
-        $CONST = 3141;
+        $CONST = 2772;
         // Génère des codes à 6 chars hexa
         $tokens = [];
         for ($i=1048576; $i<16777215; $i++) {
@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
 
         if ($token) {
             // Check token validity
-            $CONST = 3141;
+            $CONST = 2772;
             $decoded = hexdec($token);
             if ($decoded < 1048576 || $decoded > 16777215 || $decoded % $CONST != 0) {
                 sleep(3);
