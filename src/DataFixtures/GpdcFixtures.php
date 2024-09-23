@@ -21,7 +21,7 @@ class GpdcFixtures extends Fixture implements FixtureGroupInterface
         $participants = [
             "1" => "Valentin Latini",
             "2" => "Lou Anne Vauchel",
-            "3" => "juliette soudais",
+            "3" => "Juliette Soudais",
             "4" => "Savine Lemesle",
             "5" => "MVD",
             "6" => "Marjolya Loze",
@@ -36,8 +36,8 @@ class GpdcFixtures extends Fixture implements FixtureGroupInterface
             "15" => "Oliver Guérineau",
             "16" => "Aurélia Pichou",
             "17" => "Lucie Philippe",
-            "18" => "dimitri blondel",
-            "19" => "Jean Luc Pierlot",
+            "18" => "Dimitri Blondel",
+            "19" => "Jean-Luc Pierlot",
         ];
 
         foreach ($participants as $num => $chanteur) {
